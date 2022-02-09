@@ -1,2 +1,2 @@
-# cinema
+# Cinema C#
 School project 
