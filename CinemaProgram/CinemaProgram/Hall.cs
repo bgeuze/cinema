@@ -6,7 +6,18 @@ using System.Threading.Tasks;
 
 namespace CinemaProgram
 {
-    internal class Zaal
+    internal class Hall
     {
+        private Seat[][] seats;
+        private int hallNumber;
+        private Movie movie;
+        private string time;
+
+
+        public void setHallNumber(int number)
+        { 
+            hallNumber = number; 
+        }
+        public int getHallNumber() { return hallNumber; }
     }
 }
