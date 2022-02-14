@@ -8,5 +8,11 @@ namespace CinemaProgram
 {
     internal class Cinema
     {
+        private string cinemaName;
+
+        public Cinema(string name)
+        { 
+            this.cinemaName = name;
+        }
     }
 }
