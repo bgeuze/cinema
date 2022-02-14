@@ -6,7 +6,8 @@ namespace CinemaProgram
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            
+            ConsoleProgram.LoginRegister();
         }
     }
 }
