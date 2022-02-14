@@ -8,5 +8,19 @@ namespace CinemaProgram
 {
     internal class Seat
     {
+        private char seatRange = 'A';
+        private bool seatAvailability = true;
+
+        //Getters and Setters
+        public void setSeatRange(char seatRange)
+        { this.seatRange = seatRange; }
+        public char getSeatRange() { return seatRange; }
+
+        public void setSeatAvailability(bool available)
+        { 
+        this.seatAvailability = available;
+        }
+        public bool getSeatAvailability() { return seatAvailability; } 
+
     }
 }
