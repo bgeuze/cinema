@@ -8,9 +8,14 @@ namespace CinemaProgram
 {
     internal class Interface
     {
-        public static bool login(string username,string password)
+        public static bool Login(string username, string password)
         {
-            return true;
+            return JsonHandler.FindUser(username, password);
+        }
+
+        public static bool Register(string username, string password)
+        {
+            return JsonHandler.SaveUser(username, password);
         }
     }
 }

@@ -1,4 +1,7 @@
 ﻿using System;
+using System.IO;
+using System.Linq;
+using Newtonsoft.Json;
 
 namespace CinemaProgram
 {
@@ -6,8 +9,8 @@ namespace CinemaProgram
     {
         static void Main(string[] args)
         {
-            
             ConsoleProgram.LoginRegister();
+            Console.WriteLine("Welkom!");
         }
     }
 }
