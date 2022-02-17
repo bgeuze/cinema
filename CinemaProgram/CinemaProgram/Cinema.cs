@@ -14,5 +14,15 @@ namespace CinemaProgram
         { 
             this.cinemaName = name;
         }
+
+        internal void addBar()
+        {
+            
+        }
+
+        internal object getBar()
+        {
+            return null;
+        }
     }
 }

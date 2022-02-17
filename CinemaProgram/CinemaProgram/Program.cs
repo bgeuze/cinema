@@ -9,8 +9,9 @@ namespace CinemaProgram
     {
         static void Main(string[] args)
         {
-            ConsoleProgram.LoginRegister();
-            Console.WriteLine("Welkom!");
+            Console.WriteLine("---Tests Cinema Application--");
+            TestCases.Start();
+           
         }
     }
 }

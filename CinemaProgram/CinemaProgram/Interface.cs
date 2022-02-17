@@ -17,5 +17,15 @@ namespace CinemaProgram
         {
             return JsonHandler.SaveUser(username, password);
         }
+
+        internal static Cinema getCinema(string v)
+        {
+            return null;
+        }
+
+        internal static void createCinema(string v, Hall[] halls)
+        {
+            
+        }
     }
 }

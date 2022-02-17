@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "jaBs2bRRn9PkXuBw2vJU9hHz86P80bUg2tZiKMyhJEFoN2iPqG0bvSgQdvvPTaQsFU5E3xCKiFUp0vFqLLp/KA==",
+  "dgSpecHash": "FAt+NdwOIpiOIGJDslyzLmPP3KsznXLwgrumlghSXX9rt23gD3gtuXPYcKJcEsodvYOwFxQMeTM/fxPjDAwENA==",
   "success": true,
-  "projectFilePath": "/Users/baruchgeuze/Documents/GitHub/cinema/CinemaProgram/CinemaProgram/CinemaProgram.csproj",
+  "projectFilePath": "C:\\Users\\Misch\\Documents\\GitHub\\cinema\\CinemaProgram\\CinemaProgram\\CinemaProgram.csproj",
   "expectedPackageFiles": [
-    "/Users/baruchgeuze/.nuget/packages/newtonsoft.json/13.0.1/newtonsoft.json.13.0.1.nupkg.sha512"
+    "C:\\Users\\Misch\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512"
   ],
   "logs": []
 }
