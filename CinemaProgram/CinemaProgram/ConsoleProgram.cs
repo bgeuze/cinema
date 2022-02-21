@@ -8,14 +8,16 @@ namespace CinemaProgram
 {
     internal class ConsoleProgram
     {
-        private static string ant;
+       //private static string ant;
 
         public static void LoginRegister()
         {
             //Keuze om in te loggen of om aan te melden.
+            addMovie();
             Console.WriteLine("Wilt u inloggen of aanmelden?");
-            ant = Console.ReadLine();
-            
+             string ant = Console.ReadLine();
+            ant = ant.ToLower();
+             
             while(ant != "inloggen" && ant != "aanmelden")
             {
                 System.Console.WriteLine("Invoer incorrect, wilt u inloggen of aanmelden?");
@@ -61,6 +63,25 @@ namespace CinemaProgram
             }
 
 
+        }
+        public static void addMovie()
+        {
+            
+            string movieTitle;
+            int movieMinuten;
+            string movieRelease;
+            string movieDescription;
+            Console.WriteLine("Wat is de naam van de film die u wilt toevoegen?");
+            movieTitle = Console.ReadLine();
+            Console.WriteLine("Hoelang duurt de film in minuten?");
+            movieMinuten = int.Parse(Console.ReadLine());
+            Console.WriteLine("Op welke datum komt de film uit?");
+            movieRelease = Console.ReadLine();
+            Console.WriteLine("Geef een beschrijving van de film.");
+            movieDescription = Console.ReadLine();
+
+            
+            
         }
         public static void HomeScreen()
         {

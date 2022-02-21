@@ -34,3 +34,21 @@ C:/Users/Eigenaar/Documents/Github/cinema/CinemaProgram/CinemaProgram/obj/Debug/
 >>>>>>> Stashed changes
 /Users/baruchgeuze/Documents/GitHub/cinema/CinemaProgram/CinemaProgram/bin/Debug/net5.0/Newtonsoft.Json.dll
 /Users/baruchgeuze/Documents/GitHub/cinema/CinemaProgram/CinemaProgram/obj/Debug/net5.0/CinemaProgram.csproj.CopyComplete
+C:\Users\Eigenaar\Documents\Github\cinema\CinemaProgram\CinemaProgram\bin\Debug\net5.0\CinemaProgram.exe
+C:\Users\Eigenaar\Documents\Github\cinema\CinemaProgram\CinemaProgram\bin\Debug\net5.0\CinemaProgram.deps.json
+C:\Users\Eigenaar\Documents\Github\cinema\CinemaProgram\CinemaProgram\bin\Debug\net5.0\CinemaProgram.runtimeconfig.json
+C:\Users\Eigenaar\Documents\Github\cinema\CinemaProgram\CinemaProgram\bin\Debug\net5.0\CinemaProgram.runtimeconfig.dev.json
+C:\Users\Eigenaar\Documents\Github\cinema\CinemaProgram\CinemaProgram\bin\Debug\net5.0\CinemaProgram.dll
+C:\Users\Eigenaar\Documents\Github\cinema\CinemaProgram\CinemaProgram\bin\Debug\net5.0\ref\CinemaProgram.dll
+C:\Users\Eigenaar\Documents\Github\cinema\CinemaProgram\CinemaProgram\bin\Debug\net5.0\CinemaProgram.pdb
+C:\Users\Eigenaar\Documents\Github\cinema\CinemaProgram\CinemaProgram\bin\Debug\net5.0\Newtonsoft.Json.dll
+C:\Users\Eigenaar\Documents\Github\cinema\CinemaProgram\CinemaProgram\obj\Debug\net5.0\CinemaProgram.csproj.AssemblyReference.cache
+C:\Users\Eigenaar\Documents\Github\cinema\CinemaProgram\CinemaProgram\obj\Debug\net5.0\CinemaProgram.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Eigenaar\Documents\Github\cinema\CinemaProgram\CinemaProgram\obj\Debug\net5.0\CinemaProgram.AssemblyInfoInputs.cache
+C:\Users\Eigenaar\Documents\Github\cinema\CinemaProgram\CinemaProgram\obj\Debug\net5.0\CinemaProgram.AssemblyInfo.cs
+C:\Users\Eigenaar\Documents\Github\cinema\CinemaProgram\CinemaProgram\obj\Debug\net5.0\CinemaProgram.csproj.CoreCompileInputs.cache
+C:\Users\Eigenaar\Documents\Github\cinema\CinemaProgram\CinemaProgram\obj\Debug\net5.0\CinemaProgram.csproj.CopyComplete
+C:\Users\Eigenaar\Documents\Github\cinema\CinemaProgram\CinemaProgram\obj\Debug\net5.0\CinemaProgram.dll
+C:\Users\Eigenaar\Documents\Github\cinema\CinemaProgram\CinemaProgram\obj\Debug\net5.0\ref\CinemaProgram.dll
+C:\Users\Eigenaar\Documents\Github\cinema\CinemaProgram\CinemaProgram\obj\Debug\net5.0\CinemaProgram.pdb
+C:\Users\Eigenaar\Documents\Github\cinema\CinemaProgram\CinemaProgram\obj\Debug\net5.0\CinemaProgram.genruntimeconfig.cache

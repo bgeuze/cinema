@@ -30,6 +30,7 @@ namespace CinemaProgram
             //load json file with all users
             using (StreamReader r = new StreamReader("user.json"))
             {
+                if (r == null) { Console.WriteLine("ANAL DIGITAAL"); }
                 string json = r.ReadToEnd();
                 dynamic users = JsonConvert.DeserializeObject(json);
 
