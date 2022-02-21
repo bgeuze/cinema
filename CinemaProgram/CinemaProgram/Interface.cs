@@ -17,5 +17,10 @@ namespace CinemaProgram
         {
             return JsonHandler.SaveUser(username, password);
         }
+
+        public static bool NowPlayingMovies()
+        {
+            return JsonHandler.NowPlayingMovies();
+        }
     }
 }

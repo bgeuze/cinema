@@ -7,8 +7,10 @@
 
   <ItemGroup>
     <None Remove="Newtonsoft.Json" />
+    <None Remove="ConsoleTables" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="ConsoleTables" Version="2.4.2" />
   </ItemGroup>
 </Project>

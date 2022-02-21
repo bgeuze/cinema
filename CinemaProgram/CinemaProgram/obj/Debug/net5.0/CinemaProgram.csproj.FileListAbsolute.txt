@@ -34,3 +34,4 @@ C:/Users/Eigenaar/Documents/Github/cinema/CinemaProgram/CinemaProgram/obj/Debug/
 >>>>>>> Stashed changes
 /Users/baruchgeuze/Documents/GitHub/cinema/CinemaProgram/CinemaProgram/bin/Debug/net5.0/Newtonsoft.Json.dll
 /Users/baruchgeuze/Documents/GitHub/cinema/CinemaProgram/CinemaProgram/obj/Debug/net5.0/CinemaProgram.csproj.CopyComplete
+/Users/baruchgeuze/Documents/GitHub/cinema/CinemaProgram/CinemaProgram/bin/Debug/net5.0/ConsoleTables.dll

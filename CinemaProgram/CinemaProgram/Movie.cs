@@ -8,16 +8,20 @@ namespace CinemaProgram
 {
     internal class Movie
     {
-        private string movieName;
-        private string duration;
-        public Movie(string movieName, string duration)
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public string ReleaseDate { get; set; }
+        public string Description { get; set; }
+
+        public Movie(int id, string title, string release_date, string overview)
         {
-            this.movieName = movieName;
-            this.duration = duration;
+            Id = id;
+            Title = title;
+            ReleaseDate = release_date;
+            Description = overview;
         }
 
-        public string getMovieName() { return movieName;
-        }
-        public string getDuration() { return duration; }
+        public string getTitle() { return Title; }
+        public string getReleaseDate() { return ReleaseDate; }
     }
 }
