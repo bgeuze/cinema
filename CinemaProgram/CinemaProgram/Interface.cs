@@ -22,22 +22,14 @@ namespace CinemaProgram
 
         internal Cinema getCinema(string v)
         {
-            foreach (Cinema cinema in cinemas)
-            {
-                if(cinema.getName() == v)
-                { return cinema;}
-                else { return null; }
-            }
+            return JsonHandler.getMovie(v);
             return null;
         }
 
         //Creates a cinema and checks if there is no duplicate
-        internal void createCinema(string v, ArrayList halls)
+        internal void createCinema(Cinema cinema)
         {
-            JsonHandler.addCinema(Cinema cinema);
-            foreach (Cinema cin in cinemas)
-            { if (cin.getName() == v) return; }    
-            cinemas.Add(new Cinema(v,halls));
+            JsonHandler.addCinema(this.cinema);
         }
     }
 }
