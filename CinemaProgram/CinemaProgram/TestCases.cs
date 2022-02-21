@@ -91,13 +91,13 @@ namespace CinemaProgram
             Hall hall = new Hall(2,new Seat());
             ArrayList halls = new ArrayList();
             halls.Add(hall);
-            interfaceObject.createCinema("Name", halls);
-            if (interfaceObject.getCinema("Name") != null)
+            interfaceObject.createCinema(new Cinema("CinemaName",halls));
+            if (interfaceObject.getCinema("CinemaName") != null)
             {
                 return true;
             }
             else
-                Console.WriteLine(interfaceObject.getCinema("Name"));
+                Console.WriteLine(interfaceObject.getCinema("CinemaName"));
                 return false;
         }
 

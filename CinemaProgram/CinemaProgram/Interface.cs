@@ -29,7 +29,7 @@ namespace CinemaProgram
         //Creates a cinema and checks if there is no duplicate
         internal void createCinema(Cinema cinema)
         {
-            JsonHandler.addCinema(this.cinema);
+            JsonHandler.addCinema(cinema);
         }
     }
 }
