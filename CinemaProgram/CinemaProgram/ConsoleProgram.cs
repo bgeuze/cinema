@@ -1,28 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ConsoleTables;
-using Newtonsoft.Json;
 
 namespace CinemaProgram
 {
     internal class ConsoleProgram
     {
-        private static string ant;
+       //private static string ant;
 
         public static void LoginRegister()
         {
             //Keuze om in te loggen of om aan te melden.
             Console.WriteLine("Wilt u inloggen of aanmelden?");
-            ant = Console.ReadLine();
-            
+             string ant = Console.ReadLine();
+            ant = ant.ToLower();
+             
             while(ant != "inloggen" && ant != "aanmelden")
             {
-                Console.WriteLine("Invoer incorrect, wilt u inloggen of aanmelden?");
-                ant = Console.ReadLine();
+                System.Console.WriteLine("Invoer incorrect, wilt u inloggen of aanmelden?");
+                ant = System.Console.ReadLine();
             }
             if(ant == "inloggen")
             {
@@ -62,53 +60,32 @@ namespace CinemaProgram
 
                 HomeScreen();
             }
-        }
 
-        public static void NowPlayingMovies()
+
+        }
+        public static void addMovie()
         {
-            Console.WriteLine("Hieronder vindt u een lijst met films die nu in onze bisocoop draaien.");
-            //fill json with all nowplaying movies
-            Interface.NowPlayingMovies();
+            
+            string movieTitle;
+            int movieMinuten;
+            string movieRelease;
+            string movieDescription;
+            Console.WriteLine("Wat is de naam van de film die u wilt toevoegen?");
+            movieTitle = Console.ReadLine();
+            Console.WriteLine("Hoelang duurt de film in minuten?");
+            movieMinuten = int.Parse(Console.ReadLine());
+            Console.WriteLine("Op welke datum komt de film uit?");
+            movieRelease = Console.ReadLine();
+            Console.WriteLine("Geef een beschrijving van de film.");
+            movieDescription = Console.ReadLine();
 
-            var filePath = "movies.json";
-            //read existing json data
-            var jsonData = File.ReadAllText(filePath);
-            //de-serialize to object or create new list
-            var movieList = JsonConvert.DeserializeObject<List<Movie>>(jsonData)
-                                    ?? new List<Movie>();
-
-            var table = new ConsoleTable("ID", "Title", "Release Date");
-
-            foreach (var movie in (dynamic)movieList)
-            {
-                table.AddRow($"{movie.Id}", $"{movie.Title}", $"{movie.ReleaseDate}");
-            }
-
-            table.Write();
+            
+            
         }
-
-        public static void AllUsers()
-        {
-            var filePath = "user.json";
-            //read all json data
-            var jsonData = File.ReadAllText(filePath);
-            //de-serialize to object or create new list
-            var users = JsonConvert.DeserializeObject<List<User>>(jsonData)
-                                    ?? new List<User>();
-
-            var table = new ConsoleTable("ID", "Gebruikersnaam", "Wachtwoord", "Rol", "Account sinds");
-
-            foreach (var user in (dynamic)users)
-            {
-                table.AddRow($"{user.Id}", $"{user.Username}", $"{user.Password}", $"{user.Role}", $"{user.CreadtedDateTime}");
-            }
-
-            table.Write();
-        }
-
         public static void HomeScreen()
         {
             Console.Clear();
         }
+            
     }
 }
