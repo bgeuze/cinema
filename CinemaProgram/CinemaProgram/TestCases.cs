@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Linq;
+using System.Collections;
+
 
 
 namespace CinemaProgram
@@ -32,6 +34,10 @@ namespace CinemaProgram
                     successfull++;
                 }
                 Console.WriteLine(whiteSpace + "Add a hall to a existing cinema: " + TestAddHall());
+                if (TestAddHall())
+                {
+                    successfull++;
+                }
                 //Test seat pricing
                 //test seat choosing
                 //test canceling order 
@@ -69,7 +75,8 @@ namespace CinemaProgram
 
         private static bool TestAddHall()
         {
-
+            interfaceObject.getCinema("Name").addHall( new Hall(2, new Seat()));
+            if (interfaceObject.getCinema("Name").test == "CinemaProgram.Hall") { return true; }
             return false;
         }
 
@@ -81,9 +88,9 @@ namespace CinemaProgram
 
         private static bool TestCinemaCreation()
         {
-            Hall hall = new Hall();
-            Hall[] halls = new Hall[] { };
-            halls.Append(hall);
+            Hall hall = new Hall(2,new Seat());
+            ArrayList halls = new ArrayList();
+            halls.Add(hall);
             interfaceObject.createCinema("Name", halls);
             if (interfaceObject.getCinema("Name") != null)
             {
