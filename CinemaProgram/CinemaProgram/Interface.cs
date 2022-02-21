@@ -34,6 +34,7 @@ namespace CinemaProgram
         //Creates a cinema and checks if there is no duplicate
         internal void createCinema(string v, ArrayList halls)
         {
+            JsonHandler.addCinema(Cinema cinema);
             foreach (Cinema cin in cinemas)
             { if (cin.getName() == v) return; }    
             cinemas.Add(new Cinema(v,halls));
