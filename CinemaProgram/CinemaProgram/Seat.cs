@@ -10,6 +10,7 @@ namespace CinemaProgram
     {
         private char seatRange = 'A';
         private bool seatAvailability = true;
+        private double seatPricing = 00.00;
 
         //Getters and Setters
         public void setSeatRange(char seatRange)
