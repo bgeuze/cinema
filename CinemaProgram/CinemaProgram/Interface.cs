@@ -22,14 +22,14 @@ namespace CinemaProgram
 
         internal Cinema getCinema(string v)
         {
-            return JsonHandler.getMovie(v);
+            //return JsonHandler.getMovie(v);
             return null;
         }
 
         //Creates a cinema and checks if there is no duplicate
         internal void createCinema(Cinema cinema)
         {
-            JsonHandler.addCinema(cinema);
+            //JsonHandler.addCinema(cinema);
         }
     }
 }

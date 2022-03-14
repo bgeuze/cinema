@@ -16,3 +16,4 @@ C:\Users\Misch\Documents\GitHub\cinema\CinemaProgram\CinemaProgram\obj\Release\n
 C:\Users\Misch\Documents\GitHub\cinema\CinemaProgram\CinemaProgram\obj\Release\net5.0\ref\CinemaProgram.dll
 C:\Users\Misch\Documents\GitHub\cinema\CinemaProgram\CinemaProgram\obj\Release\net5.0\CinemaProgram.pdb
 C:\Users\Misch\Documents\GitHub\cinema\CinemaProgram\CinemaProgram\obj\Release\net5.0\CinemaProgram.genruntimeconfig.cache
+C:\Users\Misch\Documents\GitHub\cinema\CinemaProgram\CinemaProgram\bin\Release\net5.0\ConsoleTables.dll

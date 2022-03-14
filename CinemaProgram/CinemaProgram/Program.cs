@@ -11,6 +11,7 @@ namespace CinemaProgram
     {
         static async Task Main(string[] args)
         {
+           /* 
             //displays title & logo
             string logo = await File.ReadAllTextAsync("logo.txt");
             Console.WriteLine(logo + "\n");
@@ -31,12 +32,13 @@ namespace CinemaProgram
             switch (Convert.ToInt32(userselection))
             {
                 case 1:
-                    ConsoleProgram.NowPlayingMovies();
+                   // ConsoleProgram.NowPlayingMovies();
                     break;
                 case 2:
-                    ConsoleProgram.AllUsers();
+                    //ConsoleProgram.AllUsers();
                     break;
-            }
+            }*/
+           TestCases.Start();
         }
     }
 }

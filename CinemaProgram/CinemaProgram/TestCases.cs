@@ -53,7 +53,9 @@ namespace CinemaProgram
                 Console.WriteLine("-- 11 other test we're skipped because of fail!");
             }
             Console.WriteLine("#USER TESTS");
-            Console.WriteLine("-Add & load users: "+ TestUserCreation());
+            if (TestUserCreationAndFetching())
+            { successfull++; }
+            Console.WriteLine("-Add & load users: "+ TestUserCreationAndFetching());
             Console.WriteLine("-Test user roles: " + TestUserRoles());
             //Test remove user
             //Test role change after creation
@@ -68,9 +70,12 @@ namespace CinemaProgram
             return false;
         }
 
-        private static bool TestUserCreation()
+        private static bool TestUserCreationAndFetching()
         {
-            return false;
+         //   JsonHandler jsonHandler = new JsonHandler();
+            JsonHandler.SaveUser("TestUser","TestPassword");
+            return JsonHandler.FindUser("TestUser","TestPassword");
+            //return false;
         }
 
         private static bool TestAddHall()
