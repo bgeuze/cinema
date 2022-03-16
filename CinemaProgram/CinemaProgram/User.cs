@@ -22,5 +22,10 @@ namespace CinemaProgram
             Role = role;
             CreadtedDateTime = DateTime;
         }
+
+        internal string getUsername()
+        {
+            return Username;
+        }
     }
 }

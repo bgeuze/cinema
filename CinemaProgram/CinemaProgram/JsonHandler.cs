@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -20,6 +21,14 @@ namespace CinemaProgram
             //de-serialize to object or create new list
             var userList = JsonConvert.DeserializeObject<List<User>>(jsonData)
                                   ?? new List<User>();
+
+            //check is username is already there
+            foreach (User user in userList)
+            {
+                if (user.getUsername() == username) {
+                    return false;
+                }
+            }
 
             //add new user to the list
             userList.Add(new User(username, password, "User"));
@@ -55,8 +64,7 @@ namespace CinemaProgram
         public static bool NowPlayingMovies()
         {
             var filePath = "movies.json";
-
-            //load nowplaying movies from endpoint
+            //load nowplaying movies from themoviedb endpoint
             using (WebClient wc = new WebClient())
             {
                 var json = wc.DownloadString("https://api.themoviedb.org/3/movie/now_playing?api_key=2994dabe7980fbf78dcb92703ce4057a&language=nl-NL&page=1&region=NL");

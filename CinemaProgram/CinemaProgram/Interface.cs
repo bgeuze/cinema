@@ -22,5 +22,17 @@ namespace CinemaProgram
         {
             return JsonHandler.NowPlayingMovies();
         }
+
+        internal Cinema getCinema(string v)
+        {
+            //return JsonHandler.getMovie(v);
+            return null;
+        }
+
+        //Creates a cinema and checks if there is no duplicate
+        internal void createCinema(Cinema cinema)
+        {
+            //JsonHandler.addCinema(cinema);
+        }
     }
 }

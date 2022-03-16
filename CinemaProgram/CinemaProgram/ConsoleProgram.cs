@@ -13,8 +13,15 @@ namespace CinemaProgram
     {
         private static string ant;
 
-        public static void LoginRegister()
+        public static async Task LoginRegisterAsync()
         {
+            //displays title & logo
+            string logo = await File.ReadAllTextAsync("logo.txt");
+            Console.WriteLine(logo + "\n");
+
+            Console.WriteLine("Cinema School Project C#\r");
+            Console.WriteLine("------------------------\n");
+
             //Keuze om in te loggen of om aan te melden.
             Console.WriteLine("Wilt u inloggen of aanmelden?");
             ant = Console.ReadLine();
@@ -109,6 +116,23 @@ namespace CinemaProgram
         public static void HomeScreen()
         {
             Console.Clear();
+
+            var table = new ConsoleTable("ID", "Menu");
+            table.AddRow("1", "Alle films");
+            table.AddRow("2", "Alle gebruikers");
+            table.Write();
+
+            string userselection;
+            userselection = Console.ReadLine();
+            switch (Convert.ToInt32(userselection))
+            {
+                case 1:
+                    NowPlayingMovies();
+                    break;
+                case 2:
+                    AllUsers();
+                    break;
+            }
         }
     }
 }
