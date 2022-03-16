@@ -15,7 +15,7 @@ namespace CinemaProgram
         private string time;
 
         public Hall(int number, Seat seat)
-        {
+        { 
             this.hallNumber = number;
             this.testSeat = seat;
         }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Collections;
 
@@ -53,15 +53,13 @@ namespace CinemaProgram
                 Console.WriteLine("-- 11 other test we're skipped because of fail!");
             }
             Console.WriteLine("#USER TESTS");
-            Console.WriteLine("-Add & load users: "+ TestUserCreationAndFetching());
-            if (TestUserCreationAndFetching())
-            { successfull++; }
+            Console.WriteLine("-Add & load users: " + TestUserCreationAndFetching());
             Console.WriteLine("-Test user roles: " + TestUserRoles());
             //Test remove user
             //Test role change after creation
             //Test Pricing Users
             //Test login with no user.json
-            Console.WriteLine("Total test successfully completed: " + successfull +"/" +total + " or: " + Math.Round(successfull/total * 100,2) +"%");
+            Console.WriteLine("Total test successfully completed: " + successfull + "/" + total + " or: " + Math.Round(successfull / total * 100, 2) + "%");
 
         }
 
@@ -72,15 +70,15 @@ namespace CinemaProgram
 
         private static bool TestUserCreationAndFetching()
         {
-         //   JsonHandler jsonHandler = new JsonHandler();
-            JsonHandler.SaveUser("TestUser","TestPassword");
-            return JsonHandler.FindUser("TestUser","TestPassword");
+            //JsonHandler jsonHandler = new JsonHandler();
+            JsonHandler.SaveUser("TestUser", "TestPassword");
+            return JsonHandler.FindUser("TestUser", "TestPassword");
             //return false;
         }
 
         private static bool TestAddHall()
         {
-            interfaceObject.getCinema("Name").addHall( new Hall(2, new Seat()));
+            interfaceObject.getCinema("Name").addHall(new Hall(2, new Seat()));
             if (interfaceObject.getCinema("Name").test == "CinemaProgram.Hall") { return true; }
             return false;
         }
@@ -93,17 +91,17 @@ namespace CinemaProgram
 
         private static bool TestCinemaCreation()
         {
-            Hall hall = new Hall(2,new Seat());
+            Hall hall = new Hall(2, new Seat());
             ArrayList halls = new ArrayList();
             halls.Add(hall);
-            interfaceObject.createCinema(new Cinema("CinemaName",halls));
+            interfaceObject.createCinema(new Cinema("CinemaName", halls));
             if (interfaceObject.getCinema("CinemaName") != null)
             {
                 return true;
             }
             else
                 Console.WriteLine(interfaceObject.getCinema("CinemaName"));
-                return false;
+            return false;
         }
 
         private static bool TestAddBar()
