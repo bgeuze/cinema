@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ConsoleTables;
+using Newtonsoft.Json;
 
 namespace CinemaProgram
 {
@@ -70,9 +73,9 @@ namespace CinemaProgram
 
 
         }
+
         public static void addMovie()
         {
-            
             string movieTitle;
             int movieMinuten;
             string movieRelease;
@@ -85,10 +88,50 @@ namespace CinemaProgram
             movieRelease = Console.ReadLine();
             Console.WriteLine("Geef een beschrijving van de film.");
             movieDescription = Console.ReadLine();
-
-            
-            
         }
+
+        public static void NowPlayingMovies()
+        {
+            Console.WriteLine("Hieronder vindt u een lijst met films die nu in onze bisocoop draaien.");
+            //fill json with all nowplaying movies
+            Interface.NowPlayingMovies();
+
+            var filePath = "movies.json";
+            //read existing json data
+            var jsonData = File.ReadAllText(filePath);
+            //de-serialize to object or create new list
+            var movieList = JsonConvert.DeserializeObject<List<Movie>>(jsonData)
+                                    ?? new List<Movie>();
+
+            var table = new ConsoleTable("ID", "Title", "Release Date");
+
+            foreach (var movie in (dynamic)movieList)
+            {
+                table.AddRow($"{movie.Id}", $"{movie.Title}", $"{movie.ReleaseDate}");
+            }
+
+            table.Write();
+        }
+
+        public static void AllUsers()
+        {
+            var filePath = "user.json";
+            //read all json data
+            var jsonData = File.ReadAllText(filePath);
+            //de-serialize to object or create new list
+            var users = JsonConvert.DeserializeObject<List<User>>(jsonData)
+                                    ?? new List<User>();
+
+            var table = new ConsoleTable("ID", "Gebruikersnaam", "Wachtwoord", "Rol", "Account sinds");
+
+            foreach (var user in (dynamic)users)
+            {
+                table.AddRow($"{user.Id}", $"{user.Username}", $"{user.Password}", $"{user.Role}", $"{user.CreadtedDateTime}");
+            }
+
+            table.Write();
+        }
+
         public static void HomeScreen()
         {
             Console.Clear();

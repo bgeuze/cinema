@@ -20,16 +20,9 @@ namespace CinemaProgram
             return JsonHandler.SaveUser(username, password);
         }
 
-        internal Cinema getCinema(string v)
+        public static bool NowPlayingMovies()
         {
-            //return JsonHandler.getMovie(v);
-            return null;
-        }
-
-        //Creates a cinema and checks if there is no duplicate
-        internal void createCinema(Cinema cinema)
-        {
-            //JsonHandler.addCinema(cinema);
+            return JsonHandler.NowPlayingMovies();
         }
 
         internal Cinema getCinema(string v)

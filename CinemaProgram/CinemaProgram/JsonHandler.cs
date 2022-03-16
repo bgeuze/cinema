@@ -22,7 +22,7 @@ namespace CinemaProgram
             var userList = JsonConvert.DeserializeObject<List<User>>(jsonData)
                                   ?? new List<User>();
 
-            //check is username is already there
+            //check if username is already in file
             foreach (User user in userList)
             {
                 if (user.getUsername() == username) {

@@ -2,8 +2,6 @@ using System;
 using System.Linq;
 using System.Collections;
 
-
-
 namespace CinemaProgram
 {
     internal class TestCases
