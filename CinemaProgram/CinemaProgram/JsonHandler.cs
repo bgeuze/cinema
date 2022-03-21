@@ -115,5 +115,70 @@ namespace CinemaProgram
             File.WriteAllText(filePath, jsonData);
             return true;
         }
+
+
+        public static bool NowPlayingMovies()
+        {
+            var filePath = "movies.json";
+            //load nowplaying movies from themoviedb endpoint
+            using (WebClient wc = new WebClient())
+            {
+                var json = wc.DownloadString("https://api.themoviedb.org/3/movie/now_playing?api_key=2994dabe7980fbf78dcb92703ce4057a&language=nl-NL&page=1&region=NL");
+
+                var parsedJson = JObject.Parse(json);
+                var resultsJson = parsedJson["results"].ToString();
+                var allMovies = JsonConvert.DeserializeObject(resultsJson);
+
+                resultsJson = JsonConvert.SerializeObject(allMovies);
+                File.WriteAllText(filePath, resultsJson);
+            }
+
+            //read existing json data
+            var jsonData = File.ReadAllText(filePath);
+            //de-serialize to object or create new list
+            var movieList = JsonConvert.DeserializeObject<List<Movie>>(jsonData) ?? new List<Movie>();
+
+            movieList.Add(new Movie(215, "Baruchs Adventure Movie", "16-02-2022", "Adventure movie about the life of Baruch :)"));
+
+            jsonData = JsonConvert.SerializeObject(movieList);
+            File.WriteAllText(filePath, jsonData);
+
+            return true;
+        }
+
+        public static bool AddReservation(string username, string userId, bool barReservation)
+        {
+            var filePath = "reservations.json";
+            //read existing json data
+            var jsonData = File.ReadAllText(filePath);
+            //de-serialize to object or create new list
+            var reservationList = JsonConvert.DeserializeObject<List<Reservation>>(jsonData) ?? new List<Reservation>();
+
+            //add new reservation to the list
+            reservationList.Add(new Reservation(username, barReservation, userId));
+            jsonData = JsonConvert.SerializeObject(reservationList);
+            File.WriteAllText(filePath, jsonData);
+
+            return true;
+        }
+
+        public static string UserReservations(string userId)
+        {
+            using (StreamReader r = new StreamReader("reservations.json"))
+            {
+                string json = r.ReadToEnd();
+                dynamic reservations = JsonConvert.DeserializeObject(json);
+
+                //search for username and return user id
+                foreach (var reservation in reservations)
+                {
+                    if (userId == Convert.ToString(reservation.UserID))
+                    {
+                        return Convert.ToString(reservation);
+                    }
+                }
+            }
+            return null;
+        }
     }
 }
