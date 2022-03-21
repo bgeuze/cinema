@@ -19,8 +19,7 @@ namespace CinemaProgram
             //read existing json data
             var jsonData = File.ReadAllText(filePath);
             //de-serialize to object or create new list
-            var userList = JsonConvert.DeserializeObject<List<User>>(jsonData)
-                                  ?? new List<User>();
+            var userList = JsonConvert.DeserializeObject<List<User>>(jsonData) ?? new List<User>();
 
             //check if username is already in file
             foreach (User user in userList)
@@ -57,11 +56,32 @@ namespace CinemaProgram
                         }
                     }
                 }
-            return false;
+
+                return false;
             }
         }
 
-        public static bool NowPlayingMovies()
+        public static string GetUserId(string username)
+        {
+            using (StreamReader r = new StreamReader("user.json"))
+            {
+                string json = r.ReadToEnd();
+                dynamic users = JsonConvert.DeserializeObject(json);
+
+                //search for username and return user id
+                foreach (var user in users)
+                {
+                    if (username == Convert.ToString(user.Username))
+                    {
+                        return user.Id;
+                    }
+                }
+
+                return null;
+            }
+        }
+
+            public static bool NowPlayingMovies()
         {
             var filePath = "movies.json";
             //load nowplaying movies from themoviedb endpoint
@@ -80,8 +100,7 @@ namespace CinemaProgram
             //read existing json data
             var jsonData = File.ReadAllText(filePath);
             //de-serialize to object or create new list
-            var movieList = JsonConvert.DeserializeObject<List<Movie>>(jsonData)
-                                    ?? new List<Movie>();
+            var movieList = JsonConvert.DeserializeObject<List<Movie>>(jsonData) ?? new List<Movie>();
 
             movieList.Add(new Movie(215, "Baruchs Adventure Movie", "16-02-2022", "Adventure movie about the life of Baruch :)"));
 
@@ -89,6 +108,41 @@ namespace CinemaProgram
             File.WriteAllText(filePath, jsonData);
         
             return true;
+        }
+
+        public static bool AddReservation(string username, string userId, bool barReservation)
+        {
+            var filePath = "reservations.json";
+            //read existing json data
+            var jsonData = File.ReadAllText(filePath);
+            //de-serialize to object or create new list
+            var reservationList = JsonConvert.DeserializeObject<List<Reservation>>(jsonData) ?? new List<Reservation>();
+
+            //add new reservation to the list
+            reservationList.Add(new Reservation(username, barReservation, userId));
+            jsonData = JsonConvert.SerializeObject(reservationList);
+            File.WriteAllText(filePath, jsonData);
+
+            return true;
+        }
+
+        public static string UserReservations(string userId)
+        {
+            using (StreamReader r = new StreamReader("reservations.json"))
+            {
+                string json = r.ReadToEnd();
+                dynamic reservations = JsonConvert.DeserializeObject(json);
+
+                //search for username and return user id
+                foreach (var reservation in reservations)
+                {
+                    if (userId == Convert.ToString(reservation.UserID))
+                    {
+                        return Convert.ToString(reservation);
+                    }
+                }
+            }
+            return null;
         }
     }
 }

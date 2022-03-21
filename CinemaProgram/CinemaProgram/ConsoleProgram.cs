@@ -6,12 +6,30 @@ using System.Text;
 using System.Threading.Tasks;
 using ConsoleTables;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace CinemaProgram
 {
     internal class ConsoleProgram
     {
-       //private static string ant;
+        public static string Username;
+        public static string UserId;
+
+        public static void SetActiveUser(string username)
+        {
+            Username = username;
+            UserId = Interface.GetUserId(username);
+        }
+
+        public static string GetUsername()
+        {
+            return Username;
+        }
+
+        public static string GetUserId()
+        {
+            return UserId;
+        }
 
         public static async Task LoginRegisterAsync()
         {
@@ -29,8 +47,8 @@ namespace CinemaProgram
              
             while(ant != "inloggen" && ant != "aanmelden")
             {
-                System.Console.WriteLine("Invoer incorrect, wilt u inloggen of aanmelden?");
-                ant = System.Console.ReadLine();
+                Console.WriteLine("Invoer incorrect, wilt u inloggen of aanmelden?");
+                ant = Console.ReadLine();
             }
             if(ant == "inloggen")
             {
@@ -48,6 +66,8 @@ namespace CinemaProgram
                     Console.WriteLine("Wat is uw wachtwoord?");
                     password = Console.ReadLine();
                 }
+
+                SetActiveUser(username);
 
                 HomeScreen();
             }
@@ -70,16 +90,15 @@ namespace CinemaProgram
 
                 HomeScreen();
             }
-
-
         }
 
-        public static void addMovie()
+        public static void AddMovie()
         {
             string movieTitle;
             int movieMinuten;
             string movieRelease;
             string movieDescription;
+
             Console.WriteLine("Wat is de naam van de film die u wilt toevoegen?");
             movieTitle = Console.ReadLine();
             Console.WriteLine("Hoelang duurt de film in minuten?");
@@ -88,6 +107,31 @@ namespace CinemaProgram
             movieRelease = Console.ReadLine();
             Console.WriteLine("Geef een beschrijving van de film.");
             movieDescription = Console.ReadLine();
+        }
+
+        public static void AddReservation()
+        {
+            bool barReservation;
+            string ans;
+
+            Console.WriteLine("Wilt u een plek aan de bar reserveren?");
+            var table = new ConsoleTable("", "");
+            table.AddRow("1", "Ja");
+            table.AddRow("2", "Nee");
+            table.Write();
+
+            ans = Console.ReadLine();
+
+            if (ans == "1")
+            {
+                barReservation = true;
+            }
+            else
+            {
+                barReservation = false;
+            }
+
+            Interface.AddReservation(GetUsername(), GetUserId(), barReservation);
         }
 
         public static void NowPlayingMovies()
@@ -100,8 +144,7 @@ namespace CinemaProgram
             //read existing json data
             var jsonData = File.ReadAllText(filePath);
             //de-serialize to object or create new list
-            var movieList = JsonConvert.DeserializeObject<List<Movie>>(jsonData)
-                                    ?? new List<Movie>();
+            var movieList = JsonConvert.DeserializeObject<List<Movie>>(jsonData) ?? new List<Movie>();
 
             var table = new ConsoleTable("ID", "Title", "Release Date");
 
@@ -111,6 +154,23 @@ namespace CinemaProgram
             }
 
             table.Write();
+        }
+
+        public static bool UserReservations()
+        {
+            var json = Interface.UserReservations(GetUserId());
+            Reservation userReservations = JsonConvert.DeserializeObject<Reservation>(json);
+
+            var table = new ConsoleTable("ID", "UserID", "Naam");
+
+            foreach (var reservation in (dynamic)userReservations)
+            {
+                table.AddRow($"{reservation.Id}", $"{reservation.UserID}", $"{reservation.Name}");
+            }
+
+            table.Write();
+
+            return true;
         }
 
         public static void AllUsers()
@@ -136,9 +196,13 @@ namespace CinemaProgram
         {
             Console.Clear();
 
+            Console.WriteLine("Hallo, " + GetUsername());
+
             var table = new ConsoleTable("ID", "Menu");
             table.AddRow("1", "Alle films");
             table.AddRow("2", "Alle gebruikers");
+            table.AddRow("3", "Nieuwe reservering");
+            table.AddRow("4", "Mijn reserveringen");
             table.Write();
 
             string userselection;
@@ -150,6 +214,12 @@ namespace CinemaProgram
                     break;
                 case 2:
                     AllUsers();
+                    break;
+                case 3:
+                    AddReservation();
+                    break;
+                case 4:
+                    UserReservations();
                     break;
             }
         }

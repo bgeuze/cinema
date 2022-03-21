@@ -10,6 +10,7 @@ namespace CinemaProgram
     internal class Interface
     {
         private ArrayList cinemas = new ArrayList();
+
         public static bool Login(string username, string password)
         {
             return JsonHandler.FindUser(username, password);
@@ -20,9 +21,24 @@ namespace CinemaProgram
             return JsonHandler.SaveUser(username, password);
         }
 
+        public static string GetUserId(string username)
+        {
+            return JsonHandler.GetUserId(username);
+        }
+
         public static bool NowPlayingMovies()
         {
             return JsonHandler.NowPlayingMovies();
+        }
+
+        public static bool AddReservation(string username, string userId, bool barReservation)
+        {
+            return JsonHandler.AddReservation(username, userId, barReservation);
+        }
+
+        public static string UserReservations(string userId)
+        {
+            return JsonHandler.UserReservations(userId);
         }
 
         internal Cinema getCinema(string v)

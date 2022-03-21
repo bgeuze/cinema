@@ -27,5 +27,10 @@ namespace CinemaProgram
         {
             return Username;
         }
+
+        internal string getUserID()
+        {
+            return Id;
+        }
     }
 }
