@@ -19,7 +19,8 @@ namespace CinemaProgram
             //read existing json data
             var jsonData = File.ReadAllText(filePath);
             //de-serialize to object or create new list
-            var userList = JsonConvert.DeserializeObject<List<User>>(jsonData) ?? new List<User>();
+            var userList = JsonConvert.DeserializeObject<List<User>>(jsonData)
+                                  ?? new List<User>();
 
             //check if username is already in file
             foreach (User user in userList)
@@ -56,32 +57,11 @@ namespace CinemaProgram
                         }
                     }
                 }
-
-                return false;
+            return false;
             }
         }
 
-        public static string GetUserId(string username)
-        {
-            using (StreamReader r = new StreamReader("user.json"))
-            {
-                string json = r.ReadToEnd();
-                dynamic users = JsonConvert.DeserializeObject(json);
-
-                //search for username and return user id
-                foreach (var user in users)
-                {
-                    if (username == Convert.ToString(user.Username))
-                    {
-                        return user.Id;
-                    }
-                }
-
-                return null;
-            }
-        }
-
-            public static bool NowPlayingMovies()
+        public static bool NowPlayingMovies()
         {
             var filePath = "movies.json";
             //load nowplaying movies from themoviedb endpoint
@@ -100,7 +80,8 @@ namespace CinemaProgram
             //read existing json data
             var jsonData = File.ReadAllText(filePath);
             //de-serialize to object or create new list
-            var movieList = JsonConvert.DeserializeObject<List<Movie>>(jsonData) ?? new List<Movie>();
+            var movieList = JsonConvert.DeserializeObject<List<Movie>>(jsonData)
+                                    ?? new List<Movie>();
 
             movieList.Add(new Movie(215, "Baruchs Adventure Movie", "16-02-2022", "Adventure movie about the life of Baruch :)"));
 
@@ -110,39 +91,29 @@ namespace CinemaProgram
             return true;
         }
 
-        public static bool AddReservation(string username, string userId, bool barReservation)
+        public static bool Schema()
         {
-            var filePath = "reservations.json";
+            var filePath = "schema.json";
             //read existing json data
             var jsonData = File.ReadAllText(filePath);
             //de-serialize to object or create new list
-            var reservationList = JsonConvert.DeserializeObject<List<Reservation>>(jsonData) ?? new List<Reservation>();
+            var schemaList = JsonConvert.DeserializeObject<List<Schema>>(jsonData)
+                                  ?? new List<Schema>();
+            DayOfWeek day = (DayOfWeek)DateTime.Today.Day;
+            DayOfWeek month = (DayOfWeek)DateTime.Today.Month;
+            DayOfWeek year = (DayOfWeek)DateTime.Today.Year;
 
-            //add new reservation to the list
-            reservationList.Add(new Reservation(username, barReservation, userId));
-            jsonData = JsonConvert.SerializeObject(reservationList);
+
+            System.Globalization.DateTimeFormatInfo dfi = System.Globalization.DateTimeFormatInfo.CurrentInfo;
+            DateTime date1 = new DateTime((int)year, (int)month, (int)day);
+            System.Globalization.Calendar cal = dfi.Calendar;
+
+            string WeekNum = cal.GetWeekOfYear(date1, dfi.CalendarWeekRule, dfi.FirstDayOfWeek).ToString();
+            
+            schemaList.Add(new Schema(day.ToString(), month.ToString(), year.ToString(), WeekNum.ToString()));
+            jsonData = JsonConvert.SerializeObject(schemaList);
             File.WriteAllText(filePath, jsonData);
-
             return true;
-        }
-
-        public static string UserReservations(string userId)
-        {
-            using (StreamReader r = new StreamReader("reservations.json"))
-            {
-                string json = r.ReadToEnd();
-                dynamic reservations = JsonConvert.DeserializeObject(json);
-
-                //search for username and return user id
-                foreach (var reservation in reservations)
-                {
-                    if (userId == Convert.ToString(reservation.UserID))
-                    {
-                        return Convert.ToString(reservation);
-                    }
-                }
-            }
-            return null;
         }
     }
 }

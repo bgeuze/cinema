@@ -6,30 +6,12 @@ using System.Text;
 using System.Threading.Tasks;
 using ConsoleTables;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace CinemaProgram
 {
     internal class ConsoleProgram
     {
-        private static string Username;
-        private static string UserId;
-
-        public static void SetActiveUser(string username)
-        {
-            Username = username;
-            UserId = Interface.GetUserId(username);
-        }
-
-        public static string GetUsername()
-        {
-            return Username;
-        }
-
-        public static string GetUserId()
-        {
-            return UserId;
-        }
+       //private static string ant;
 
         public static async Task LoginRegisterAsync()
         {
@@ -47,8 +29,8 @@ namespace CinemaProgram
              
             while(ant != "inloggen" && ant != "aanmelden")
             {
-                Console.WriteLine("Invoer incorrect, wilt u inloggen of aanmelden?");
-                ant = Console.ReadLine();
+                System.Console.WriteLine("Invoer incorrect, wilt u inloggen of aanmelden?");
+                ant = System.Console.ReadLine();
             }
             if(ant == "inloggen")
             {
@@ -67,51 +49,16 @@ namespace CinemaProgram
                     password = Console.ReadLine();
                 }
 
-                SetActiveUser(username);
-
                 HomeScreen();
             }
             else
             {
-                bool AanmeldBool = false;
-                string username = "";
-                string password = "";
-                int age = 0;
                 Console.Clear();
-                while (AanmeldBool == false) {
-                    
-                    Console.WriteLine("Voer een gebruikersnaam in.");
-                    username = Console.ReadLine();
-                    Console.WriteLine("Voer een wachtwoord in.");
-                    password = Console.ReadLine();
-                    Console.WriteLine("bevestig uw wachtwoord.");
-                    string password2 = Console.ReadLine();
-                    Console.WriteLine("Wat is uw leeftijd");
-                    age = int.Parse(Console.ReadLine());
-                    if (password == password2)
-                    {
-                        AanmeldBool = true;
-                        if (age < 13)
-                        {
-                            Console.Clear();
-                            Console.WriteLine("Aanmelden gefaald, je bent te jong voor een account.");
-                            AanmeldBool = false;
-                        }
-                    }
-                    else
-                    {
-                        Console.Clear();
-                        Console.WriteLine("Aanmelden gefaald, wachtwoorden komen niet overheen.");
-                        if (age < 13)
-                        {
-                            Console.Clear();
-                            Console.WriteLine("Aanmelden gefaald, je bent te jong voor een account.");
-                            
-                        }
-                    }
-                    
+                Console.WriteLine("Voer een gebruikersnaam in.");
+                string username = Console.ReadLine();
+                Console.WriteLine("Voer een wachtwoord in.");
+                string password = Console.ReadLine();
 
-                }
                 while (Interface.Register(username, password) != true)
                 {
                     Console.WriteLine("Registreren gefaald, probeer het opnieuw.");
@@ -123,15 +70,16 @@ namespace CinemaProgram
 
                 HomeScreen();
             }
+
+
         }
 
-        public static void AddMovie()
+        public static void addMovie()
         {
             string movieTitle;
             int movieMinuten;
             string movieRelease;
             string movieDescription;
-
             Console.WriteLine("Wat is de naam van de film die u wilt toevoegen?");
             movieTitle = Console.ReadLine();
             Console.WriteLine("Hoelang duurt de film in minuten?");
@@ -140,31 +88,6 @@ namespace CinemaProgram
             movieRelease = Console.ReadLine();
             Console.WriteLine("Geef een beschrijving van de film.");
             movieDescription = Console.ReadLine();
-        }
-
-        public static void AddReservation()
-        {
-            bool barReservation;
-            string ans;
-
-            Console.WriteLine("Wilt u een plek aan de bar reserveren?");
-            var table = new ConsoleTable("", "");
-            table.AddRow("1", "Ja");
-            table.AddRow("2", "Nee");
-            table.Write();
-
-            ans = Console.ReadLine();
-
-            if (ans == "1")
-            {
-                barReservation = true;
-            }
-            else
-            {
-                barReservation = false;
-            }
-
-            Interface.AddReservation(GetUsername(), GetUserId(), barReservation);
         }
 
         public static void NowPlayingMovies()
@@ -177,7 +100,8 @@ namespace CinemaProgram
             //read existing json data
             var jsonData = File.ReadAllText(filePath);
             //de-serialize to object or create new list
-            var movieList = JsonConvert.DeserializeObject<List<Movie>>(jsonData) ?? new List<Movie>();
+            var movieList = JsonConvert.DeserializeObject<List<Movie>>(jsonData)
+                                    ?? new List<Movie>();
 
             var table = new ConsoleTable("ID", "Title", "Release Date");
 
@@ -187,23 +111,6 @@ namespace CinemaProgram
             }
 
             table.Write();
-        }
-
-        public static bool UserReservations()
-        {
-            var json = Interface.UserReservations(GetUserId());
-            Reservation userReservations = JsonConvert.DeserializeObject<Reservation>(json);
-
-            var table = new ConsoleTable("ID", "UserID", "Naam");
-
-            foreach (var reservation in (dynamic)userReservations)
-            {
-                table.AddRow($"{reservation.Id}", $"{reservation.UserID}", $"{reservation.Name}");
-            }
-
-            table.Write();
-
-            return true;
         }
 
         public static void AllUsers()
@@ -225,17 +132,19 @@ namespace CinemaProgram
             table.Write();
         }
 
+        public static void NewSchema()
+        {
+            Interface.NewSchema();
+        }
+
         public static void HomeScreen()
         {
             Console.Clear();
 
-            Console.WriteLine("Hallo, " + GetUsername());
-
             var table = new ConsoleTable("ID", "Menu");
             table.AddRow("1", "Alle films");
             table.AddRow("2", "Alle gebruikers");
-            table.AddRow("3", "Nieuwe reservering");
-            table.AddRow("4", "Mijn reserveringen");
+            table.AddRow("3", "Nieuw Schema");
             table.Write();
 
             string userselection;
@@ -249,10 +158,7 @@ namespace CinemaProgram
                     AllUsers();
                     break;
                 case 3:
-                    AddReservation();
-                    break;
-                case 4:
-                    UserReservations();
+                    NewSchema();
                     break;
             }
         }
