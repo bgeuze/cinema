@@ -6,11 +6,11 @@ namespace CinemaProgram
 {
     public class User
     {
-        public string Id { get; set; }
-        public string Username { get; set; }
-        public string Password { get; set; }
-        public string Role { get; set; }
-        public DateTime CreadtedDateTime { get; set; }
+        private string Id { get; set; }
+        private string Username { get; set; }
+        private string Password { get; set; }
+        private string Role { get; set; }
+        private DateTime CreadtedDateTime { get; set; }
 
         DateTime DateTime = DateTime.Now;
 
@@ -19,6 +19,7 @@ namespace CinemaProgram
             Id = Guid.NewGuid().ToString("N");
             Username = username;
             Password = password;
+     
             Role = role;
             CreadtedDateTime = DateTime;
         }

@@ -12,8 +12,8 @@ namespace CinemaProgram
 {
     internal class ConsoleProgram
     {
-        public static string Username;
-        public static string UserId;
+        private static string Username;
+        private static string UserId;
 
         public static void SetActiveUser(string username)
         {
