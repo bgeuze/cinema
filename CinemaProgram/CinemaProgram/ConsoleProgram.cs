@@ -132,6 +132,11 @@ namespace CinemaProgram
             table.Write();
         }
 
+        public static void NewSchema()
+        {
+            Interface.NewSchema();
+        }
+
         public static void HomeScreen()
         {
             Console.Clear();
@@ -139,6 +144,7 @@ namespace CinemaProgram
             var table = new ConsoleTable("ID", "Menu");
             table.AddRow("1", "Alle films");
             table.AddRow("2", "Alle gebruikers");
+            table.AddRow("3", "Nieuw Schema");
             table.Write();
 
             string userselection;
@@ -150,6 +156,9 @@ namespace CinemaProgram
                     break;
                 case 2:
                     AllUsers();
+                    break;
+                case 3:
+                    NewSchema();
                     break;
             }
         }
