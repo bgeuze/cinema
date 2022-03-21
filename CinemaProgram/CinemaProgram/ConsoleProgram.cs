@@ -77,7 +77,6 @@ namespace CinemaProgram
                             Console.WriteLine("Aanmelden gefaald, je bent te jong voor een account.");
                             AanmeldBool = false;
                         }
-
                     }
                     else
                     {
