@@ -73,12 +73,45 @@ namespace CinemaProgram
             }
             else
             {
+                bool AanmeldBool = false;
+                string username = "";
+                string password = "";
+                int age = 0;
                 Console.Clear();
-                Console.WriteLine("Voer een gebruikersnaam in.");
-                string username = Console.ReadLine();
-                Console.WriteLine("Voer een wachtwoord in.");
-                string password = Console.ReadLine();
+                while (AanmeldBool == false) {
+                    
+                    Console.WriteLine("Voer een gebruikersnaam in.");
+                    username = Console.ReadLine();
+                    Console.WriteLine("Voer een wachtwoord in.");
+                    password = Console.ReadLine();
+                    Console.WriteLine("bevestig uw wachtwoord.");
+                    string password2 = Console.ReadLine();
+                    Console.WriteLine("Wat is uw leeftijd");
+                    age = int.Parse(Console.ReadLine());
+                    if (password == password2)
+                    {
+                        AanmeldBool = true;
+                        if (age < 13)
+                        {
+                            Console.Clear();
+                            Console.WriteLine("Aanmelden gefaald, je bent te jong voor een account.");
+                            AanmeldBool = false;
+                        }
+                    }
+                    else
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Aanmelden gefaald, wachtwoorden komen niet overheen.");
+                        if (age < 13)
+                        {
+                            Console.Clear();
+                            Console.WriteLine("Aanmelden gefaald, je bent te jong voor een account.");
+                            
+                        }
+                    }
+                    
 
+                }
                 while (Interface.Register(username, password) != true)
                 {
                     Console.WriteLine("Registreren gefaald, probeer het opnieuw.");
