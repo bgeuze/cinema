@@ -56,5 +56,10 @@ namespace CinemaProgram
         {
             //JsonHandler.addCinema(cinema);
         }
+
+        public static bool NewSchema()
+        {
+            return JsonHandler.Schema();
+        }
     }
 }

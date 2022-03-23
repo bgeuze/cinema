@@ -21,7 +21,8 @@ namespace CinemaProgram
         { 
         this.seatAvailability = available;
         }
-        public bool getSeatAvailability() { return seatAvailability; } 
-
+        public bool getSeatAvailability() { return seatAvailability; }
+        public void setPricing(double newPrice) { seatPricing = newPrice; }
+        public double getPrice() { return seatPricing; }
     }
 }

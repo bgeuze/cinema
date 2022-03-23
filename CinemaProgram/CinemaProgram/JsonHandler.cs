@@ -19,7 +19,8 @@ namespace CinemaProgram
             //read existing json data
             var jsonData = File.ReadAllText(filePath);
             //de-serialize to object or create new list
-            var userList = JsonConvert.DeserializeObject<List<User>>(jsonData) ?? new List<User>();
+            var userList = JsonConvert.DeserializeObject<List<User>>(jsonData)
+                                  ?? new List<User>();
 
             //check if username is already in file
             foreach (User user in userList)
@@ -56,16 +57,17 @@ namespace CinemaProgram
                         }
                     }
                 }
-                return false;
+            return false;
             }
         }
 
-        public static string GetUserId(string username)
+        public static bool NowPlayingMovies()
         {
-            using (StreamReader r = new StreamReader("user.json"))
+            var filePath = "movies.json";
+            //load nowplaying movies from themoviedb endpoint
+            using (WebClient wc = new WebClient())
             {
-                string json = r.ReadToEnd();
-                dynamic users = JsonConvert.DeserializeObject(json);
+                var json = wc.DownloadString("https://api.themoviedb.org/3/movie/now_playing?api_key=2994dabe7980fbf78dcb92703ce4057a&language=nl-NL&page=1&region=NL");
 
                 //search for username and return user id
                 foreach (var user in users)
@@ -95,7 +97,51 @@ namespace CinemaProgram
                     }
                 }
                 return null;
+                var parsedJson = JObject.Parse(json);
+                var resultsJson = parsedJson["results"].ToString();
+                var allMovies = JsonConvert.DeserializeObject(resultsJson);
+
+                resultsJson = JsonConvert.SerializeObject(allMovies);
+                File.WriteAllText(filePath, resultsJson);
             }
+
+            //read existing json data
+            var jsonData = File.ReadAllText(filePath);
+            //de-serialize to object or create new list
+            var movieList = JsonConvert.DeserializeObject<List<Movie>>(jsonData)
+                                    ?? new List<Movie>();
+
+            movieList.Add(new Movie(215, "Baruchs Adventure Movie", "16-02-2022", "Adventure movie about the life of Baruch :)"));
+
+            jsonData = JsonConvert.SerializeObject(movieList);
+            File.WriteAllText(filePath, jsonData);
+        
+            return true;
+        }
+
+        public static bool Schema()
+        {
+            var filePath = "schema.json";
+            //read existing json data
+            var jsonData = File.ReadAllText(filePath);
+            //de-serialize to object or create new list
+            var schemaList = JsonConvert.DeserializeObject<List<Schema>>(jsonData)
+                                  ?? new List<Schema>();
+            DayOfWeek day = (DayOfWeek)DateTime.Today.Day;
+            DayOfWeek month = (DayOfWeek)DateTime.Today.Month;
+            DayOfWeek year = (DayOfWeek)DateTime.Today.Year;
+
+
+            System.Globalization.DateTimeFormatInfo dfi = System.Globalization.DateTimeFormatInfo.CurrentInfo;
+            DateTime date1 = new DateTime((int)year, (int)month, (int)day);
+            System.Globalization.Calendar cal = dfi.Calendar;
+
+            string WeekNum = cal.GetWeekOfYear(date1, dfi.CalendarWeekRule, dfi.FirstDayOfWeek).ToString();
+            
+            schemaList.Add(new Schema(day.ToString(), month.ToString(), year.ToString(), WeekNum.ToString()));
+            jsonData = JsonConvert.SerializeObject(schemaList);
+            File.WriteAllText(filePath, jsonData);
+            return true;
         }
 
         public static bool NowPlayingMovies()
@@ -123,7 +169,7 @@ namespace CinemaProgram
 
             jsonData = JsonConvert.SerializeObject(movieList);
             File.WriteAllText(filePath, jsonData);
-        
+
             return true;
         }
 
