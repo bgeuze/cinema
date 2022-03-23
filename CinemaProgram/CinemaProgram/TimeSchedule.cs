@@ -18,24 +18,12 @@ namespace CinemaProgram
                 temp[i] = daySlots[i];
             }
             temp[temp.Length - 1] = timeSlot;
-            daySlots = temp;
-            SortList();
+            Array.Sort(daySlots);
         }
 
-        public void addSlotBetween()
-        {
-
-        }
-
-        public Slot[] SortList()
-        {
-            Slot[] nonSorted = daySlots;
-            Slot[] sortedMovies = new Slot[daySlots.Length];
-            for (int i =0; i < sortedMovies.Length; i++)
-            {
-
-            }
-            return sortedMovies;
+        public Slot[] getSlots()
+        { 
+            return daySlots;
         }
     }
 }
