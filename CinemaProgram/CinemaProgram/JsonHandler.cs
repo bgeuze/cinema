@@ -61,13 +61,12 @@ namespace CinemaProgram
             }
         }
 
-        public static bool NowPlayingMovies()
+        public static string GetUserId(string username)
         {
-            var filePath = "movies.json";
-            //load nowplaying movies from themoviedb endpoint
-            using (WebClient wc = new WebClient())
+            using (StreamReader r = new StreamReader("user.json"))
             {
-                var json = wc.DownloadString("https://api.themoviedb.org/3/movie/now_playing?api_key=2994dabe7980fbf78dcb92703ce4057a&language=nl-NL&page=1&region=NL");
+                string json = r.ReadToEnd();
+                dynamic users = JsonConvert.DeserializeObject(json);
 
                 //search for username and return user id
                 foreach (var user in users)
@@ -83,7 +82,7 @@ namespace CinemaProgram
 
         public static string GetUserRole(string username)
         {
-            using(StreamReader r = new StreamReader("user.json"))
+            using (StreamReader r = new StreamReader("user.json"))
             {
                 string json = r.ReadToEnd();
                 dynamic users = JsonConvert.DeserializeObject(json);
@@ -97,26 +96,7 @@ namespace CinemaProgram
                     }
                 }
                 return null;
-                var parsedJson = JObject.Parse(json);
-                var resultsJson = parsedJson["results"].ToString();
-                var allMovies = JsonConvert.DeserializeObject(resultsJson);
-
-                resultsJson = JsonConvert.SerializeObject(allMovies);
-                File.WriteAllText(filePath, resultsJson);
             }
-
-            //read existing json data
-            var jsonData = File.ReadAllText(filePath);
-            //de-serialize to object or create new list
-            var movieList = JsonConvert.DeserializeObject<List<Movie>>(jsonData)
-                                    ?? new List<Movie>();
-
-            movieList.Add(new Movie(215, "Baruchs Adventure Movie", "16-02-2022", "Adventure movie about the life of Baruch :)"));
-
-            jsonData = JsonConvert.SerializeObject(movieList);
-            File.WriteAllText(filePath, jsonData);
-        
-            return true;
         }
 
         public static bool Schema()

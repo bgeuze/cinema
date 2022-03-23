@@ -76,7 +76,7 @@ namespace CinemaProgram
 
         private static bool TestAddHall()
         {
-            interfaceObject.getCinema("Name").addHall(new Hall(2, new Seat()));
+            interfaceObject.getCinema("Name").addHall(new Hall(2, new Seat[2][]));
             if (interfaceObject.getCinema("Name").test == "CinemaProgram.Hall") { return true; }
             return false;
         }
@@ -89,7 +89,7 @@ namespace CinemaProgram
 
         private static bool TestCinemaCreation()
         {
-            Hall hall = new Hall(2, new Seat());
+            Hall hall = new Hall(2, new Seat[2][]);
             ArrayList halls = new ArrayList();
             halls.Add(hall);
             interfaceObject.createCinema(new Cinema("CinemaName", halls));

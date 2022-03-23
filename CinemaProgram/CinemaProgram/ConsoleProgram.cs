@@ -72,7 +72,7 @@ namespace CinemaProgram
                     Console.WriteLine("Wat is uw wachtwoord?");
                     password = Console.ReadLine();
                 }
-
+                SetActiveUser(username);
                 HomeScreen();
             }
             else
@@ -94,8 +94,6 @@ namespace CinemaProgram
 
                 HomeScreen();
             }
-
-
         }
 
         public static void addMovie()
@@ -112,6 +110,31 @@ namespace CinemaProgram
             movieRelease = Console.ReadLine();
             Console.WriteLine("Geef een beschrijving van de film.");
             movieDescription = Console.ReadLine();
+        }
+
+        public static void AddReservation()
+        {
+            bool barReservation;
+            string ans;
+
+            Console.WriteLine("Wilt u een plek aan de bar reserveren?");
+            var table = new ConsoleTable("", "");
+            table.AddRow("1", "Ja");
+            table.AddRow("2", "Nee");
+            table.Write();
+
+            ans = Console.ReadLine();
+
+            if (ans == "1")
+            {
+                barReservation = true;
+            }
+            else
+            {
+                barReservation = false;
+            }
+
+            Interface.AddReservation(GetUsername(), GetUserId(), barReservation);
         }
 
         public static void NowPlayingMovies()
@@ -184,11 +207,6 @@ namespace CinemaProgram
 
             string userselection;
             var table = new ConsoleTable("ID", "Menu");
-            var table = new ConsoleTable("ID", "Menu");
-            table.AddRow("1", "Alle films");
-            table.AddRow("2", "Alle gebruikers");
-            table.AddRow("3", "Nieuw Schema");
-            table.Write();
 
             switch (GetUserRole())
             {
@@ -215,6 +233,9 @@ namespace CinemaProgram
                         case 4:
                             UserReservations();
                             break;
+                        case 5:
+                            NewSchema();
+                            break;
                     }
                     break;
 
@@ -238,14 +259,6 @@ namespace CinemaProgram
                             UserReservations();
                             break;
                     }
-                case 1:
-                    NowPlayingMovies();
-                    break;
-                case 2:
-                    AllUsers();
-                    break;
-                case 3:
-                    NewSchema();
                     break;
             }
         }
