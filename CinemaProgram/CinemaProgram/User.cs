@@ -10,7 +10,7 @@ namespace CinemaProgram
         public string Username { get; set; }
         public string Password { get; set; }
         public string Role { get; set; }
-        public DateTime CreadtedDateTime { get; set; }
+        public DateTime CreatedDateTime { get; set; }
 
         DateTime DateTime = DateTime.Now;
 
@@ -20,7 +20,7 @@ namespace CinemaProgram
             Username = username;
             Password = password;
             Role = role;
-            CreadtedDateTime = DateTime;
+            CreatedDateTime = DateTime;
         }
 
         internal string getUsername()

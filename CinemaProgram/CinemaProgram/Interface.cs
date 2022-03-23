@@ -26,6 +26,10 @@ namespace CinemaProgram
             return JsonHandler.GetUserId(username);
         }
 
+        public static string GetUserRole(string username) {
+            return JsonHandler.GetUserRole(username);
+        }
+
         public static bool NowPlayingMovies()
         {
             return JsonHandler.NowPlayingMovies();
@@ -36,7 +40,7 @@ namespace CinemaProgram
             return JsonHandler.AddReservation(username, userId, barReservation);
         }
 
-        public static string UserReservations(string userId)
+        public static List<Reservation> UserReservations(string userId)
         {
             return JsonHandler.UserReservations(userId);
         }

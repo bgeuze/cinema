@@ -14,11 +14,13 @@ namespace CinemaProgram
     {
         public static string Username;
         public static string UserId;
+        public static string Role;
 
         public static void SetActiveUser(string username)
         {
             Username = username;
             UserId = Interface.GetUserId(username);
+            Role = Interface.GetUserRole(username);
         }
 
         public static string GetUsername()
@@ -29,6 +31,11 @@ namespace CinemaProgram
         public static string GetUserId()
         {
             return UserId;
+        }
+
+        public static string GetUserRole()
+        {
+            return Role;
         }
 
         public static async Task LoginRegisterAsync()
@@ -191,14 +198,13 @@ namespace CinemaProgram
 
         public static bool UserReservations()
         {
-            var json = Interface.UserReservations(GetUserId());
-            Reservation userReservations = JsonConvert.DeserializeObject<Reservation>(json);
+            var result = Interface.UserReservations(GetUserId());
 
-            var table = new ConsoleTable("ID", "UserID", "Naam");
+            var table = new ConsoleTable("ID", "Bar", "Naam", "Datum");
 
-            foreach (var reservation in (dynamic)userReservations)
+            foreach (var reservation in (dynamic)result)
             {
-                table.AddRow($"{reservation.Id}", $"{reservation.UserID}", $"{reservation.Name}");
+                table.AddRow($"{reservation.Id}", $"{reservation.BarReservation}", $"{reservation.Name}", $"{reservation.CreatedDateTime}");
             }
 
             table.Write();
@@ -219,7 +225,7 @@ namespace CinemaProgram
 
             foreach (var user in (dynamic)users)
             {
-                table.AddRow($"{user.Id}", $"{user.Username}", $"{user.Password}", $"{user.Role}", $"{user.CreadtedDateTime}");
+                table.AddRow($"{user.Id}", $"{user.Username}", $"{user.Password}", $"{user.Role}", $"{user.CreatedDateTime}");
             }
 
             table.Write();
@@ -228,34 +234,61 @@ namespace CinemaProgram
         public static void HomeScreen()
         {
             Console.Clear();
-
-            Console.WriteLine("Hallo, " + GetUsername());
-
-            var table = new ConsoleTable("ID", "Menu");
-            table.AddRow("1", "Alle films");
-            table.AddRow("2", "Alle gebruikers");
-            table.AddRow("3", "Nieuwe reservering");
-            table.AddRow("4", "Mijn reserveringen");
-            table.Write();
+            Console.WriteLine("Hallo, " + GetUsername() + " uw rol is " + GetUserRole());
 
             string userselection;
-            userselection = Console.ReadLine();
-            switch (Convert.ToInt32(userselection))
+            var table = new ConsoleTable("ID", "Menu");
+
+            switch (GetUserRole())
             {
-                case 1:
-                    NowPlayingMovies();
+                case "Admin":
+                    table.AddRow("1", "Alle films");
+                    table.AddRow("2", "Alle gebruikers");
+                    table.AddRow("3", "Nieuwe reservering");
+                    table.AddRow("4", "Mijn reserveringen");
+                    table.Write();
+
+                    userselection = Console.ReadLine();
+
+                    switch (Convert.ToInt32(userselection))
+                    {
+                        case 1:
+                            NowPlayingMovies();
+                            break;
+                        case 2:
+                            AllUsers();
+                            break;
+                        case 3:
+                            AddReservation();
+                            break;
+                        case 4:
+                            UserReservations();
+                            break;
+                    }
                     break;
-                case 2:
-                    AllUsers();
-                    break;
-                case 3:
-                    AddReservation();
-                    break;
-                case 4:
-                    UserReservations();
+
+                case "User":
+                    table.AddRow("1", "Alle films");
+                    table.AddRow("2", "Nieuwe reservering");
+                    table.AddRow("3", "Mijn reserveringen");
+                    table.Write();
+
+                    userselection = Console.ReadLine();
+
+                    switch (Convert.ToInt32(userselection))
+                    {
+                        case 1:
+                            NowPlayingMovies();
+                            break;
+                        case 2:
+                            AddReservation();
+                            break;
+                        case 3:
+                            UserReservations();
+                            break;
+                    }
                     break;
             }
         }
-            
     }
 }

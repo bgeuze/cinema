@@ -56,7 +56,6 @@ namespace CinemaProgram
                         }
                     }
                 }
-
                 return false;
             }
         }
@@ -76,12 +75,30 @@ namespace CinemaProgram
                         return user.Id;
                     }
                 }
-
                 return null;
             }
         }
 
-            public static bool NowPlayingMovies()
+        public static string GetUserRole(string username)
+        {
+            using(StreamReader r = new StreamReader("user.json"))
+            {
+                string json = r.ReadToEnd();
+                dynamic users = JsonConvert.DeserializeObject(json);
+
+                //search for username and return user role
+                foreach (var user in users)
+                {
+                    if (username == Convert.ToString(user.Username))
+                    {
+                        return user.Role;
+                    }
+                }
+                return null;
+            }
+        }
+
+        public static bool NowPlayingMovies()
         {
             var filePath = "movies.json";
             //load nowplaying movies from themoviedb endpoint
@@ -119,30 +136,30 @@ namespace CinemaProgram
             var reservationList = JsonConvert.DeserializeObject<List<Reservation>>(jsonData) ?? new List<Reservation>();
 
             //add new reservation to the list
-            reservationList.Add(new Reservation(username, barReservation, userId));
+            reservationList.Add(new Reservation(null, username, barReservation, userId, DateTime.Now));
             jsonData = JsonConvert.SerializeObject(reservationList);
             File.WriteAllText(filePath, jsonData);
 
             return true;
         }
 
-        public static string UserReservations(string userId)
+        public static List<Reservation> UserReservations(string userId)
         {
-            using (StreamReader r = new StreamReader("reservations.json"))
-            {
-                string json = r.ReadToEnd();
-                dynamic reservations = JsonConvert.DeserializeObject(json);
+            var filePath = "reservations.json";
+            //read existing json data
+            var jsonData = File.ReadAllText(filePath);
+            //de-serialize to object or create new list
+            var reservationList = JsonConvert.DeserializeObject<List<Reservation>>(jsonData) ?? new List<Reservation>();
 
-                //search for username and return user id
-                foreach (var reservation in reservations)
+            var userReservations = new List<Reservation>();
+            foreach (var reservation in reservationList.ToList())
+            {
+                if (userId == Convert.ToString(reservation.UserID))
                 {
-                    if (userId == Convert.ToString(reservation.UserID))
-                    {
-                        return Convert.ToString(reservation);
-                    }
+                    userReservations.Add(new Reservation(reservation.Id, reservation.Name, reservation.BarReservation, reservation.UserID, reservation.CreatedDateTime));
                 }
             }
-            return null;
+            return userReservations;
         }
     }
 }

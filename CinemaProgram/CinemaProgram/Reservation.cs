@@ -1,4 +1,5 @@
 ﻿using System;
+
 namespace CinemaProgram
 {
     public class Reservation
@@ -7,17 +8,23 @@ namespace CinemaProgram
         public string UserID { get; set; }
         public string Name { get; set; }
         public bool BarReservation { get; set; }
-        public DateTime CreadtedDateTime { get; set; }
+        public DateTime CreatedDateTime { get; set; }
 
-        DateTime DateTime = DateTime.Now;
+        DateTime CurrentTime = DateTime.Now;
 
-        public Reservation(string name, bool barReservation, string userId)
+        public Reservation(string id, string name, bool barReservation, string userId, DateTime date)
         {
-            Id = Guid.NewGuid().ToString("N");
+            Id = id ?? Guid.NewGuid().ToString("N");
             UserID = userId;
             Name = name;
             BarReservation = barReservation;
-            CreadtedDateTime = DateTime;
+            int result = DateTime.Compare(CreatedDateTime, date);
+            if (result != 0) {
+                CreatedDateTime = date;
+            }
+            else {
+                CreatedDateTime = CurrentTime;
+            }
         }
     }
 }
