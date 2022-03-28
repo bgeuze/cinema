@@ -9,17 +9,14 @@ namespace CinemaProgram
 {
     internal class Cinema
     {
-        private string cinemaName;
-        private Bar bars = null;
-        private ArrayList halls = new ArrayList();
-        public String test;
+        public string cinemaName;
+        public Bar bars = null;
+        public ArrayList Halls = new ArrayList();
 
         public Cinema(string name, ArrayList halls)
         {
-            this.cinemaName = name;
-            this.halls = halls;
-
-            test = String.Join(",", halls.ToArray());
+            cinemaName = name;
+            Halls = halls;
         }
 
         internal void addBar(Bar bar)
@@ -37,11 +34,11 @@ namespace CinemaProgram
             return cinemaName;
         }
         public ArrayList getHalls()
-        { return halls; }
+        { return Halls; }
 
         internal Hall getHall(int hallnumber)
         {
-            foreach (Hall hall in halls)
+            foreach (Hall hall in Halls)
             {
                 if (hall.getHallNumber() == hallnumber)
                 {
@@ -55,7 +52,7 @@ namespace CinemaProgram
         internal void addHall(Hall hall)
         {
             Boolean inList = false;
-            foreach (Hall obj in halls)
+            foreach (Hall obj in Halls)
             {
                 if (obj.getHallNumber() == hall.getHallNumber())
                 {
@@ -65,9 +62,7 @@ namespace CinemaProgram
                 }
                 else
                 {
-                    halls.Add(hall);
-
-                    test = String.Join(",", halls.ToArray());
+                    Halls.Add(hall);
                 }
             }
         }
