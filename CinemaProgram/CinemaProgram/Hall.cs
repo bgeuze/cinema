@@ -9,7 +9,6 @@ namespace CinemaProgram
     internal class Hall
     {
         private Seat[][] seats;
-        private Seat testSeat;
         private int hallNumber;
         //private Movie movie;
         private string time;
@@ -17,12 +16,13 @@ namespace CinemaProgram
         public Hall(int number, Seat[][] seat)
         {
             this.hallNumber = number;
-            seats = new Seat[seat.GetLength(0)][];
-            for (int i = 0; i < seat.GetLength(0); i++)
-            {
-                for (int j = 0; j < seat.GetLength(1); j++)
-                    seats[i][j] = seat[i][j];
-            }
+            this.seats = seat;
+           // seats = new Seat[seat.GetLength(0)][];
+            //for (int i = 0; i < seat.GetLength(0); i++)
+            //{
+             //   for (int j = 0; j < seat.GetLength(1) -1; j++)
+             //       seats[i][j] = seat[i][j];
+            //}
         }
         public void setRange(int row, int column, char Range)
         {

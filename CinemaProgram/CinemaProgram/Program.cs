@@ -6,7 +6,8 @@ namespace CinemaProgram
     {
         static async Task Main(string[] args)
         {
-            await ConsoleProgram.LoginRegisterAsync();
+            //await ConsoleProgram.LoginRegisterAsync();
+            TestCases.Start();
         }
     }
 }

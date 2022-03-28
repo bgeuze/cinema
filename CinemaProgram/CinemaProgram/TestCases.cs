@@ -13,6 +13,7 @@ namespace CinemaProgram
             double total = 18;
             double successfull = 0;
             bool cinemaTest = TestCinemaCreation();
+            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("#CINEMA TESTS");
             Console.WriteLine("-Create & Get Cinema Test- succesful: " + cinemaTest);
             if (cinemaTest)
@@ -20,22 +21,30 @@ namespace CinemaProgram
                 Cinema cinema = interfaceObject.getCinema("Name");
                 successfull++;
                 String whiteSpace = "   ";
-
-                Console.WriteLine(whiteSpace + "-Add & Get Bar From Cinema Test- succesful: " + TestAddBar());
                 if (TestAddBar())
                 {
                     successfull++;
+                    Console.ForegroundColor = ConsoleColor.Green;
                 }
-                Console.WriteLine(whiteSpace + "Add and view Movie(s) From a cinema: " + TestMovies());
+                else { Console.ForegroundColor = ConsoleColor.Red; }
+                Console.WriteLine(whiteSpace + "-Add & Get Bar From Cinema Test- succesful: " + TestAddBar());
                 if (TestMovies())
                 {
                     successfull++;
+
+                    Console.ForegroundColor = ConsoleColor.Green;
                 }
-                Console.WriteLine(whiteSpace + "Add a hall to a existing cinema: " + TestAddHall());
+                else { Console.ForegroundColor = ConsoleColor.Red; }
+                Console.WriteLine(whiteSpace + "Add and view Movie(s) From a cinema: " + TestMovies());
                 if (TestAddHall())
                 {
                     successfull++;
+
+                    Console.ForegroundColor = ConsoleColor.Green;
                 }
+                else { Console.ForegroundColor = ConsoleColor.Red; }
+                Console.WriteLine(whiteSpace + "Add a hall to a existing cinema: " + TestAddHall());
+               
                 //Test seat pricing
                 //test seat choosing
                 //test canceling order 
@@ -48,29 +57,47 @@ namespace CinemaProgram
             }
             else
             {
+
+                Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine("-- 11 other test we're skipped because of fail!");
             }
+
+            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("#USER TESTS");
+            if (TestUserCreationAndFetching()) { successfull++; Console.ForegroundColor = ConsoleColor.Green; }
+                else { Console.ForegroundColor = ConsoleColor.Red; }
             Console.WriteLine("-Add & load users: " + TestUserCreationAndFetching());
+            if (TestUserRoles()) { successfull++; Console.ForegroundColor = ConsoleColor.Green; }
+                else { Console.ForegroundColor = ConsoleColor.Red; }
             Console.WriteLine("-Test user roles: " + TestUserRoles());
-            //Test remove user
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("-Test remove user: " + " False");
+
+            Console.WriteLine("-Test user role change: " + " False");
+
+            Console.WriteLine("-Test Pricing user: " + " False");
+
+            Console.WriteLine("-Test login without user.json: " + " False");
             //Test role change after creation
             //Test Pricing Users
             //Test login with no user.json
+            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("Total test successfully completed: " + successfull + "/" + total + " or: " + Math.Round(successfull / total * 100, 2) + "%");
 
         }
 
         private static bool TestUserRoles()
         {
+            if (UserJsonHandler.GetUserRole("TestUser") != "Admin")
+            { return true; }
             return false;
         }
 
         private static bool TestUserCreationAndFetching()
         {
             //JsonHandler jsonHandler = new JsonHandler();
-            JsonHandler.SaveUser("TestUser", "TestPassword");
-            return JsonHandler.FindUser("TestUser", "TestPassword");
+            UserJsonHandler.SaveUser("TestUser", "TestPassword");
+            return UserJsonHandler.FindUser("TestUser", "TestPassword");
             //return false;
         }
 

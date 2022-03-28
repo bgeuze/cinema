@@ -13,36 +13,36 @@ namespace CinemaProgram
 
         public static bool Login(string username, string password)
         {
-            return JsonHandler.FindUser(username, password);
+            return UserJsonHandler.FindUser(username, password);
         }
 
         public static bool Register(string username, string password)
         {
-            return JsonHandler.SaveUser(username, password);
+            return UserJsonHandler.SaveUser(username, password);
         }
 
         public static string GetUserId(string username)
         {
-            return JsonHandler.GetUserId(username);
+            return UserJsonHandler.GetUserId(username);
         }
 
         public static string GetUserRole(string username) {
-            return JsonHandler.GetUserRole(username);
+            return UserJsonHandler.GetUserRole(username);
         }
 
         public static bool NowPlayingMovies()
         {
-            return JsonHandler.NowPlayingMovies();
+            return MovieJsonHandler.NowPlayingMovies();
         }
 
         public static bool AddReservation(string username, string userId, bool barReservation)
         {
-            return JsonHandler.AddReservation(username, userId, barReservation);
+            return MovieJsonHandler.AddReservation(username, userId, barReservation);
         }
 
         public static List<Reservation> UserReservations(string userId)
         {
-            return JsonHandler.UserReservations(userId);
+            return MovieJsonHandler.UserReservations(userId);
         }
 
         internal Cinema getCinema(string v)
@@ -59,7 +59,7 @@ namespace CinemaProgram
 
         public static bool NewSchema()
         {
-            return JsonHandler.Schema();
+            return MovieJsonHandler.Schema();
         }
     }
 }

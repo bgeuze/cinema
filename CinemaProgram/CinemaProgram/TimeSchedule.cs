@@ -25,5 +25,10 @@ namespace CinemaProgram
         { 
             return daySlots;
         }
+
+        public Slot getSlot(int index)
+        { 
+            return daySlots[index];
+        }
     }
 }
