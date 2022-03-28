@@ -13,7 +13,7 @@ namespace CinemaProgram
 {
     internal class UserJsonHandler
     {
-        public static bool SaveUser(string username, string password)
+        public static bool SaveUser(string username, string password, string age)
         {
             var filePath = "user.json";
             //read existing json data
@@ -22,17 +22,8 @@ namespace CinemaProgram
             var userList = JsonConvert.DeserializeObject<List<User>>(jsonData)
                                   ?? new List<User>();
 
-            //check if username is already in file
-            foreach (User user in userList)
-            {
-                if (user.getUsername() == username)
-                {
-                    return false;
-                }
-            }
-
             //add new user to the list
-            userList.Add(new User(username, password, "User"));
+            userList.Add(new User(username, password, age, "User"));
             jsonData = JsonConvert.SerializeObject(userList);
             File.WriteAllText(filePath, jsonData);
 
