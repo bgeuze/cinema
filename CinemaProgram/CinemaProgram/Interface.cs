@@ -16,9 +16,13 @@ namespace CinemaProgram
             return UserJsonHandler.FindUser(username, password);
         }
 
-        public static bool Register(string username, string password)
+        public static bool Register(string username, string password, string age)
         {
+<<<<<<< Updated upstream
             return UserJsonHandler.SaveUser(username, password);
+=======
+            return JsonHandler.SaveUser(username, password, age);
+>>>>>>> Stashed changes
         }
 
         public static string GetUserId(string username)

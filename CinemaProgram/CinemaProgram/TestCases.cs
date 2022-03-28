@@ -96,8 +96,13 @@ namespace CinemaProgram
         private static bool TestUserCreationAndFetching()
         {
             //JsonHandler jsonHandler = new JsonHandler();
+<<<<<<< Updated upstream
             UserJsonHandler.SaveUser("TestUser", "TestPassword");
             return UserJsonHandler.FindUser("TestUser", "TestPassword");
+=======
+            JsonHandler.SaveUser("TestUser", "TestPassword", "43");
+            return JsonHandler.FindUser("TestUser", "TestPassword");
+>>>>>>> Stashed changes
             //return false;
         }
 

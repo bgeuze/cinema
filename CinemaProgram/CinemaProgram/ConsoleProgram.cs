@@ -77,13 +77,44 @@ namespace CinemaProgram
             }
             else
             {
+                bool AanmeldBool = false;
+                string username = "";
+                string password = "";
+                int age = 0;
                 Console.Clear();
-                Console.WriteLine("Voer een gebruikersnaam in.");
-                string username = Console.ReadLine();
-                Console.WriteLine("Voer een wachtwoord in.");
-                string password = Console.ReadLine();
+                while (AanmeldBool == false)
+                {
+                    Console.WriteLine("Voer een gebruikersnaam in.");
+                    username = Console.ReadLine();
+                    Console.WriteLine("Voer een wachtwoord in.");
+                    password = Console.ReadLine();
+                    Console.WriteLine("Bevestig uw wachtwoord.");
+                    string password2 = Console.ReadLine();
+                    Console.WriteLine("Wat is uw leeftijd");
+                    age = int.Parse(Console.ReadLine());
+                    if (password == password2)
+                    {
+                        AanmeldBool = true;
+                        if (age < 13)
+                        {
+                            Console.Clear();
+                            Console.WriteLine("Aanmelden gefaald, je bent te jong voor een account.");
+                            AanmeldBool = false;
+                        }
+                    }
+                    else
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Aanmelden gefaald, wachtwoorden komen niet overheen.");
+                        if (age < 13)
+                        {
+                            Console.Clear();
+                            Console.WriteLine("Aanmelden gefaald, je bent te jong voor een account.");
 
-                while (Interface.Register(username, password) != true)
+                        }
+                    }
+                }
+                while (Interface.Register(username, password, age.ToString()) != true)
                 {
                     Console.WriteLine("Registreren gefaald, probeer het opnieuw.");
                     Console.WriteLine("Voer een gebruikersnaam in.");
@@ -91,7 +122,7 @@ namespace CinemaProgram
                     Console.WriteLine("Voer een wachtwoord in.");
                     password = Console.ReadLine();
                 }
-
+                SetActiveUser(username);
                 HomeScreen();
             }
         }
@@ -185,11 +216,11 @@ namespace CinemaProgram
             var users = JsonConvert.DeserializeObject<List<User>>(jsonData)
                                     ?? new List<User>();
 
-            var table = new ConsoleTable("ID", "Gebruikersnaam", "Wachtwoord", "Rol", "Account sinds");
+            var table = new ConsoleTable("ID", "Gebruikersnaam", "Wachtwoord", "Leeftijd", "Rol", "Account sinds");
 
             foreach (var user in (dynamic)users)
             {
-                table.AddRow($"{user.Id}", $"{user.Username}", $"{user.Password}", $"{user.Role}", $"{user.CreatedDateTime}");
+                table.AddRow($"{user.Id}", $"{user.Username}", $"{user.Password}", $"{user.Age}", $"{user.Role}", $"{user.CreatedDateTime}");
             }
 
             table.Write();
@@ -215,6 +246,7 @@ namespace CinemaProgram
                     table.AddRow("2", "Alle gebruikers");
                     table.AddRow("3", "Nieuwe reservering");
                     table.AddRow("4", "Mijn reserveringen");
+                    table.AddRow("5", "Nieuw schema");
                     table.Write();
 
                     userselection = Console.ReadLine();
