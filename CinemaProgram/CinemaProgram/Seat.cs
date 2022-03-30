@@ -8,9 +8,9 @@ namespace CinemaProgram
 {
     internal class Seat
     {
-        private char seatRange = 'A';
-        private bool seatAvailability = true;
-        private double seatPricing = 00.00;
+        public char seatRange = 'A';
+        public bool seatAvailability = true;
+        public double seatPricing = 00.00;
 
         //Getters and Setters
         public void setSeatRange(char seatRange)

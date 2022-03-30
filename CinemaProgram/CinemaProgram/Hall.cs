@@ -8,10 +8,10 @@ namespace CinemaProgram
 {
     internal class Hall
     {
-        private Seat[][] seats;
-        private int hallNumber;
+        public int hallNumber;
+        public Seat[][] seats;
         //private Movie movie;
-        private string time;
+        public string time;
 
         public Hall(int number, Seat[][] seat)
         {

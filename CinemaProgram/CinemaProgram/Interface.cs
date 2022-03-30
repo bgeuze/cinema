@@ -52,9 +52,9 @@ namespace CinemaProgram
         }
 
         //Creates a cinema and checks if there is no duplicate
-        internal void createCinema(Cinema cinema)
+        internal void newCinema(string name, ArrayList halls)
         {
-            //JsonHandler.addCinema(cinema);
+            CinemaJsonHandler.NewCinema(name, halls);
         }
 
         public static bool NewSchema()
