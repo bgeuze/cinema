@@ -141,6 +141,8 @@ namespace CinemaProgram
             movieRelease = Console.ReadLine();
             Console.WriteLine("Geef een beschrijving van de film.");
             movieDescription = Console.ReadLine();
+
+            GoToHome();
         }
 
         public static void AddReservation()
@@ -166,6 +168,8 @@ namespace CinemaProgram
             }
 
             Interface.AddReservation(GetUsername(), GetUserId(), barReservation);
+
+            GoToHome();
         }
 
         public static void NowPlayingMovies()
@@ -189,6 +193,9 @@ namespace CinemaProgram
             }
 
             table.Write();
+            
+            GoToHome();
+
         }
 
         public static bool UserReservations()
@@ -203,6 +210,8 @@ namespace CinemaProgram
             }
 
             table.Write();
+
+            GoToHome();
 
             return true;
         }
@@ -224,11 +233,23 @@ namespace CinemaProgram
             }
 
             table.Write();
+
+            GoToHome();
         }
 
         public static void NewSchema()
         {
             Interface.NewSchema();
+        }
+
+        public static void GoToHome()
+        {
+            Console.WriteLine("\n Press 0 to go back to the menu.");
+            string ans = Console.ReadLine();
+            if (ans == "0")
+            {
+                HomeScreen();
+            }
         }
 
         public static void HomeScreen()

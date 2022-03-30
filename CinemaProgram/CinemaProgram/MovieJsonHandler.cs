@@ -27,10 +27,9 @@ namespace CinemaProgram
 
 
             System.Globalization.DateTimeFormatInfo dfi = System.Globalization.DateTimeFormatInfo.CurrentInfo;
-            DateTime date1 = new DateTime((int)year, (int)month, (int)day);
+            DateTime date = new DateTime((int)year, (int)month, (int)day);
             System.Globalization.Calendar cal = dfi.Calendar;
-
-            string WeekNum = cal.GetWeekOfYear(date1, dfi.CalendarWeekRule, dfi.FirstDayOfWeek).ToString();
+            string WeekNum = cal.GetWeekOfYear(date, dfi.CalendarWeekRule, dfi.FirstDayOfWeek).ToString();
 
             schemaList.Add(new Schema(day.ToString(), month.ToString(), year.ToString(), WeekNum.ToString()));
             jsonData = JsonConvert.SerializeObject(schemaList);
