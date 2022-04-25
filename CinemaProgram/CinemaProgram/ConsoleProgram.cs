@@ -54,8 +54,8 @@ namespace CinemaProgram
 
             while (ant != "inloggen" && ant != "aanmelden")
             {
-                System.Console.WriteLine("Invoer incorrect, wilt u inloggen of aanmelden?");
-                ant = System.Console.ReadLine();
+                Console.WriteLine("Invoer incorrect, wilt u inloggen of aanmelden?");
+                ant = Console.ReadLine();
             }
             if (ant == "inloggen")
             {
@@ -168,8 +168,7 @@ namespace CinemaProgram
                 barReservation = false;
             }
 
-            Interface.AddReservation(GetUsername(), GetUserId(), barReservation);
-            Seat[] selectedSeat = (Seat[])SeatSelectionScreen();
+            Interface.AddReservation(GetUsername(), GetUserId(), barReservation, SeatSelectionScreen());
             GoToHome();
         }
 
@@ -203,11 +202,11 @@ namespace CinemaProgram
         {
             var result = Interface.UserReservations(GetUserId());
 
-            var table = new ConsoleTable("ID", "Bar", "Naam", "Datum");
+            var table = new ConsoleTable("ID", "Bar", "Stoel", "Naam", "Datum");
 
             foreach (var reservation in (dynamic)result)
             {
-                table.AddRow($"{reservation.Id}", $"{reservation.BarReservation}", $"{reservation.Name}", $"{reservation.CreatedDateTime}");
+                table.AddRow($"{reservation.Id}", $"{reservation.BarReservation}", $"{reservation.SeatList}", $"{reservation.Name}", $"{reservation.CreatedDateTime}");
             }
 
             table.Write();
@@ -317,7 +316,7 @@ namespace CinemaProgram
             }
         }
 
-        public static object[] SeatSelectionScreen()
+        public static Seat[] SeatSelectionScreen()
         {
             int seatAmount = 2;
             ArrayList halls = new ArrayList();
@@ -345,12 +344,10 @@ namespace CinemaProgram
             tseats[2][4].setSeatAvailability(false);
             tseats[1][2].setSeatAvailability(false);
             tseats[1][3].setSeatAvailability(false);
-            ArrayList chosenOnes = new ArrayList();
+            List<Seat> chosenOnes = new List<Seat>();
             //Lets the user select seats untill all are selected
             while (seatAmount > 0)
             {
-
-
                 Console.Clear();
                 Console.Write("  ");
                 //Array position to letter

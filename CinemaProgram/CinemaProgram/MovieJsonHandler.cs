@@ -66,7 +66,7 @@ namespace CinemaProgram
             return true;
         }
 
-        public static bool AddReservation(string username, string userId, bool barReservation)
+        public static bool AddReservation(string username, string userId, bool barReservation, Seat[] seatlist)
         {
             var filePath = "reservations.json";
             //read existing json data
@@ -75,7 +75,7 @@ namespace CinemaProgram
             var reservationList = JsonConvert.DeserializeObject<List<Reservation>>(jsonData) ?? new List<Reservation>();
 
             //add new reservation to the list
-            reservationList.Add(new Reservation(null, username, barReservation, userId, DateTime.Now));
+            reservationList.Add(new Reservation(null, username, barReservation, userId, DateTime.Now, seatlist));
             jsonData = JsonConvert.SerializeObject(reservationList);
             File.WriteAllText(filePath, jsonData);
 
@@ -95,7 +95,7 @@ namespace CinemaProgram
             {
                 if (userId == Convert.ToString(reservation.UserID))
                 {
-                    userReservations.Add(new Reservation(reservation.Id, reservation.Name, reservation.BarReservation, reservation.UserID, reservation.CreatedDateTime));
+                    userReservations.Add(new Reservation(reservation.Id, reservation.Name, reservation.BarReservation, reservation.UserID, reservation.CreatedDateTime, reservation.SeatList));
                 }
             }
             return userReservations;

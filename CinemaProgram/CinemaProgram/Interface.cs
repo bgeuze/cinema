@@ -35,9 +35,9 @@ namespace CinemaProgram
             return MovieJsonHandler.NowPlayingMovies();
         }
 
-        public static bool AddReservation(string username, string userId, bool barReservation)
+        public static bool AddReservation(string username, string userId, bool barReservation, Seat[] seatlist)
         {
-            return MovieJsonHandler.AddReservation(username, userId, barReservation);
+            return MovieJsonHandler.AddReservation(username, userId, barReservation, seatlist);
         }
 
         public static List<Reservation> UserReservations(string userId)
@@ -63,9 +63,9 @@ namespace CinemaProgram
         }
 
         //Converts an arraylist to an array so it can be saved in/to the JSON
-        public static object?[] ArrayListToArray(ArrayList aL)
+        public static Seat[] ArrayListToArray(List<Seat> aL)
         {
-            object?[] seatArray = aL.ToArray();
+            Seat[] seatArray = aL.ToArray();
             return seatArray;
         }
 
@@ -84,6 +84,5 @@ namespace CinemaProgram
                 _ => -1
             };
         }
-
     }
 }
