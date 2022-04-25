@@ -11,8 +11,10 @@ namespace CinemaProgram
         public char seatRange = 'A';
         public bool seatAvailability = true;
         public double seatPricing = 00.00;
+        public string SeatIndex = "0";
+        public bool isValid;
         //Constructor
-        public Seat(char c)
+        public Seat(char c,bool valid = true)
         {
             this.seatRange = c;
             switch (c)
@@ -27,6 +29,7 @@ namespace CinemaProgram
                     seatPricing = 35;
                     break;
             }
+            this.isValid = valid;
         }
         
         //Getters and Setters

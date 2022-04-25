@@ -354,7 +354,8 @@ namespace CinemaProgram
                 for (int a = 0; a < tseats[0].Length; a++)
                 {
                     Console.Write("  ");
-                    switch (a + 1)
+                    Console.Write(a+1);
+                    /*aswitch (a + 1)
                     {
                         case 1:
                             Console.Write("A");
@@ -377,7 +378,7 @@ namespace CinemaProgram
                         case 7:
                             Console.Write("G");
                             break;
-                    }
+                    }*/
                 }
                 Console.WriteLine();
 
@@ -452,9 +453,10 @@ namespace CinemaProgram
                     seatAmount--;
                     //Maybe remove null warning supressor... Maybe don't...
                     pos1 = Int32.Parse(seatChoice1!) - 1;
-                    pos2 = Interface.ToNumberPosition(seatChoice2!.ToUpper());
+                    pos2 = Int32.Parse(seatChoice2!) - 1;//Interface.ToNumberPosition(seatChoice2!.ToUpper());
                     chosenOnes.Add(tseats[pos1][pos2]);
                     tseats[pos1][pos2].setSeatAvailability(false);
+                    tseats[pos1][pos2].SeatIndex = pos1.ToString() + pos2.ToString();
                 }
             }
 

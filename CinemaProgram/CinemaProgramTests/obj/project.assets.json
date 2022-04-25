@@ -5960,32 +5960,34 @@
     ]
   },
   "packageFolders": {
-    "/Users/baruchgeuze/.nuget/packages/": {}
+    "C:\\Users\\Misch\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/baruchgeuze/Documents/GitHub/cinema/CinemaProgram/CinemaProgramTests/CinemaProgramTests.csproj",
+      "projectUniqueName": "C:\\Users\\Misch\\Documents\\GitHub\\cinema\\CinemaProgram\\CinemaProgramTests\\CinemaProgramTests.csproj",
       "projectName": "CinemaProgramTests",
-      "projectPath": "/Users/baruchgeuze/Documents/GitHub/cinema/CinemaProgram/CinemaProgramTests/CinemaProgramTests.csproj",
-      "packagesPath": "/Users/baruchgeuze/.nuget/packages/",
-      "outputPath": "/Users/baruchgeuze/Documents/GitHub/cinema/CinemaProgram/CinemaProgramTests/obj/",
+      "projectPath": "C:\\Users\\Misch\\Documents\\GitHub\\cinema\\CinemaProgram\\CinemaProgramTests\\CinemaProgramTests.csproj",
+      "packagesPath": "C:\\Users\\Misch\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Misch\\Documents\\GitHub\\cinema\\CinemaProgram\\CinemaProgramTests\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/baruchgeuze/.config/NuGet/NuGet.Config"
+        "C:\\Users\\Misch\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net5.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "/Users/baruchgeuze/Documents/GitHub/cinema/CinemaProgram/CinemaProgram/CinemaProgram.csproj": {
-              "projectPath": "/Users/baruchgeuze/Documents/GitHub/cinema/CinemaProgram/CinemaProgram/CinemaProgram.csproj"
+            "C:\\Users\\Misch\\Documents\\GitHub\\cinema\\CinemaProgram\\CinemaProgram\\CinemaProgram.csproj": {
+              "projectPath": "C:\\Users\\Misch\\Documents\\GitHub\\cinema\\CinemaProgram\\CinemaProgram\\CinemaProgram.csproj"
             }
           }
         }
@@ -6032,7 +6034,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/x64/sdk/6.0.102/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
       }
     }
   }

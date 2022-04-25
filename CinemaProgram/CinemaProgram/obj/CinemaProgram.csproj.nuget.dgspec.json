@@ -1,25 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "/Users/baruchgeuze/Documents/GitHub/cinema/CinemaProgram/CinemaProgram/CinemaProgram.csproj": {}
+    "C:\\Users\\Misch\\Documents\\GitHub\\cinema\\CinemaProgram\\CinemaProgram\\CinemaProgram.csproj": {}
   },
   "projects": {
-    "/Users/baruchgeuze/Documents/GitHub/cinema/CinemaProgram/CinemaProgram/CinemaProgram.csproj": {
+    "C:\\Users\\Misch\\Documents\\GitHub\\cinema\\CinemaProgram\\CinemaProgram\\CinemaProgram.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/baruchgeuze/Documents/GitHub/cinema/CinemaProgram/CinemaProgram/CinemaProgram.csproj",
+        "projectUniqueName": "C:\\Users\\Misch\\Documents\\GitHub\\cinema\\CinemaProgram\\CinemaProgram\\CinemaProgram.csproj",
         "projectName": "CinemaProgram",
-        "projectPath": "/Users/baruchgeuze/Documents/GitHub/cinema/CinemaProgram/CinemaProgram/CinemaProgram.csproj",
-        "packagesPath": "/Users/baruchgeuze/.nuget/packages/",
-        "outputPath": "/Users/baruchgeuze/Documents/GitHub/cinema/CinemaProgram/CinemaProgram/obj/",
+        "projectPath": "C:\\Users\\Misch\\Documents\\GitHub\\cinema\\CinemaProgram\\CinemaProgram\\CinemaProgram.csproj",
+        "packagesPath": "C:\\Users\\Misch\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Misch\\Documents\\GitHub\\cinema\\CinemaProgram\\CinemaProgram\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/baruchgeuze/.config/NuGet/NuGet.Config"
+          "C:\\Users\\Misch\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -57,12 +59,18 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.NETCore.App.Host.win-x64",
+              "version": "[5.0.16, 5.0.16]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/x64/sdk/6.0.102/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     }
