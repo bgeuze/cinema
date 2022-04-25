@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CinemaProgram
 {
-    internal class Interface
+    public class Interface
     {
         private ArrayList cinemas = new ArrayList();
 
@@ -45,14 +45,14 @@ namespace CinemaProgram
             return MovieJsonHandler.UserReservations(userId);
         }
 
-        internal Cinema getCinema(string v)
+        public Cinema getCinema(string v)
         {
             //return JsonHandler.getMovie(v);
             return null;
         }
 
         //Creates a cinema and checks if there is no duplicate
-        internal void newCinema(string name, ArrayList halls)
+        public void newCinema(string name, ArrayList halls)
         {
             CinemaJsonHandler.NewCinema(name, halls);
         }

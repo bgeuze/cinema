@@ -7,8 +7,8 @@ namespace CinemaProgram
     {
         static async Task Main(string[] args)
         {
-            await ConsoleProgram.LoginRegisterAsync();
-            //TestCases.Start();
+            //await ConsoleProgram.LoginRegisterAsync();
+            TestCases.Start();
 
             //ArrayList halls = new ArrayList();
             //Seat[][] seats = new Seat[2][];

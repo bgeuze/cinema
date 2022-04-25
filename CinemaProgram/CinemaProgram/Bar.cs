@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CinemaProgram
 {
-    internal class Bar
+    public class Bar
     {
     }
 }

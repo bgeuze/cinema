@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace CinemaProgram
 {
-    internal class Hall
+    public class Hall
     {
         public int hallNumber;
-        public Seat[][] seats;
+        private Seat[][] seats;
         //private Movie movie;
         public string time;
 

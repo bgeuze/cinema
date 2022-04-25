@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CinemaProgram
 {
-    internal class Seat
+    public class Seat
     {
         public char seatRange = 'A';
         public bool seatAvailability = true;

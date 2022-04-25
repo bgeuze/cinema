@@ -11,7 +11,7 @@ using Newtonsoft.Json.Linq;
 
 namespace CinemaProgram
 {
-    internal class UserJsonHandler
+    public class UserJsonHandler
     {
         public static bool SaveUser(string username, string password, string age)
         {

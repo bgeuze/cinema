@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CinemaProgram
 {
-    internal class Cinema
+    public class Cinema
     {
         public string cinemaName;
         public Bar bars = null;
@@ -36,7 +36,7 @@ namespace CinemaProgram
         public ArrayList getHalls()
         { return Halls; }
 
-        internal Hall getHall(int hallnumber)
+        public Hall getHall(int hallnumber)
         {
             foreach (Hall hall in Halls)
             {
@@ -49,7 +49,7 @@ namespace CinemaProgram
             // return (Hall)halls[hallnumber];
         }
 
-        internal void addHall(Hall hall)
+        public void addHall(Hall hall)
         {
             Boolean inList = false;
             foreach (Hall obj in Halls)
