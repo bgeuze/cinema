@@ -61,5 +61,29 @@ namespace CinemaProgram
         {
             return MovieJsonHandler.Schema();
         }
+
+        //Converts an arraylist to an array so it can be saved in/to the JSON
+        public static object?[] ArrayListToArray(ArrayList aL)
+        {
+            object?[] seatArray = aL.ToArray();
+            return seatArray;
+        }
+
+        //Translates the given letter to the correct array number
+        public static int ToNumberPosition(string seatChoice2)
+        {
+            return seatChoice2 switch
+            {
+                "A" => 0,
+                "B" => 1,
+                "C" => 2,
+                "D" => 3,
+                "E" => 4,
+                "F" => 5,
+                "G" => 6,
+                _ => -1
+            };
+        }
+
     }
 }

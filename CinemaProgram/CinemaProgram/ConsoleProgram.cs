@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -48,15 +49,15 @@ namespace CinemaProgram
 
             //Keuze om in te loggen of om aan te melden.
             Console.WriteLine("Wilt u inloggen of aanmelden?");
-             string ant = Console.ReadLine();
+            string ant = Console.ReadLine();
             ant = ant.ToLower();
-             
-            while(ant != "inloggen" && ant != "aanmelden")
+
+            while (ant != "inloggen" && ant != "aanmelden")
             {
                 System.Console.WriteLine("Invoer incorrect, wilt u inloggen of aanmelden?");
                 ant = System.Console.ReadLine();
             }
-            if(ant == "inloggen")
+            if (ant == "inloggen")
             {
                 Console.Clear();
                 Console.WriteLine("Wat is uw gebruikersnaam?");
@@ -64,7 +65,7 @@ namespace CinemaProgram
                 Console.WriteLine("Wat is uw wachtwoord?");
                 string password = Console.ReadLine();
 
-                while (Interface.Login(username,password) != true)
+                while (Interface.Login(username, password) != true)
                 {
                     Console.WriteLine("Inloggen gefaald, probeer het opnieuw.");
                     Console.WriteLine("Wat is uw gebruikersnaam?");
@@ -168,7 +169,7 @@ namespace CinemaProgram
             }
 
             Interface.AddReservation(GetUsername(), GetUserId(), barReservation);
-
+            Seat[] selectedSeat = (Seat[])SeatSelectionScreen();
             GoToHome();
         }
 
@@ -193,7 +194,7 @@ namespace CinemaProgram
             }
 
             table.Write();
-            
+
             GoToHome();
 
         }
@@ -215,7 +216,7 @@ namespace CinemaProgram
 
             return true;
         }
-        
+
         public static void AllUsers()
         {
             var filePath = "user.json";
@@ -314,6 +315,153 @@ namespace CinemaProgram
                     }
                     break;
             }
+        }
+
+        public static object[] SeatSelectionScreen()
+        {
+            int seatAmount = 2;
+            ArrayList halls = new ArrayList();
+            Seat[][] seats = new Seat[6][];
+
+            //Unorganized mess
+            int pos1 = -1;
+            int pos2 = -1;
+            //Create and fill a testing Hall Template
+            seats[0] = new Seat[] { new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A') };
+            seats[1] = new Seat[] { new Seat('A'), new Seat('B'), new Seat('B'), new Seat('B'), new Seat('B'), new Seat('A') };
+            seats[2] = new Seat[] { new Seat('A'), new Seat('B'), new Seat('C'), new Seat('C'), new Seat('B'), new Seat('A') };
+            seats[3] = new Seat[] { new Seat('A'), new Seat('B'), new Seat('C'), new Seat('C'), new Seat('B'), new Seat('A') };
+            seats[4] = new Seat[] { new Seat('A'), new Seat('B'), new Seat('B'), new Seat('B'), new Seat('B'), new Seat('A') };
+            seats[5] = new Seat[] { new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A') };
+
+            Hall hall = new Hall(1, seats);
+            halls.Add(hall);
+
+            Hall hall2 = new Hall(2, seats);
+            halls.Add(hall2);
+
+            //Temp seat array for display purposes
+            Seat[][] tseats = hall.getSeats();
+            tseats[2][4].setSeatAvailability(false);
+            tseats[1][2].setSeatAvailability(false);
+            tseats[1][3].setSeatAvailability(false);
+            ArrayList chosenOnes = new ArrayList();
+            //Lets the user select seats untill all are selected
+            while (seatAmount > 0)
+            {
+
+
+                Console.Clear();
+                Console.Write("  ");
+                //Array position to letter
+                for (int a = 0; a < tseats[0].Length; a++)
+                {
+                    Console.Write("  ");
+                    switch (a + 1)
+                    {
+                        case 1:
+                            Console.Write("A");
+                            break;
+                        case 2:
+                            Console.Write("B");
+                            break;
+                        case 3:
+                            Console.Write("C");
+                            break;
+                        case 4:
+                            Console.Write("D");
+                            break;
+                        case 5:
+                            Console.Write("E");
+                            break;
+                        case 6:
+                            Console.Write("F");
+                            break;
+                        case 7:
+                            Console.Write("G");
+                            break;
+                    }
+                }
+                Console.WriteLine();
+
+                for (int i = 0; i < tseats.Length; i++)
+                {
+                    Console.Write(i + 1 + "  ");
+                    for (int j = 0; j < tseats[i].Length; j++)
+                    {
+                        //Changes the character color based upon the availability
+                        Console.ForegroundColor = ConsoleColor.DarkGreen;
+                        if (tseats[i][j].getSeatAvailability() == false)
+                        {
+                            Console.ForegroundColor = ConsoleColor.DarkRed;
+                        }
+
+                        char seatType = tseats[i][j].getSeatRange();
+                        switch (seatType)
+                        {
+                            //Changes the background color of a seat based upon the seatRange variable
+                            case 'A':
+                                Console.BackgroundColor = ConsoleColor.DarkBlue;
+                                break;
+                            case 'B':
+                                Console.BackgroundColor = ConsoleColor.Cyan;
+                                break;
+                            case 'C':
+                                Console.BackgroundColor = ConsoleColor.Yellow;
+                                break;
+                        }
+
+                        //Console.ForegroundColor = ConsoleColor.DarkBlue;
+                        //If a seat has been selected before and it is this seat in the array give it a nice lil colour
+                        if (pos1 >= 0 && pos2 >= 0)
+                        {
+                            if (tseats[i][j] == tseats[pos1][pos2])
+                            {
+                                Console.BackgroundColor = ConsoleColor.DarkMagenta;
+                            }
+                        }
+
+                        Console.Write(" ■ "); //tseats[i][j].seatRange);
+
+                    }
+                    Console.WriteLine();
+                    Console.BackgroundColor = ConsoleColor.Black;
+                    Console.ForegroundColor = ConsoleColor.White;
+
+                }
+                if (seatAmount > 1)
+                {
+                    Console.WriteLine("Please enter seat sir, you have " + seatAmount + " choice left: ");
+                }
+                /*For everything*/
+                else // there is mastercard
+                {
+                    Console.WriteLine("Please enter seat sir, you have " + seatAmount + " choices left: ");
+                }
+
+                Console.WriteLine("You will select a seat number:");
+                string? seatChoice1 = Console.ReadLine();
+                Console.WriteLine("You will select a seat Leter:");
+                string? seatChoice2 = Console.ReadLine();
+                Console.WriteLine("Are you sure you want seat(y/n): " + seatChoice1 + seatChoice2);
+
+                string? command = Console.ReadLine();
+                if (command != null && command.ToLower().Equals("n"))
+                {
+                    Console.WriteLine("Cry me a river");
+                }
+                if (command != null && command.ToLower().Equals("y"))
+                {
+                    seatAmount--;
+                    //Maybe remove null warning supressor... Maybe don't...
+                    pos1 = Int32.Parse(seatChoice1!) - 1;
+                    pos2 = Interface.ToNumberPosition(seatChoice2!.ToUpper());
+                    chosenOnes.Add(tseats[pos1][pos2]);
+                    tseats[pos1][pos2].setSeatAvailability(false);
+                }
+            }
+
+            return Interface.ArrayListToArray(chosenOnes);
         }
     }
 }

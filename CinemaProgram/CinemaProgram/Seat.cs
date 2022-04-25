@@ -11,7 +11,24 @@ namespace CinemaProgram
         public char seatRange = 'A';
         public bool seatAvailability = true;
         public double seatPricing = 00.00;
-
+        //Constructor
+        public Seat(char c)
+        {
+            this.seatRange = c;
+            switch (c)
+            {
+                case 'A':
+                    seatPricing = 15;
+                    break;
+                case 'B':
+                    seatPricing = 25;
+                    break;
+                case 'C':
+                    seatPricing = 35;
+                    break;
+            }
+        }
+        
         //Getters and Setters
         public void setSeatRange(char seatRange)
         { this.seatRange = seatRange; }
