@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -16,6 +17,11 @@ namespace CinemaProgram
         public static bool SaveUser(string username, string password, string age)
         {
             var filePath = "user.json";
+
+            //Creates a "Relative Path" that goes 3 folders up from the current/starting directory
+            filePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"../../../Data\\user.json");
+            Directory.CreateDirectory(@"../../../Data");   //Creates the directory if it doesnt exist
+            File.AppendAllText(filePath, "");
             //read existing json data
             var jsonData = File.ReadAllText(filePath);
             //de-serialize to object or create new list
@@ -32,10 +38,18 @@ namespace CinemaProgram
 
         public static bool FindUser(string username, string password)
         {
+            var filePath = "user.json";
+
+            //Creates a "Relative Path" that goes 3 folders up from the current/starting directory
+            filePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"../../../Data\\user.json");
+            Directory.CreateDirectory(@"../../../Data");   //Creates the directory if it doesnt exist
+            File.AppendAllText(filePath, "");
             //load json file with all users
-            using (StreamReader r = new StreamReader("user.json"))
+            using (StreamReader r = new StreamReader(filePath))
             {
                 string json = r.ReadToEnd();
+                if(json.Length > 0)
+                { 
                 dynamic users = JsonConvert.DeserializeObject(json);
 
                 //loop over all user objects and check if stored data matches the input data
@@ -49,13 +63,21 @@ namespace CinemaProgram
                         }
                     }
                 }
+                }
                 return false;
             }
         }
 
         public static string GetUserId(string username)
         {
-            using (StreamReader r = new StreamReader("user.json"))
+            var filePath = "user.json";
+
+            //Creates a "Relative Path" that goes 3 folders up from the current/starting directory
+            filePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"../../../Data\\user.json");
+            Directory.CreateDirectory(@"../../../Data");   //Creates the directory if it doesnt exist
+            File.AppendAllText(filePath, "");
+
+            using (StreamReader r = new StreamReader(filePath))
             {
                 string json = r.ReadToEnd();
                 dynamic users = JsonConvert.DeserializeObject(json);
@@ -74,7 +96,14 @@ namespace CinemaProgram
 
         public static string GetUserRole(string username)
         {
-            using (StreamReader r = new StreamReader("user.json"))
+            var filePath = "user.json";
+
+            //Creates a "Relative Path" that goes 3 folders up from the current/starting directory
+            filePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"../../../Data\\user.json");
+            Directory.CreateDirectory(@"../../../Data");   //Creates the directory if it doesnt exist
+            File.AppendAllText(filePath, "");
+
+            using (StreamReader r = new StreamReader(filePath))
             {
                 string json = r.ReadToEnd();
                 dynamic users = JsonConvert.DeserializeObject(json);
@@ -89,6 +118,7 @@ namespace CinemaProgram
                 }
                 return null;
             }
+            
         }
     }
 }
