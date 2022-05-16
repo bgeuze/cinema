@@ -203,10 +203,16 @@ namespace CinemaProgram
             var result = Interface.UserReservations(GetUserId());
 
             var table = new ConsoleTable("ID", "Bar", "Stoel", "Naam", "Datum");
-
             foreach (var reservation in (dynamic)result)
             {
-                table.AddRow($"{reservation.Id}", $"{reservation.BarReservation}", $"{reservation.SeatList}", $"{reservation.Name}", $"{reservation.CreatedDateTime}");
+                string seattext = "";
+                foreach (var seat in reservation.SeatList)
+                {
+                    seattext += seat.SeatIndex + ", ";
+                }
+
+                seattext = seattext.Remove(seattext.Length - 2);
+                table.AddRow($"{reservation.Id}", $"{reservation.BarReservation}", seattext, $"{reservation.Name}", $"{reservation.CreatedDateTime}");
             }
 
             table.Write();

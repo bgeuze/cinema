@@ -19,9 +19,9 @@ namespace CinemaProgram
             var filePath = "user.json";
 
             //Creates a "Relative Path" that goes 3 folders up from the current/starting directory
-            filePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"../../../Data\\user.json");
-            Directory.CreateDirectory(@"../../../Data");   //Creates the directory if it doesnt exist
-            File.AppendAllText(filePath, "");
+            filePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"./Data\\user.json");
+            Directory.CreateDirectory(@"./Data");   //Creates the directory if it doesnt exist
+            File.AppendAllText(filePath, ""); //Opens the file and writes the content to it creates it if it doesnt exist
             //read existing json data
             var jsonData = File.ReadAllText(filePath);
             //de-serialize to object or create new list
@@ -41,8 +41,8 @@ namespace CinemaProgram
             var filePath = "user.json";
 
             //Creates a "Relative Path" that goes 3 folders up from the current/starting directory
-            filePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"../../../Data\\user.json");
-            Directory.CreateDirectory(@"../../../Data");   //Creates the directory if it doesnt exist
+            filePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"./Data\\user.json");
+            Directory.CreateDirectory(@"./Data");   //Creates the directory if it doesnt exist
             File.AppendAllText(filePath, "");
             //load json file with all users
             using (StreamReader r = new StreamReader(filePath))
@@ -73,8 +73,8 @@ namespace CinemaProgram
             var filePath = "user.json";
 
             //Creates a "Relative Path" that goes 3 folders up from the current/starting directory
-            filePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"../../../Data\\user.json");
-            Directory.CreateDirectory(@"../../../Data");   //Creates the directory if it doesnt exist
+            filePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"./Data\\user.json");
+            Directory.CreateDirectory(@"./Data");   //Creates the directory if it doesnt exist
             File.AppendAllText(filePath, "");
 
             using (StreamReader r = new StreamReader(filePath))
@@ -99,8 +99,8 @@ namespace CinemaProgram
             var filePath = "user.json";
 
             //Creates a "Relative Path" that goes 3 folders up from the current/starting directory
-            filePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"../../../Data\\user.json");
-            Directory.CreateDirectory(@"../../../Data");   //Creates the directory if it doesnt exist
+            filePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"./Data\\user.json");
+            Directory.CreateDirectory(@"./Data");   //Creates the directory if it doesnt exist
             File.AppendAllText(filePath, "");
 
             using (StreamReader r = new StreamReader(filePath))

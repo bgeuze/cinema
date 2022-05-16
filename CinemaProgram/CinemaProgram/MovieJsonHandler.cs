@@ -9,6 +9,8 @@ using ConsoleTables;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
+using System.Reflection;
+
 namespace CinemaProgram
 {
     internal class MovieJsonHandler
@@ -16,6 +18,12 @@ namespace CinemaProgram
         public static bool Schema()
         {
             var filePath = "schema.json";
+
+            //Creates a "Relative Path" that goes 3 folders up from the current/starting directory
+            filePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"./Data\\schema.json");
+            Directory.CreateDirectory(@"./Data");   //Creates the directory if it doesnt exist
+            File.AppendAllText(filePath, ""); //Opens the file and writes the content to it creates it if it doesnt exsist
+
             //read existing json data
             var jsonData = File.ReadAllText(filePath);
             //de-serialize to object or create new list
@@ -40,6 +48,11 @@ namespace CinemaProgram
         public static bool NowPlayingMovies()
         {
             var filePath = "movies.json";
+
+            //Creates a "Relative Path" that goes 3 folders up from the current/starting directory
+            filePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"./Data\\movie.json");
+            Directory.CreateDirectory(@"./Data");   //Creates the directory if it doesnt exist
+            File.AppendAllText(filePath, ""); //Opens the file and writes the content to it creates it if it doesnt exsist
             //load nowplaying movies from themoviedb endpoint
             using (WebClient wc = new WebClient())
             {
@@ -69,6 +82,11 @@ namespace CinemaProgram
         public static bool AddReservation(string username, string userId, bool barReservation, Seat[] seatlist)
         {
             var filePath = "reservations.json";
+
+            //Creates a "Relative Path" that goes 3 folders up from the current/starting directory
+            filePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"./Data\\reservations.json");
+            Directory.CreateDirectory(@"./Data");   //Creates the directory if it doesnt exist
+            File.AppendAllText(filePath, ""); //Opens the file and writes the content to it creates it if it doesnt exsist
             //read existing json data
             var jsonData = File.ReadAllText(filePath);
             //de-serialize to object or create new list
@@ -85,6 +103,11 @@ namespace CinemaProgram
         public static List<Reservation> UserReservations(string userId)
         {
             var filePath = "reservations.json";
+
+            //Creates a "Relative Path" that goes 3 folders up from the current/starting directory
+            filePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"./Data\\reservations.json");
+            Directory.CreateDirectory(@"./Data");   //Creates the directory if it doesnt exist
+            File.AppendAllText(filePath, ""); //Opens the file and writes the content to it creates it if it doesnt exsist
             //read existing json data
             var jsonData = File.ReadAllText(filePath);
             //de-serialize to object or create new list

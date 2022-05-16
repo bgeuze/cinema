@@ -709,19 +709,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Mischa\\.nuget\\packages\\": {}
+    "C:\\Users\\Misch\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Mischa\\IdeaProjects\\RAMS-JAVA\\cinema\\CinemaProgram\\CinemaProgram\\CinemaProgram.csproj",
+      "projectUniqueName": "C:\\Users\\Misch\\Documents\\GitHub\\cinema\\CinemaProgram\\CinemaProgram\\CinemaProgram.csproj",
       "projectName": "CinemaProgram",
-      "projectPath": "C:\\Users\\Mischa\\IdeaProjects\\RAMS-JAVA\\cinema\\CinemaProgram\\CinemaProgram\\CinemaProgram.csproj",
-      "packagesPath": "C:\\Users\\Mischa\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Mischa\\IdeaProjects\\RAMS-JAVA\\cinema\\CinemaProgram\\CinemaProgram\\obj\\",
+      "projectPath": "C:\\Users\\Misch\\Documents\\GitHub\\cinema\\CinemaProgram\\CinemaProgram\\CinemaProgram.csproj",
+      "packagesPath": "C:\\Users\\Misch\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Misch\\Documents\\GitHub\\cinema\\CinemaProgram\\CinemaProgram\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Mischa\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Misch\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -771,7 +771,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.300\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
       }
     }
   }
