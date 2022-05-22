@@ -96,7 +96,7 @@ namespace CinemaProgram
         private static bool TestUserCreationAndFetching()
         {
             //JsonHandler jsonHandler = new JsonHandler();
-            UserJsonHandler.SaveUser("TestUser", "TestPassword", "20");
+            UserJsonHandler.SaveUser("TestUser", "TestPassword", new DateTime());
             return UserJsonHandler.FindUser("TestUser", "TestPassword");
         }
 

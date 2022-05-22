@@ -37,6 +37,18 @@ namespace CinemaProgram
         {
             return Role;
         }
+        public static int getUserAge(DateTime birthday)
+        {
+
+            var today = DateTime.Today;
+
+
+            var age = today.Year - birthday.Year;
+
+
+            if (birthday.Date > today.AddYears(-age)) age--;
+            return age;
+        }
 
         public static async Task LoginRegisterAsync()
         {
@@ -81,7 +93,7 @@ namespace CinemaProgram
                 bool AanmeldBool = false;
                 string username = "";
                 string password = "";
-                int age = 0;
+                DateTime birthday = new DateTime();
                 Console.Clear();
                 while (AanmeldBool == false)
                 {
@@ -91,12 +103,12 @@ namespace CinemaProgram
                     password = Console.ReadLine();
                     Console.WriteLine("Bevestig uw wachtwoord.");
                     string password2 = Console.ReadLine();
-                    Console.WriteLine("Wat is uw leeftijd");
-                    age = int.Parse(Console.ReadLine());
+                    Console.WriteLine("Wat is uw Geboortedatum? DD/MM/YYYY");
+                    birthday = DateTime.Parse(Console.ReadLine());
                     if (password == password2)
                     {
                         AanmeldBool = true;
-                        if (age < 13)
+                        if (getUserAge(birthday) < 13)
                         {
                             Console.Clear();
                             Console.WriteLine("Aanmelden gefaald, je bent te jong voor een account.");
@@ -107,7 +119,7 @@ namespace CinemaProgram
                     {
                         Console.Clear();
                         Console.WriteLine("Aanmelden gefaald, wachtwoorden komen niet overheen.");
-                        if (age < 13)
+                        if (getUserAge(birthday) < 13)
                         {
                             Console.Clear();
                             Console.WriteLine("Aanmelden gefaald, je bent te jong voor een account.");
@@ -115,7 +127,7 @@ namespace CinemaProgram
                         }
                     }
                 }
-                while (Interface.Register(username, password, age.ToString()) != true)
+                while (Interface.Register(username, password, birthday) != true)
                 {
                     Console.WriteLine("Registreren gefaald, probeer het opnieuw.");
                     Console.WriteLine("Voer een gebruikersnaam in.");
@@ -225,11 +237,11 @@ namespace CinemaProgram
             var users = JsonConvert.DeserializeObject<List<User>>(jsonData)
                                     ?? new List<User>();
 
-            var table = new ConsoleTable("ID", "Gebruikersnaam", "Wachtwoord", "Leeftijd", "Rol", "Account sinds");
+            var table = new ConsoleTable("ID", "Gebruikersnaam", "Wachtwoord", "Leeftijd", "Geboortedatum", "Rol", "Account sinds");
 
             foreach (var user in (dynamic)users)
             {
-                table.AddRow($"{user.Id}", $"{user.Username}", $"{user.Password}", $"{user.Age}", $"{user.Role}", $"{user.CreatedDateTime}");
+                table.AddRow($"{user.Id}", $"{user.Username}", $"{user.Password}", $"{ConsoleProgram.getUserAge(user.Birthday)}", $"{user.Birthday.ToShortDateString()}", $"{user.Role}", $"{user.CreatedDateTime}");
             }
 
             table.Write();

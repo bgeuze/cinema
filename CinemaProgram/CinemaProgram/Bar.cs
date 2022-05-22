@@ -8,5 +8,8 @@ namespace CinemaProgram
 {
     public class Bar
     {
+        public int TableNumber;
+        public bool Available;
+        public int MaxSeatsPerTable = 4;
     }
 }
