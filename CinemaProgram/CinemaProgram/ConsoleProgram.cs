@@ -218,12 +218,33 @@ namespace CinemaProgram
 
             foreach (var reservation in (dynamic)result)
             {
-                table.AddRow($"{reservation.Id}", $"{reservation.BarReservation}", $"{reservation.SeatList}", $"{reservation.Name}", $"{reservation.CreatedDateTime}");
+                string seattext = "";
+                foreach (var seat in reservation.SeatList)
+                {
+                    seattext += seat.SeatIndex + ", ";
+                }
+
+                seattext = seattext.Remove(seattext.Length - 2);
+                table.AddRow($"{reservation.Id}", $"{reservation.BarReservation}", seattext, $"{reservation.Name}", $"{reservation.CreatedDateTime}");
             }
 
             table.Write();
 
-            GoToHome();
+            var table2 = new ConsoleTable("", "");
+            table2.AddRow("1", "Verwijder reservering");
+            table2.AddRow("2", "Terug naar home");
+            table2.Write();
+
+            string ans = Console.ReadLine();
+
+            if (ans == "1")
+            {
+                RemoveReservation();
+            }
+            else if (ans == "2")
+            {
+                HomeScreen();
+            }
 
             return true;
         }
@@ -262,6 +283,13 @@ namespace CinemaProgram
             {
                 HomeScreen();
             }
+        }
+
+        public static void RemoveReservation()
+        {
+            Console.WriteLine("Geef het reserverings ID");
+            string reservationID = Console.ReadLine();
+            Interface.RemoveReservation(reservationID);
         }
 
         public static void HomeScreen()
@@ -468,7 +496,7 @@ namespace CinemaProgram
                     pos2 = Int32.Parse(seatChoice2!) - 1;//Interface.ToNumberPosition(seatChoice2!.ToUpper());
                     chosenOnes.Add(tseats[pos1][pos2]);
                     tseats[pos1][pos2].setSeatAvailability(false);
-                    tseats[pos1][pos2].SeatIndex = pos1.ToString() + pos2.ToString();
+                    tseats[pos1][pos2].SeatIndex = "R: " + pos1.ToString() + " S:" + pos2.ToString();
                 }
             }
 

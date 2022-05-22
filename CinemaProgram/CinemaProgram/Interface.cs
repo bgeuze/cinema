@@ -40,6 +40,11 @@ namespace CinemaProgram
             return MovieJsonHandler.AddReservation(username, userId, barReservation, seatlist);
         }
 
+        public static bool RemoveReservation(string Id)
+        {
+            return MovieJsonHandler.RemoveReservation(Id);
+        }
+
         public static List<Reservation> UserReservations(string userId)
         {
             return MovieJsonHandler.UserReservations(userId);

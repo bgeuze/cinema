@@ -58,7 +58,7 @@ namespace CinemaProgram
             //de-serialize to object or create new list
             var movieList = JsonConvert.DeserializeObject<List<Movie>>(jsonData) ?? new List<Movie>();
 
-            movieList.Add(new Movie(215, "Baruchs Adventure Movie", "16-02-2022", "Adventure movie about the life of Baruch :)"));
+            movieList.Add(new Movie(215, "Baruchs Adventure Movie", "16-02-2022", "Adventure movie about the life of Baruch :)", true));
 
             jsonData = JsonConvert.SerializeObject(movieList);
             File.WriteAllText(filePath, jsonData);
@@ -99,6 +99,35 @@ namespace CinemaProgram
                 }
             }
             return userReservations;
+        }
+
+        public static bool RemoveReservation(string Id)
+        {
+            var filePath = "reservations.json";
+            //read existing json data
+            var jsonData = File.ReadAllText(filePath);
+            //de-serialize to object or create new list
+            var reservationList = JsonConvert.DeserializeObject<List<Reservation>>(jsonData) ?? new List<Reservation>();
+
+            //load json file with all reservations
+            using (StreamReader r = new StreamReader("reservations.json"))
+            {
+                string json = r.ReadToEnd();
+                dynamic reservations = JsonConvert.DeserializeObject(json);
+
+                //loop over all reservations objects and check if stored data matches the given param, and delete the reservation
+                foreach (var reservation in reservationList)
+                {
+                    if (Id == Convert.ToString(reservation.Id))
+                    {
+                        reservationList.Remove(reservation);
+                        jsonData = JsonConvert.SerializeObject(reservationList);
+                        File.WriteAllText(filePath, jsonData);
+                        return true;
+                    }
+                }
+                return false;
+            }
         }
     }
 }
