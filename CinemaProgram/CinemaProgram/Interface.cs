@@ -29,7 +29,10 @@ namespace CinemaProgram
         public static string GetUserRole(string username) {
             return UserJsonHandler.GetUserRole(username);
         }
-
+        public static DateTime GetUserLeeftijd(string username)
+        {
+            return UserJsonHandler.GetUserLeeftijd(username);
+        }
         public static bool NowPlayingMovies()
         {
             return MovieJsonHandler.NowPlayingMovies();

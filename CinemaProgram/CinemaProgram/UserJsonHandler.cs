@@ -71,7 +71,24 @@ namespace CinemaProgram
                 return null;
             }
         }
+        public static DateTime GetUserLeeftijd(string username)
+        {
+            using (StreamReader r = new StreamReader("user.json"))
+            {
+                string json = r.ReadToEnd();
+                dynamic users = JsonConvert.DeserializeObject(json);
 
+                //search for username and return user id
+                foreach (var user in users)
+                {
+                    if (username == Convert.ToString(user.Username))
+                    {
+                        return user.Birthday;
+                    }
+                }
+                return DateTime.Now;
+            }
+        }
         public static string GetUserRole(string username)
         {
             using (StreamReader r = new StreamReader("user.json"))

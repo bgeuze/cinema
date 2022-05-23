@@ -15,12 +15,13 @@ namespace CinemaProgram
         public static string Username;
         public static string UserId;
         public static string Role;
-
+        public static DateTime Birthday;
         public static void SetActiveUser(string username)
         {
             Username = username;
             UserId = Interface.GetUserId(username);
             Role = Interface.GetUserRole(username);
+            Birthday = Interface.GetUserLeeftijd(username);
         }
 
         public static string GetUsername()
@@ -28,6 +29,10 @@ namespace CinemaProgram
             return Username;
         }
 
+        public static DateTime GetUserLeeftijd()
+        {
+            return Birthday;
+        }
         public static string GetUserId()
         {
             return UserId;
@@ -72,18 +77,39 @@ namespace CinemaProgram
             if (ant == "inloggen")
             {
                 Console.Clear();
-                Console.WriteLine("Wat is uw gebruikersnaam?");
-                string username = Console.ReadLine();
-                Console.WriteLine("Wat is uw wachtwoord?");
-                string password = Console.ReadLine();
+                string username = null;
+                var pass = "";
 
-                while (Interface.Login(username, password) != true)
+                while (Interface.Login(username, pass) != true)
                 {
-                    Console.WriteLine("Inloggen gefaald, probeer het opnieuw.");
                     Console.WriteLine("Wat is uw gebruikersnaam?");
                     username = Console.ReadLine();
                     Console.WriteLine("Wat is uw wachtwoord?");
-                    password = Console.ReadLine();
+                    pass = string.Empty;
+                    ConsoleKey key;
+                    do
+                    {
+                        var keyInfo = Console.ReadKey(intercept: true);
+                        key = keyInfo.Key;
+
+                        if (key == ConsoleKey.Backspace && pass.Length > 0)
+                        {
+                            Console.Write("\b \b");
+                            pass = pass[0..^1];
+                        }
+                        else if (!char.IsControl(keyInfo.KeyChar))
+                        {
+                            Console.Write("*");
+                            pass += keyInfo.KeyChar;
+                        }
+                    } while (key != ConsoleKey.Enter);
+                    if (Interface.Login(username, pass) != true)
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Inloggen gefaald, probeer het opnieuw.");
+                        username = null;
+                        pass = "";
+                    };
                 }
                 SetActiveUser(username);
                 HomeScreen();
@@ -160,28 +186,48 @@ namespace CinemaProgram
 
         public static void AddReservation()
         {
-            bool barReservation;
-            string ans;
-
-            Console.WriteLine("Wilt u een plek aan de bar reserveren?");
-            var table = new ConsoleTable("", "");
-            table.AddRow("1", "Ja");
-            table.AddRow("2", "Nee");
-            table.Write();
-
-            ans = Console.ReadLine();
-
-            if (ans == "1")
+            bool[] Test = { true, false };
+            Console.WriteLine("Welke Film wilt u kijken?");
+            int ans2 = int.Parse(Console.ReadLine());
+            int minAge = 13;
+            int gekozenFilmIndex = ans2 - 1;
+            if (Test[gekozenFilmIndex] == true)
             {
-                barReservation = true;
+                minAge = 16;
+            };
+            if (getUserAge(GetUserLeeftijd()) >= minAge)
+            {
+                Console.WriteLine("Oud Genoeg");
+                bool barReservation;
+                string ans;
+
+                Console.WriteLine("Wilt u een plek aan de bar reserveren?");
+                var table = new ConsoleTable("", "");
+                table.AddRow("1", "Ja");
+                table.AddRow("2", "Nee");
+                table.Write();
+                
+                ans = Console.ReadLine();
+
+                if (ans == "1")
+                {
+                    barReservation = true;
+                }
+                else
+                {
+                    barReservation = false;
+                }
+
+                Interface.AddReservation(GetUsername(), GetUserId(), barReservation, SeatSelectionScreen());
+                GoToHome();
             }
             else
             {
-                barReservation = false;
-            }
+                
+                Console.WriteLine("Je bent te jong om deze film bij te wonen.");
+                HomeScreen();
+            };
 
-            Interface.AddReservation(GetUsername(), GetUserId(), barReservation, SeatSelectionScreen());
-            GoToHome();
         }
 
         public static void NowPlayingMovies()
