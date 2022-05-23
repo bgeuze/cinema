@@ -37,14 +37,11 @@ namespace CinemaProgram
         {
             return Role;
         }
+
         public static int getUserAge(DateTime birthday)
         {
-
             var today = DateTime.Today;
-
-
             var age = today.Year - birthday.Year;
-
 
             if (birthday.Date > today.AddYears(-age)) age--;
             return age;
@@ -104,7 +101,7 @@ namespace CinemaProgram
                     Console.WriteLine("Bevestig uw wachtwoord.");
                     string password2 = Console.ReadLine();
                     Console.WriteLine("Wat is uw Geboortedatum? DD/MM/YYYY");
-                    birthday = DateTime.Parse(Console.ReadLine());
+                    birthday = DateTime.ParseExact(Console.ReadLine(), "dd/MM/yyyy", null);
                     if (password == password2)
                     {
                         AanmeldBool = true;
@@ -194,8 +191,7 @@ namespace CinemaProgram
             //read existing json data
             var jsonData = File.ReadAllText(filePath);
             //de-serialize to object or create new list
-            var movieList = JsonConvert.DeserializeObject<List<Movie>>(jsonData)
-                                    ?? new List<Movie>();
+            var movieList = JsonConvert.DeserializeObject<List<Movie>>(jsonData) ?? new List<Movie>();
 
             var table = new ConsoleTable("ID", "Title", "Release Date");
 
@@ -255,8 +251,7 @@ namespace CinemaProgram
             //read all json data
             var jsonData = File.ReadAllText(filePath);
             //de-serialize to object or create new list
-            var users = JsonConvert.DeserializeObject<List<User>>(jsonData)
-                                    ?? new List<User>();
+            var users = JsonConvert.DeserializeObject<List<User>>(jsonData) ?? new List<User>();
 
             var table = new ConsoleTable("ID", "Gebruikersnaam", "Wachtwoord", "Leeftijd", "Geboortedatum", "Rol", "Account sinds");
 
@@ -481,7 +476,7 @@ namespace CinemaProgram
                     Console.WriteLine("Please enter seat sir, you have " + seatAmount + " choice left: ");
                 }
                 /*For everything*/
-                else // there is mastercard
+                else // there is mastercard and ingrid
                 {
                     Console.WriteLine("Please enter seat sir, you have " + seatAmount + " choices left: ");
                 }

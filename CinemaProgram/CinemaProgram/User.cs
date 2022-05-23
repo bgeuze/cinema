@@ -37,12 +37,8 @@ namespace CinemaProgram
 
         internal int getUserAge()
         {
-            
             var today = DateTime.Today;
-
-            
             var age = today.Year - Birthday.Year;
-
             
             if (Birthday.Date > today.AddYears(-age)) age--;
             return age;
