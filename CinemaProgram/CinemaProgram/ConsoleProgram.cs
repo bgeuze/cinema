@@ -242,6 +242,11 @@ namespace CinemaProgram
             Interface.NewSchema();
         }
 
+    //    public static void hall1()
+    //    {
+    //        Interface.hall1();
+    //    }
+
         public static void GoToHome()
         {
             Console.WriteLine("\n Press 0 to go back to the menu.");
@@ -249,6 +254,10 @@ namespace CinemaProgram
             if (ans == "0")
             {
                 HomeScreen();
+            } else
+            {
+                Console.WriteLine("\n You entered the wrong number.");
+                GoToHome();
             }
         }
 
