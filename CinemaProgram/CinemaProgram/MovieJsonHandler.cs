@@ -13,36 +13,6 @@ namespace CinemaProgram
 {
     public class MovieJsonHandler
     {
-        public static bool Schema()
-        {
-            var filePath = "schema.json";
-            //read existing json data
-            var jsonData = File.ReadAllText(filePath);
-            //de-serialize to object or create new list
-            var schemaList = JsonConvert.DeserializeObject<List<Schema>>(jsonData)
-                                  ?? new List<Schema>();
-            DayOfWeek day = (DayOfWeek)DateTime.Today.Day;
-            DayOfWeek month = (DayOfWeek)DateTime.Today.Month;
-            DayOfWeek year = (DayOfWeek)DateTime.Today.Year;
-
-
-            System.Globalization.DateTimeFormatInfo dfi = System.Globalization.DateTimeFormatInfo.CurrentInfo;
-            DateTime date = new DateTime((int)year, (int)month, (int)day);
-            System.Globalization.Calendar cal = dfi.Calendar;
-            string WeekNum = cal.GetWeekOfYear(date, dfi.CalendarWeekRule, dfi.FirstDayOfWeek).ToString();
-
-            int Jday = DateTime.Now.Day;
-            int Jmonth = DateTime.Today.Month;
-            DayOfWeek Jyear = (DayOfWeek)DateTime.Today.Year;
-
-            schemaList.Add(new Schema(Jday.ToString(), Jmonth.ToString(), Jyear.ToString(), WeekNum.ToString()));
-            jsonData = JsonConvert.SerializeObject(schemaList);
-            File.WriteAllText(filePath, jsonData);
-
-            printSchema();
-            
-            return true;
-        }
         public static void HallsSchema() {
 
             var filePath = "filmsforschema.json";
@@ -85,12 +55,10 @@ namespace CinemaProgram
                     }
                 table.Write();
             }
-            
         }
 
         public static void Movietime()
         {
-            
             var filePath = "filmsforschema.json";
             //read existing json data
             var jsonData = File.ReadAllText(filePath);
