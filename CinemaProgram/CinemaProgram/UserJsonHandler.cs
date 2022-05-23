@@ -11,9 +11,9 @@ using Newtonsoft.Json.Linq;
 
 namespace CinemaProgram
 {
-    internal class UserJsonHandler
+    public class UserJsonHandler
     {
-        public static bool SaveUser(string username, string password, string age)
+        public static bool SaveUser(string username, string password, DateTime birthday)
         {
             var filePath = "user.json";
             //read existing json data
@@ -23,7 +23,7 @@ namespace CinemaProgram
                                   ?? new List<User>();
 
             //add new user to the list
-            userList.Add(new User(username, password, age, "User"));
+            userList.Add(new User(username, password, birthday, "User"));
             jsonData = JsonConvert.SerializeObject(userList);
             File.WriteAllText(filePath, jsonData);
 

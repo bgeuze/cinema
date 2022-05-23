@@ -9,18 +9,18 @@ namespace CinemaProgram
         public string Id { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
-        public string Age { get; set; }
+        public DateTime Birthday { get; set; }
         public string Role { get; set; }
         public DateTime CreatedDateTime { get; set; }
 
         DateTime DateTime = DateTime.Now;
 
-        public User(string username, string password, string age, string role)
+        public User(string username, string password, DateTime birthday, string role)
         {
             Id = Guid.NewGuid().ToString("N");
             Username = username;
             Password = password;
-            Age = age;
+            Birthday = birthday;
             Role = role;
             CreatedDateTime = DateTime;
         }
@@ -35,9 +35,17 @@ namespace CinemaProgram
             return Id;
         }
 
-        internal string getUserAge()
+        internal int getUserAge()
         {
-            return Age;
+            
+            var today = DateTime.Today;
+
+            
+            var age = today.Year - Birthday.Year;
+
+            
+            if (Birthday.Date > today.AddYears(-age)) age--;
+            return age;
         }
     }
 }

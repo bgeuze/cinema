@@ -6,12 +6,32 @@ using System.Threading.Tasks;
 
 namespace CinemaProgram
 {
-    internal class Seat
+    public class Seat
     {
         public char seatRange = 'A';
         public bool seatAvailability = true;
         public double seatPricing = 00.00;
-
+        public string SeatIndex = "0";
+        public bool isValid;
+        //Constructor
+        public Seat(char c,bool valid = true)
+        {
+            this.seatRange = c;
+            switch (c)
+            {
+                case 'A':
+                    seatPricing = 15;
+                    break;
+                case 'B':
+                    seatPricing = 25;
+                    break;
+                case 'C':
+                    seatPricing = 35;
+                    break;
+            }
+            this.isValid = valid;
+        }
+        
         //Getters and Setters
         public void setSeatRange(char seatRange)
         { this.seatRange = seatRange; }

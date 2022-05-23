@@ -6,7 +6,40 @@ using System.Threading.Tasks;
 
 namespace CinemaProgram
 {
-    internal class Bar
+    public class Bar
     {
+
+        public int TableNumber;
+        public bool Available;
+        public int MaxSeatsPerTable = 4;
+
+        public Bar(int tablesAmount)
+        {
+            this.TableNumber = tablesAmount;
+            this.Available = true;
+        }
+
+        public int assignTable(int persons)
+        {
+            if (TableNumber <= 0 && !Available)
+            {
+                Available = false; return 0;
+            }
+
+            int requiredTables = (persons + MaxSeatsPerTable - 1) / MaxSeatsPerTable;
+            Console.WriteLine("Tables needed: " + requiredTables + " Tables Available: " + TableNumber);
+            if (TableNumber >= requiredTables)
+            {
+                TableNumber -= requiredTables;
+                return requiredTables;
+            }
+            return 0;
+        }
+
+        public void orderCancelation(int tables)
+        {
+            this.TableNumber += tables;
+            Console.WriteLine("Tables cancelled: " + tables + " Tables Available: " + TableNumber);
+        }
     }
 }

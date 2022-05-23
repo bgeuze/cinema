@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CinemaProgram
 {
-    internal class Interface
+    public class Interface
     {
         private ArrayList cinemas = new ArrayList();
 
@@ -16,7 +16,7 @@ namespace CinemaProgram
             return UserJsonHandler.FindUser(username, password);
         }
 
-        public static bool Register(string username, string password, string age)
+        public static bool Register(string username, string password, DateTime age)
         {
             return UserJsonHandler.SaveUser(username, password, age);
         }
@@ -35,9 +35,14 @@ namespace CinemaProgram
             return MovieJsonHandler.NowPlayingMovies();
         }
 
-        public static bool AddReservation(string username, string userId, bool barReservation)
+        public static bool AddReservation(string username, string userId, bool barReservation, Seat[] seatlist)
         {
-            return MovieJsonHandler.AddReservation(username, userId, barReservation);
+            return MovieJsonHandler.AddReservation(username, userId, barReservation, seatlist);
+        }
+
+        public static bool RemoveReservation(string Id)
+        {
+            return MovieJsonHandler.RemoveReservation(Id);
         }
 
         public static List<Reservation> UserReservations(string userId)
@@ -45,14 +50,14 @@ namespace CinemaProgram
             return MovieJsonHandler.UserReservations(userId);
         }
 
-        internal Cinema getCinema(string v)
+        public Cinema getCinema(string v)
         {
             //return JsonHandler.getMovie(v);
             return null;
         }
 
         //Creates a cinema and checks if there is no duplicate
-        internal void newCinema(string name, ArrayList halls)
+        public void newCinema(string name, ArrayList halls)
         {
             CinemaJsonHandler.NewCinema(name, halls);
         }
@@ -60,6 +65,29 @@ namespace CinemaProgram
         public static bool NewSchema()
         {
             return MovieJsonHandler.Schema();
+        }
+
+        //Converts an arraylist to an array so it can be saved in/to the JSON
+        public static Seat[] ArrayListToArray(List<Seat> aL)
+        {
+            Seat[] seatArray = aL.ToArray();
+            return seatArray;
+        }
+
+        //Translates the given letter to the correct array number
+        public static int ToNumberPosition(string seatChoice2)
+        {
+            return seatChoice2 switch
+            {
+                "A" => 0,
+                "B" => 1,
+                "C" => 2,
+                "D" => 3,
+                "E" => 4,
+                "F" => 5,
+                "G" => 6,
+                _ => -1
+            };
         }
     }
 }

@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\daan0\\HvRotterdam\\Jaar_1\\Op3\\Project\\cinema\\cinema\\CinemaProgram\\CinemaProgram\\CinemaProgram.csproj": {}
+    "C:\\Users\\Misch\\Documents\\GitHub\\cinema\\CinemaProgram\\CinemaProgram\\CinemaProgram.csproj": {}
   },
   "projects": {
-    "D:\\daan0\\HvRotterdam\\Jaar_1\\Op3\\Project\\cinema\\cinema\\CinemaProgram\\CinemaProgram\\CinemaProgram.csproj": {
+    "C:\\Users\\Misch\\Documents\\GitHub\\cinema\\CinemaProgram\\CinemaProgram\\CinemaProgram.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\daan0\\HvRotterdam\\Jaar_1\\Op3\\Project\\cinema\\cinema\\CinemaProgram\\CinemaProgram\\CinemaProgram.csproj",
+        "projectUniqueName": "C:\\Users\\Misch\\Documents\\GitHub\\cinema\\CinemaProgram\\CinemaProgram\\CinemaProgram.csproj",
         "projectName": "CinemaProgram",
-        "projectPath": "D:\\daan0\\HvRotterdam\\Jaar_1\\Op3\\Project\\cinema\\cinema\\CinemaProgram\\CinemaProgram\\CinemaProgram.csproj",
-        "packagesPath": "C:\\Users\\daan0\\.nuget\\packages\\",
-        "outputPath": "D:\\daan0\\HvRotterdam\\Jaar_1\\Op3\\Project\\cinema\\cinema\\CinemaProgram\\CinemaProgram\\obj\\",
+        "projectPath": "C:\\Users\\Misch\\Documents\\GitHub\\cinema\\CinemaProgram\\CinemaProgram\\CinemaProgram.csproj",
+        "packagesPath": "C:\\Users\\Misch\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Misch\\Documents\\GitHub\\cinema\\CinemaProgram\\CinemaProgram\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\daan0\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Misch\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -64,7 +64,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     }
