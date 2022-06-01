@@ -11,10 +11,10 @@ namespace CinemaProgram
         public string StartTime { get; set; }
 
 
-        public FilmsforSchema(string hallnumber, string movietitle, string startTime)
+        public FilmsforSchema(string hallnumber, string title, string startTime)
         {
             HallNumber = hallnumber;
-            MovieTitle = movietitle;
+            MovieTitle = title;
             StartTime = startTime;
 
          }

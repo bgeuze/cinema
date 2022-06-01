@@ -206,6 +206,45 @@ namespace CinemaProgram
 
         }
 
+        public static bool AllReservations()
+        {
+            var result = Interface.AllReservations();
+
+            var table = new ConsoleTable("ID", "Bar", "Stoel", "Naam", "Datum");
+
+            foreach (var reservation in (dynamic)result)
+            {
+                string seattext = "";
+                foreach (var seat in reservation.SeatList)
+                {
+                    seattext += seat.SeatIndex + ", ";
+                }
+
+                seattext = seattext.Remove(seattext.Length - 2);
+                table.AddRow($"{reservation.Id}", $"{reservation.BarReservation}", seattext, $"{reservation.Name}", $"{reservation.CreatedDateTime}");
+            }
+
+            table.Write();
+
+            var table2 = new ConsoleTable("", "");
+            table2.AddRow("1", "Verwijder reservering");
+            table2.AddRow("2", "Terug naar home");
+            table2.Write();
+
+            string ans = Console.ReadLine();
+
+            if (ans == "1")
+            {
+                RemoveReservation();
+            }
+            else if (ans == "2")
+            {
+                HomeScreen();
+            }
+
+            return true;
+        }
+
         public static bool UserReservations()
         {
             var result = Interface.UserReservations(GetUserId());
@@ -283,7 +322,7 @@ namespace CinemaProgram
         {
             Console.WriteLine("Geef het reserverings ID");
             string reservationID = Console.ReadLine();
-            Interface.RemoveReservation(reservationID);
+            Interface.RemoveReservation(reservationID, GetUsername());
         }
 
         public static void HallsSchema()
@@ -310,6 +349,13 @@ namespace CinemaProgram
                 foreach (var film in (dynamic)MovieList) if ($"{film.HallNumber}" == i.ToString())
                     {
                         string f = $"{film.MovieTitle}";
+
+                        if (f.Length > 25)
+                        {
+                            f = f.Substring(0, 22);
+                            f = f + "...";
+                        }
+
                         string starttime = film.StartTime;
                         table.AddRow(starttime, f, f, f, f, f, f, f);
                         time += 2;
@@ -317,6 +363,13 @@ namespace CinemaProgram
                 foreach (var film in (dynamic)MovieList) if ($"{film.HallNumber}" == i.ToString())
                     {
                         string f = $"{film.MovieTitle}";
+
+                        if (f.Length > 25)
+                        {
+                            f = f.Substring(0, 22);
+                            f = f + "...";
+                        }
+
                         string starttime = film.StartTime;
 
                         string text = film.StartTime;
@@ -524,6 +577,9 @@ namespace CinemaProgram
 
         public static void HomeScreen()
         {
+            //fill the schema with actual playing movies when the user logs in or creates an new account.
+            Interface.FillSchema();
+
             Console.Clear();
             Console.WriteLine("Hallo, " + GetUsername() + " uw rol is " + GetUserRole());
 
@@ -536,7 +592,7 @@ namespace CinemaProgram
                     table.AddRow("1", "Alle films");
                     table.AddRow("2", "Alle gebruikers");
                     table.AddRow("3", "Nieuwe reservering");
-                    table.AddRow("4", "Mijn reserveringen");
+                    table.AddRow("4", "Alle reserveringen");
                     table.AddRow("5", "Nieuw schema");
                     table.Write();
 
@@ -554,7 +610,7 @@ namespace CinemaProgram
                             AddReservation();
                             break;
                         case 4:
-                            UserReservations();
+                            AllReservations();
                             break;
                         case 5:
                             printSchema();

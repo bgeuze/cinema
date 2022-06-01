@@ -131,7 +131,7 @@ namespace CinemaProgram
         private static bool TestAddBar()
         {
             Cinema cinema = interfaceObject.getCinema("Name");
-            cinema.addBar(new Bar());
+            cinema.addBar(new Bar(57));
             if (cinema.getBar() != null)
             {
                 return true;
