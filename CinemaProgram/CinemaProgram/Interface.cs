@@ -29,10 +29,17 @@ namespace CinemaProgram
         public static string GetUserRole(string username) {
             return UserJsonHandler.GetUserRole(username);
         }
+        
         public static DateTime GetUserLeeftijd(string username)
         {
             return UserJsonHandler.GetUserLeeftijd(username);
         }
+
+        public static bool FillSchema()
+        {
+            return MovieJsonHandler.FillSchema();
+        }
+
         public static bool NowPlayingMovies()
         {
             return MovieJsonHandler.NowPlayingMovies();
@@ -43,14 +50,19 @@ namespace CinemaProgram
             return MovieJsonHandler.AddReservation(username, userId, barReservation, seatlist);
         }
 
-        public static bool RemoveReservation(string Id)
+        public static bool RemoveReservation(string Id, string reservationName)
         {
-            return MovieJsonHandler.RemoveReservation(Id);
+            return MovieJsonHandler.RemoveReservation(Id, reservationName);
         }
 
         public static List<Reservation> UserReservations(string userId)
         {
             return MovieJsonHandler.UserReservations(userId);
+        }
+
+        public static List<Reservation> AllReservations()
+        {
+            return MovieJsonHandler.AllReservations();
         }
 
         public Cinema getCinema(string v)
@@ -63,11 +75,6 @@ namespace CinemaProgram
         public void newCinema(string name, ArrayList halls)
         {
             CinemaJsonHandler.NewCinema(name, halls);
-        }
-
-        public static bool NewSchema()
-        {
-            return MovieJsonHandler.Schema();
         }
 
         //Converts an arraylist to an array so it can be saved in/to the JSON

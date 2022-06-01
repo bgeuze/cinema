@@ -13,270 +13,55 @@ namespace CinemaProgram
 {
     public class MovieJsonHandler
     {
-        public static bool Schema()
+        public static bool FillSchema()
         {
-            var filePath = "schema.json";
+            var filePath = "movies.json";
+            var filePath2 = "filmsforschema.json";
+
             //read existing json data
             var jsonData = File.ReadAllText(filePath);
+
             //de-serialize to object or create new list
-            var schemaList = JsonConvert.DeserializeObject<List<Schema>>(jsonData)
-                                  ?? new List<Schema>();
-            DayOfWeek day = (DayOfWeek)DateTime.Today.Day;
-            DayOfWeek month = (DayOfWeek)DateTime.Today.Month;
-            DayOfWeek year = (DayOfWeek)DateTime.Today.Year;
+            var moviesSchema = JsonConvert.DeserializeObject<List<FilmsforSchema>>(jsonData).Take(9) ?? new List<FilmsforSchema>();
+            int k = 1;
+            int tijduur1 = 10;
+            int tijduur2 = 10;
+            int tijduur3 = 10;
 
+            //loop over the objects to add the hallnumber and playing time
+            foreach (var movie in (dynamic)moviesSchema.Take(9))
+            {
+                if(k % 3 == 0)
+                {
+                    movie.HallNumber = "3";
+                    movie.StartTime = $"{tijduur1}:00";
+                    tijduur1 += 2;
+                }
+                else if(k % 3 == 1)
+                {
+                    movie.HallNumber = "2";
+                    movie.StartTime = $"{tijduur2}:00";
+                    tijduur2 += 2;
+                }
+                else
+                {
+                    movie.HallNumber = "1";
+                    movie.StartTime = $"{tijduur3}:00";
+                    tijduur3 += 2;
+                }
+                k += 1;
+            }
 
-            System.Globalization.DateTimeFormatInfo dfi = System.Globalization.DateTimeFormatInfo.CurrentInfo;
-            DateTime date = new DateTime((int)year, (int)month, (int)day);
-            System.Globalization.Calendar cal = dfi.Calendar;
-            string WeekNum = cal.GetWeekOfYear(date, dfi.CalendarWeekRule, dfi.FirstDayOfWeek).ToString();
+            jsonData = JsonConvert.SerializeObject(moviesSchema);
+            File.WriteAllText(filePath2, jsonData);
 
-            int Jday = DateTime.Now.Day;
-            int Jmonth = DateTime.Today.Month;
-            DayOfWeek Jyear = (DayOfWeek)DateTime.Today.Year;
-
-            schemaList.Add(new Schema(Jday.ToString(), Jmonth.ToString(), Jyear.ToString(), WeekNum.ToString()));
-            jsonData = JsonConvert.SerializeObject(schemaList);
-            File.WriteAllText(filePath, jsonData);
-
-            printSchema();
-            
             return true;
-        }
-        public static void HallsSchema() {
-
-            var filePath = "filmsforschema.json";
-            //read existing json data
-            var jsonData = File.ReadAllText(filePath);
-            //de-serialize to object or create new list
-            var MovieList = JsonConvert.DeserializeObject<List<FilmsforSchema>>(jsonData)
-                                  ?? new List<FilmsforSchema>();
-
-            int hallAmount = 0;
-            foreach (var hallnum in (dynamic)MovieList)
-            {
-                hallAmount = int.Parse($"{hallnum.HallNumber}");
-            }
-
-            for (int i = 1; i < hallAmount+1; i++)
-            {
-                Console.WriteLine($"Alle films in zaal {i}.\n");
-                var table = new ConsoleTable("Time", "Maandag", "Dinsdag", "Woensdag", "Donderdag", "Vrijdag", "Zaterdag", "Zondag");
-                int time = 10;
-                foreach (var film in (dynamic)MovieList) if ($"{film.HallNumber}" == i.ToString())
-                    {
-                        string f = $"{film.MovieTitle}";
-                        string starttime = film.StartTime;
-                        table.AddRow(starttime, f, f, f, f, f, f, f);
-                        time += 2;
-                    }
-                foreach (var film in (dynamic)MovieList) if ($"{film.HallNumber}" == i.ToString())
-                    {
-                        string f = $"{film.MovieTitle}";
-                        string starttime = film.StartTime;
-                        
-                        string text = film.StartTime;
-                        string uren = text.Substring(0, text.LastIndexOf(':'));
-                        string minuten = text.Substring(text.LastIndexOf(':') + 1);
-                        int hours = int.Parse(uren) + 7;
-                        string tijd = hours + ":" + minuten;
-                        table.AddRow(tijd, f, f, f, f, f, f, f);
-                        time += 2;
-                    }
-                table.Write();
-            }
-            
-        }
-
-        public static void Movietime()
-        {
-            
-            var filePath = "filmsforschema.json";
-            //read existing json data
-            var jsonData = File.ReadAllText(filePath);
-            //de-serialize to object or create new list
-            var MovieList = JsonConvert.DeserializeObject<List<FilmsforSchema>>(jsonData)
-                                  ?? new List<FilmsforSchema>();
-
-            var table = new ConsoleTable("ID", "Film");
-            int i = 0;
-            foreach (var film in (dynamic)MovieList)
-            {
-                table.AddRow(i, film.MovieTitle);
-                i++;
-            }
-            table.Write();
-            Console.WriteLine("\nTyp het nummer van de film waar u informatie van wilt.");
-            string movieselection = Console.ReadLine();
-            Console.WriteLine(MovieList[int.Parse(movieselection)].MovieTitle);
-            string text = MovieList[int.Parse(movieselection)].StartTime;
-            string uren = text.Substring(0, text.LastIndexOf(':'));
-            string minuten = text.Substring(text.LastIndexOf(':') + 1);
-            int hours = int.Parse(uren) + 7;
-            string tijd = hours + ":" + minuten;
-            Console.WriteLine($"De film draait om {MovieList[int.Parse(movieselection)].StartTime} en om {tijd}");
-            Console.WriteLine($"De film draait in zaal {MovieList[int.Parse(movieselection)].HallNumber}\n");
-
-            jsonData = JsonConvert.SerializeObject(MovieList);
-            File.WriteAllText(filePath, jsonData);
-        }
-        
-        public static void editMovieOnSchema()
-        {
-            var filePath = "filmsforschema.json";
-            //read existing json data
-            var jsonData = File.ReadAllText(filePath);
-            //de-serialize to object or create new list
-            var MovieList = JsonConvert.DeserializeObject<List<FilmsforSchema>>(jsonData)
-                                  ?? new List<FilmsforSchema>();
-
-
-            jsonData = JsonConvert.SerializeObject(MovieList);
-            File.WriteAllText(filePath, jsonData);
-
-            string userselection;
-            var table = new ConsoleTable("ID", "Zaal");
-
-            int hallAmount = 0;
-            foreach (var hallnum in (dynamic)MovieList)
-            {
-                hallAmount = int.Parse($"{hallnum.HallNumber}");
-            }
-            for (int i = 1; i < hallAmount + 1; i++)
-            {
-                table.AddRow(i, $"Edit films uit zaal {i}");
-
-            }
-            table.Write();
-
-            userselection = Console.ReadLine();
-
-            int count = 1;
-            foreach (var film in (dynamic)MovieList) if ($"{film.HallNumber}" == userselection)
-                {
-                    Console.WriteLine(count + ": " + $"{film.MovieTitle}");
-                    count++;
-                }
-
-            Console.WriteLine("Enter the initial of the film you want to change.");
-            string movieselection = Console.ReadLine();
-            count = 1;
-            foreach (var film in (dynamic)MovieList) if ($"{film.HallNumber}" == userselection)
-                {
-                    if (count.ToString() == movieselection)
-                    {
-                        Console.WriteLine($"Are you sure you want to change: {$"{film.MovieTitle}"}.");
-                    }
-                    count++;
-                }
-            Console.WriteLine("\nEnter Yes or No.");
-            string YesOrNo = Console.ReadLine();
-            if (YesOrNo == "yes" || YesOrNo == "Yes") {
-                Console.WriteLine("\nEnter the name of the new Film.");
-            } else if (YesOrNo == "no" || YesOrNo == "No") {
-                printSchema();
-            }
-
-            string newMovie = Console.ReadLine();
-            Console.WriteLine("\nHoelaat draait de film voor het eerst op de dag?");
-            string newTime = Console.ReadLine();
-
-                count = 1;
-                foreach (var film in (dynamic)MovieList) if ($"{film.HallNumber}" == userselection)
-                    {
-                        if (count.ToString() == movieselection)
-                        {
-                            string oldmovie = film.MovieTitle;
-                            Console.WriteLine($"De oude film is {oldmovie} en de nieuwe is {newMovie}");
-                            film.MovieTitle = newMovie;
-                            film.StartTime = newTime;
-                    }
-                        count++;
-                    
-                }
-                jsonData = JsonConvert.SerializeObject(MovieList);
-                File.WriteAllText(filePath, jsonData);
-            }
-
-            public static void AddHall()
-            {
-            var filePath = "filmsforschema.json";
-            //read existing json data
-            var jsonData = File.ReadAllText(filePath);
-            //de-serialize to object or create new list
-            var MovieList = JsonConvert.DeserializeObject<List<FilmsforSchema>>(jsonData)
-                                  ?? new List<FilmsforSchema>();
-
-            int hallAmount = 0;
-            foreach (var hallnum in (dynamic)MovieList)
-            {
-                hallAmount = int.Parse($"{hallnum.HallNumber}");
-            }
-            string tijduren = "10";
-            string tijdminuten = "00";
-            for(int i = 0; i < 3; i++)
-            {
-                MovieList.Add(new FilmsforSchema((hallAmount+1).ToString(), "Plaatshouder tekst", tijduren+":"+tijdminuten));
-                tijduren = (int.Parse(tijduren) + 2).ToString();
-            }
-
-            Console.WriteLine($"U heeft zaal {hallAmount+1} toegevoegd.");
-
-            jsonData = JsonConvert.SerializeObject(MovieList);
-            File.WriteAllText(filePath, jsonData);
-            }
-
-
-            public static void printSchema(){
-            string userselection;
-            var filePath = "filmsforschema.json";
-            //read existing json data
-            var jsonData = File.ReadAllText(filePath);
-            //de-serialize to object or create new list
-            var MovieList = JsonConvert.DeserializeObject<List<FilmsforSchema>>(jsonData)
-                                  ?? new List<FilmsforSchema>();
-            int hallAmount = 0;
-            foreach (var hallnum in (dynamic)MovieList)
-            {
-                hallAmount = int.Parse($"{hallnum.HallNumber}");
-            }
-            var table = new ConsoleTable("ID", "Menu");
-
-            table.AddRow(1, "Zaal overzicht schema");
-            table.AddRow(2, "Film tijd info");
-            table.AddRow(3, "Edit films");
-            table.AddRow(4, "Zaal toevoegen");
-            table.AddRow("0", "Hoofdmenu");
-            table.Write();
-
-                userselection = Console.ReadLine();
-
-            switch (Convert.ToInt32(userselection))
-              {
-                case 1:
-                    HallsSchema();
-                    break;
-                case 2:
-                    Movietime();
-                    break;
-                case 3:
-                    editMovieOnSchema();
-                    break;
-                case 4:
-                    AddHall();
-                    break;
-                case 0:
-                      ConsoleProgram.HomeScreen();
-                      break;
-            }
-            printSchema();
-            jsonData = JsonConvert.SerializeObject(MovieList);
-            File.WriteAllText(filePath, jsonData);
         }
 
         public static bool NowPlayingMovies()
         {
             var filePath = "movies.json";
+           
             //load nowplaying movies from themoviedb endpoint
             using (WebClient wc = new WebClient())
             {
@@ -284,21 +69,23 @@ namespace CinemaProgram
 
                 var parsedJson = JObject.Parse(json);
                 var resultsJson = parsedJson["results"].ToString();
-                var allMovies = JsonConvert.DeserializeObject(resultsJson);
 
+                var allMovies = JsonConvert.DeserializeObject(resultsJson);
                 resultsJson = JsonConvert.SerializeObject(allMovies);
                 File.WriteAllText(filePath, resultsJson);
+
+                //var moviesSchema = JsonConvert.DeserializeObject<List<FilmsforSchema>>(resultsJson) ?? new List<FilmsforSchema>();
             }
 
             //read existing json data
             var jsonData = File.ReadAllText(filePath);
             //de-serialize to object or create new list
-            var movieList = JsonConvert.DeserializeObject<List<Movie>>(jsonData) ?? new List<Movie>();
-
-            movieList.Add(new Movie(215, "Baruchs Adventure Movie", "16-02-2022", "Adventure movie about the life of Baruch :)", true));
+            var movieList = JsonConvert.DeserializeObject<List<Movie>>(jsonData).Take(9) ?? new List<Movie>();
 
             jsonData = JsonConvert.SerializeObject(movieList);
             File.WriteAllText(filePath, jsonData);
+
+        
 
             return true;
         }
@@ -317,6 +104,23 @@ namespace CinemaProgram
             File.WriteAllText(filePath, jsonData);
 
             return true;
+        }
+
+        public static List<Reservation> AllReservations()
+        {
+            var filePath = "reservations.json";
+            //read existing json data
+            var jsonData = File.ReadAllText(filePath);
+            //de-serialize to object or create new list
+            var reservationList = JsonConvert.DeserializeObject<List<Reservation>>(jsonData) ?? new List<Reservation>();
+
+            //var userReservations = new List<Reservation>();
+            //foreach (var reservation in reservationList.ToList())
+            //{
+            //    userReservations.Add(new Reservation(reservation.Id, reservation.Name, reservation.BarReservation, reservation.UserID, reservation.CreatedDateTime, reservation.SeatList));
+            //}
+
+            return reservationList;
         }
 
         public static List<Reservation> UserReservations(string userId)
@@ -338,7 +142,7 @@ namespace CinemaProgram
             return userReservations;
         }
 
-        public static bool RemoveReservation(string Id)
+        public static bool RemoveReservation(string Id, string reservationName)
         {
             var filePath = "reservations.json";
             //read existing json data
@@ -357,10 +161,14 @@ namespace CinemaProgram
                 {
                     if (Id == Convert.ToString(reservation.Id))
                     {
-                        reservationList.Remove(reservation);
-                        jsonData = JsonConvert.SerializeObject(reservationList);
-                        File.WriteAllText(filePath, jsonData);
-                        return true;
+                        if (reservation.Name == reservationName)
+                        {
+                            reservationList.Remove(reservation);
+                            jsonData = JsonConvert.SerializeObject(reservationList);
+                            File.WriteAllText(filePath, jsonData);
+                            ConsoleProgram.GoToHome();
+                            return true;
+                        }
                     }
                 }
                 return false;
