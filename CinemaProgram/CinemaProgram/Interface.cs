@@ -72,8 +72,9 @@ namespace CinemaProgram
         }
 
         //Creates a cinema and checks if there is no duplicate
-        public void newCinema(string name, ArrayList halls)
+        public void newCinema(string name, Hall[] halls)
         {
+            //TODO: Add Halls[] instead of the arraylist find any problems
             CinemaJsonHandler.NewCinema(name, halls);
         }
 

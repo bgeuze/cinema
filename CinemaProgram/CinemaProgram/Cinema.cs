@@ -13,10 +13,10 @@ namespace CinemaProgram
         public Bar bars = null;
         public ArrayList Halls = new ArrayList();
 
-        public Cinema(string name, ArrayList halls)
+        public Cinema(string name/*, ArrayList halls*/)
         {
             cinemaName = name;
-            Halls = halls;
+            //Halls = halls;
         }
 
         internal void addBar(Bar bar)

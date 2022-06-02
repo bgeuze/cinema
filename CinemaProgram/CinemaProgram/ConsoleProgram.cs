@@ -197,6 +197,16 @@ namespace CinemaProgram
                 Console.WriteLine("Oud Genoeg");
                 bool barReservation;
                 string ans;
+                //TODO: Create cinema or load it in from the JSON
+                Hall hall = new Hall(2, new Seat[2][]);
+                Hall[] halls = new Hall[1];
+                halls[0] = hall;
+                Cinema cinema = new Cinema("HELLO");
+                cinema.addHall(hall);
+                cinema.bars = new Bar(40);
+                //Seat selection and amount of people input
+                Console.WriteLine("Voor hoeveel mensen wilt u reserveren??: ");
+                int amount = int.Parse(Console.ReadLine());
 
                 Console.WriteLine("Wilt u een plek aan de bar reserveren?");
                 var table = new ConsoleTable("", "");
@@ -209,13 +219,15 @@ namespace CinemaProgram
                 if (ans == "1")
                 {
                     barReservation = true;
+                    //TODO: Change cinema to actual cinema
+                    cinema.getBar().assignTable(amount);
                 }
                 else
                 {
                     barReservation = false;
                 }
-
-                Interface.AddReservation(GetUsername(), GetUserId(), barReservation, SeatSelectionScreen());
+                //TODO: Remove hallnumber 2 for hallnumber of selected moviea
+                Interface.AddReservation(GetUsername(), GetUserId(), barReservation, SeatSelectionScreen(amount,cinema.getHall(2)));
                 GoToHome();
             }
             else
@@ -688,28 +700,12 @@ namespace CinemaProgram
             }
         }
 
-        public static Seat[] SeatSelectionScreen()
+        public static Seat[] SeatSelectionScreen(int seatAmount, Hall hall)
         {
-            int seatAmount = 2;
-            ArrayList halls = new ArrayList();
-            Seat[][] seats = new Seat[6][];
-
             //Unorganized mess
             int pos1 = -1;
             int pos2 = -1;
-            //Create and fill a testing Hall Template
-            seats[0] = new Seat[] { new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A') };
-            seats[1] = new Seat[] { new Seat('A'), new Seat('B'), new Seat('B'), new Seat('B'), new Seat('B'), new Seat('A') };
-            seats[2] = new Seat[] { new Seat('A'), new Seat('B'), new Seat('C'), new Seat('C'), new Seat('B'), new Seat('A') };
-            seats[3] = new Seat[] { new Seat('A'), new Seat('B'), new Seat('C'), new Seat('C'), new Seat('B'), new Seat('A') };
-            seats[4] = new Seat[] { new Seat('A'), new Seat('B'), new Seat('B'), new Seat('B'), new Seat('B'), new Seat('A') };
-            seats[5] = new Seat[] { new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A') };
-
-            Hall hall = new Hall(1, seats);
-            halls.Add(hall);
-
-            Hall hall2 = new Hall(2, seats);
-            halls.Add(hall2);
+            //int seatAmount = 2;
 
             //Temp seat array for display purposes
             Seat[][] tseats = hall.getSeats();

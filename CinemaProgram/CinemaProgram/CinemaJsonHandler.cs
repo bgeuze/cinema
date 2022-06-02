@@ -8,7 +8,7 @@ namespace CinemaProgram
 {
     internal class CinemaJsonHandler
     {
-        public static bool NewCinema(string name, ArrayList halls)
+        public static bool NewCinema(string name, Hall[] halls)
         {
             var filePath = "cinema1.json";
             //read existing json data
@@ -17,7 +17,7 @@ namespace CinemaProgram
             var cinemaList = JsonConvert.DeserializeObject<List<Cinema>>(jsonData) ?? new List<Cinema>();
 
             //add new user to the list
-            cinemaList.Add(new Cinema(name, halls));
+            cinemaList.Add(new Cinema(name));
             jsonData = JsonConvert.SerializeObject(cinemaList);
             File.WriteAllText(filePath, jsonData);
 
