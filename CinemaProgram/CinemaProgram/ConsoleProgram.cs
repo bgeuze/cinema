@@ -16,6 +16,7 @@ namespace CinemaProgram
         public static string UserId;
         public static string Role;
         public static DateTime Birthday;
+        private static Cinema cinema;
         public static void SetActiveUser(string username)
         {
             Username = username;
@@ -198,10 +199,10 @@ namespace CinemaProgram
                 bool barReservation;
                 string ans;
                 //TODO: Create cinema or load it in from the JSON
-                Hall hall = new Hall(2, new Seat[2][]);
+                Hall hall = new Hall(2, 2);
                 Hall[] halls = new Hall[1];
                 halls[0] = hall;
-                Cinema cinema = new Cinema("HELLO");
+                cinema = new Cinema("HELLO");
                 cinema.addHall(hall);
                 cinema.bars = new Bar(40);
                 //Seat selection and amount of people input
@@ -226,8 +227,8 @@ namespace CinemaProgram
                 {
                     barReservation = false;
                 }
-                //TODO: Remove hallnumber 2 for hallnumber of selected moviea
-                Interface.AddReservation(GetUsername(), GetUserId(), barReservation, SeatSelectionScreen(amount,cinema.getHall(2)));
+                //TODO: Remove hallnumber 2 for hallnumber of selected moviea ANd bind to cinema or something
+                Interface.AddReservation(GetUsername(), GetUserId(), barReservation, SeatSelectionScreen(amount,hall));
                 GoToHome();
             }
             else
@@ -517,13 +518,13 @@ namespace CinemaProgram
             string movieselection = Console.ReadLine();
             count = 1;
             foreach (var film in (dynamic)MovieList) if ($"{film.HallNumber}" == userselection)
+            {
+                if (count.ToString() == movieselection)
                 {
-                    if (count.ToString() == movieselection)
-                    {
-                        Console.WriteLine($"Are you sure you want to change: {$"{film.MovieTitle}"}.");
-                    }
-                    count++;
+                    Console.WriteLine($"Are you sure you want to change: {$"{film.MovieTitle}"}.");
                 }
+                count++;
+            }
             Console.WriteLine("\nEnter Yes or No.");
             string YesOrNo = Console.ReadLine();
             if (YesOrNo == "yes" || YesOrNo == "Yes")
@@ -541,17 +542,17 @@ namespace CinemaProgram
 
             count = 1;
             foreach (var film in (dynamic)MovieList) if ($"{film.HallNumber}" == userselection)
+            {
+                if (count.ToString() == movieselection)
                 {
-                    if (count.ToString() == movieselection)
-                    {
-                        string oldmovie = film.MovieTitle;
-                        Console.WriteLine($"De oude film is {oldmovie} en de nieuwe is {newMovie}");
-                        film.MovieTitle = newMovie;
-                        film.StartTime = newTime;
-                    }
-                    count++;
-
+                    string oldmovie = film.MovieTitle;
+                    Console.WriteLine($"De oude film is {oldmovie} en de nieuwe is {newMovie}");
+                    film.MovieTitle = newMovie;
+                    film.StartTime = newTime;
                 }
+                count++;
+
+            }
             jsonData = JsonConvert.SerializeObject(MovieList);
             File.WriteAllText(filePath, jsonData);
         }
