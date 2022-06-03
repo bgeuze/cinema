@@ -290,7 +290,7 @@ namespace CinemaProgram
         {
             var result = Interface.AllReservations();
 
-            var table = new ConsoleTable("ID", "Bar", "Stoel", "Naam", "Datum");
+            var table = new ConsoleTable("ID", "Film","Bar", "Stoel", "Naam", "Datum");
 
             foreach (var reservation in (dynamic)result)
             {
@@ -301,7 +301,7 @@ namespace CinemaProgram
                 }
 
                 seattext = seattext.Remove(seattext.Length - 2);
-                table.AddRow($"{reservation.Id}", $"{reservation.BarReservation}", seattext, $"{reservation.Name}", $"{reservation.CreatedDateTime}");
+                table.AddRow($"{reservation.Id}", $"{reservation.FilmTitle}",$"{reservation.BarReservation}", seattext, $"{reservation.Name}", $"{reservation.CreatedDateTime}");
             }
 
             table.Write();
@@ -329,7 +329,7 @@ namespace CinemaProgram
         {
             var result = Interface.UserReservations(GetUserId());
 
-            var table = new ConsoleTable("ID", "Bar", "Stoel", "Naam", "Datum");
+            var table = new ConsoleTable("ID", "Film", "Bar", "Stoel", "Naam", "Datum");
 
             foreach (var reservation in (dynamic)result)
             {
@@ -340,7 +340,7 @@ namespace CinemaProgram
                 }
 
                 seattext = seattext.Remove(seattext.Length - 2);
-                table.AddRow($"{reservation.Id}", $"{reservation.BarReservation}", seattext, $"{reservation.Name}", $"{reservation.CreatedDateTime}");
+                table.AddRow($"{reservation.Id}", $"{reservation.FilmTitle}", $"{reservation.BarReservation}", seattext, $"{reservation.Name}", $"{reservation.CreatedDateTime}");
             }
 
             table.Write();
