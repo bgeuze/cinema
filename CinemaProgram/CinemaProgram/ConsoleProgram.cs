@@ -184,11 +184,33 @@ namespace CinemaProgram
         public static void AddReservation()
         {
             bool[] Test = { true, false };
-            Console.WriteLine("Welke Film wilt u kijken?");
+            NowPlayingMovies();
+            Console.WriteLine("Geef het ID van de film die u wilt kijken.");
+
             int ans2 = int.Parse(Console.ReadLine());
+            Interface.NowPlayingMovies();
+
+            var filePath = "movies.json";
+            //read existing json data
+            var jsonData = File.ReadAllText(filePath);
+            //de-serialize to object or create new list
+            var movieList = JsonConvert.DeserializeObject<List<Movie>>(jsonData) ?? new List<Movie>();
+
+
+            Movie gekozenFilm = null;
+            foreach (var movie in (dynamic)movieList)
+            {
+                if (movie.Id == ans2)
+                {
+                    gekozenFilm = movie;
+                    break;
+                }
+            }
+
+
             int minAge = 13;
             int gekozenFilmIndex = ans2 - 1;
-            if (Test[gekozenFilmIndex] == true)
+            if (gekozenFilm.Adult == true)
             {
                 minAge = 16;
             };
@@ -197,8 +219,9 @@ namespace CinemaProgram
                 Console.WriteLine("Oud Genoeg");
                 bool barReservation;
                 string ans;
+
                 //TODO: Create cinema or load it in from the JSON
-                Hall hall = new Hall(2, new Seat[2][]);
+                Hall hall = new Hall(2, 1);
                 Hall[] halls = new Hall[1];
                 halls[0] = hall;
                 Cinema cinema = new Cinema("HELLO");
@@ -208,12 +231,16 @@ namespace CinemaProgram
                 Console.WriteLine("Voor hoeveel mensen wilt u reserveren??: ");
                 int amount = int.Parse(Console.ReadLine());
 
+
+                Console.WriteLine("Hoeveel stoelen wilt u reserveren?");
+                int stoelen = int.Parse(Console.ReadLine());
+
                 Console.WriteLine("Wilt u een plek aan de bar reserveren?");
                 var table = new ConsoleTable("", "");
                 table.AddRow("1", "Ja");
                 table.AddRow("2", "Nee");
                 table.Write();
-                
+
                 ans = Console.ReadLine();
 
                 if (ans == "1")
@@ -226,13 +253,18 @@ namespace CinemaProgram
                 {
                     barReservation = false;
                 }
+
                 //TODO: Remove hallnumber 2 for hallnumber of selected moviea
-                Interface.AddReservation(GetUsername(), GetUserId(), barReservation, SeatSelectionScreen(amount,cinema.getHall(2)));
+                Interface.AddReservation(GetUsername(), GetUserId(), barReservation, SeatSelectionScreen(amount, cinema.getHall(2)), gekozenFilm.Title);
+
+
+                
+
                 GoToHome();
             }
             else
             {
-                
+
                 Console.WriteLine("Je bent te jong om deze film bij te wonen.");
                 HomeScreen();
             };
@@ -260,7 +292,7 @@ namespace CinemaProgram
 
             table.Write();
 
-            GoToHome();
+
 
         }
 
@@ -307,7 +339,7 @@ namespace CinemaProgram
         {
             var result = Interface.UserReservations(GetUserId());
 
-            var table = new ConsoleTable("ID", "Bar", "Stoel", "Naam", "Datum");
+            var table = new ConsoleTable("ID", "Film", "Bar", "Stoel", "Naam", "Datum");
 
             foreach (var reservation in (dynamic)result)
             {
@@ -318,7 +350,7 @@ namespace CinemaProgram
                 }
 
                 seattext = seattext.Remove(seattext.Length - 2);
-                table.AddRow($"{reservation.Id}", $"{reservation.BarReservation}", seattext, $"{reservation.Name}", $"{reservation.CreatedDateTime}");
+                table.AddRow($"{reservation.Id}", $"{reservation.FilmTitle}", $"{reservation.BarReservation}", seattext, $"{reservation.Name}", $"{reservation.CreatedDateTime}");
             }
 
             table.Write();
@@ -660,6 +692,7 @@ namespace CinemaProgram
                     {
                         case 1:
                             NowPlayingMovies();
+                            GoToHome();
                             break;
                         case 2:
                             AllUsers();
@@ -688,6 +721,7 @@ namespace CinemaProgram
                     {
                         case 1:
                             NowPlayingMovies();
+                            GoToHome();
                             break;
                         case 2:
                             AddReservation();
@@ -699,6 +733,7 @@ namespace CinemaProgram
                     break;
             }
         }
+
 
         public static Seat[] SeatSelectionScreen(int seatAmount, Hall hall)
         {
@@ -722,7 +757,7 @@ namespace CinemaProgram
                 for (int a = 0; a < tseats[0].Length; a++)
                 {
                     Console.Write("  ");
-                    Console.Write(a+1);
+                    Console.Write(a + 1);
                     /*aswitch (a + 1)
                     {
                         case 1:
