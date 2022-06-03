@@ -45,9 +45,9 @@ namespace CinemaProgram
             return MovieJsonHandler.NowPlayingMovies();
         }
 
-        public static bool AddReservation(string username, string userId, bool barReservation, Seat[] seatlist, string FilmTitle)
+        public static bool AddReservation(string username, string userId, bool barReservation, Seat[] seatlist, string FilmTitle, double cost)
         {
-            return MovieJsonHandler.AddReservation(username, userId, barReservation, seatlist, FilmTitle);
+            return MovieJsonHandler.AddReservation(username, userId, barReservation, seatlist, FilmTitle, cost);
         }
 
         public static bool RemoveReservation(string Id, string reservationName)
@@ -99,6 +99,17 @@ namespace CinemaProgram
                 "G" => 6,
                 _ => -1
             };
+        }
+        
+        //Calculate SelectedSeatPricing
+        public static double SeatPriceCalculation(Seat[] selectedSeats)
+        {
+            double cost = 0.0;
+            foreach (Seat seat in selectedSeats)
+            {
+                cost += seat.getPrice();
+            }
+            return cost;
         }
     }
 }

@@ -249,7 +249,13 @@ namespace CinemaProgram
                     barReservation = false;
                 }
                 //TODO: Remove hallnumber 2 for hallnumber of selected moviea ANd bind to cinema or something
-                Interface.AddReservation(GetUsername(), GetUserId(), barReservation, SeatSelectionScreen(amount,hall), gekozenFilm.Title);
+                Seat[] seats = SeatSelectionScreen(amount, hall);
+                //Calculates Total price and waits for input of user to continue
+                double totalCost = Interface.SeatPriceCalculation(seats);
+                Console.WriteLine("Totale kosten: " + totalCost);
+                Console.WriteLine("Druk op een toets om door te gaan...");
+                Console.ReadLine();
+                Interface.AddReservation(GetUsername(), GetUserId(), barReservation,seats , gekozenFilm.Title, totalCost);
                 GoToHome();
             }
             else
