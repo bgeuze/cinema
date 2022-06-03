@@ -217,7 +217,7 @@ namespace CinemaProgram
             if (getUserAge(GetUserLeeftijd()) >= minAge)
             {
                 Console.WriteLine("Oud Genoeg");
-                bool barReservation;
+                bool barReservation = false;
                 string ans;
                 //TODO: Create cinema or load it in from the JSON
                 Hall hall = new Hall(2, 2);
@@ -229,25 +229,32 @@ namespace CinemaProgram
                 //Seat selection and amount of people input
                 Console.WriteLine("Voor hoeveel mensen wilt u reserveren??: ");
                 int amount = int.Parse(Console.ReadLine());
-
-                Console.WriteLine("Wilt u een plek aan de bar reserveren?");
-                var table = new ConsoleTable("", "");
-                table.AddRow("1", "Ja");
-                table.AddRow("2", "Nee");
-                table.Write();
-                
-                ans = Console.ReadLine();
-
-                if (ans == "1")
+                cinema.getBar().Available = false;
+                if (cinema.getBar().Available)
                 {
-                    barReservation = true;
-                    //TODO: Change cinema to actual cinema
-                    cinema.getBar().assignTable(amount);
+                    Console.WriteLine("Wilt u een plek aan de bar reserveren?");
+                    var table = new ConsoleTable("", "");
+                    table.AddRow("1", "Ja");
+                    table.AddRow("2", "Nee");
+                    table.Write();
+
+                    ans = Console.ReadLine();
+
+                    if (ans == "1")
+                    {
+                        barReservation = true;
+                        //TODO: Change cinema to actual cinema
+                        cinema.getBar().assignTable(amount);
+                    }
                 }
                 else
                 {
-                    barReservation = false;
+                    Console.WriteLine("Excuses de Bar is op dit moment niet beschikbaar." +
+                                      "\nKlik op een toets om door te gaan...");
                 }
+
+                Console.ReadLine();
+
                 //TODO: Remove hallnumber 2 for hallnumber of selected moviea ANd bind to cinema or something
                 Seat[] seats = SeatSelectionScreen(amount, hall);
                 //Calculates Total price and waits for input of user to continue
