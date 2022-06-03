@@ -184,12 +184,33 @@ namespace CinemaProgram
 
         public static void AddReservation()
         {
-            bool[] Test = { true, false };
-            Console.WriteLine("Welke Film wilt u kijken?");
+            NowPlayingMovies();
+            Console.WriteLine("Geef het ID van de film die u wilt kijken.");
+
             int ans2 = int.Parse(Console.ReadLine());
+            Interface.NowPlayingMovies();
+
+            var filePath = "movies.json";
+            //read existing json data
+            var jsonData = File.ReadAllText(filePath);
+            //de-serialize to object or create new list
+            var movieList = JsonConvert.DeserializeObject<List<Movie>>(jsonData) ?? new List<Movie>();
+
+
+            Movie gekozenFilm = null;
+            foreach (var movie in (dynamic)movieList)
+            {
+                if (movie.Id == ans2)
+                {
+                    gekozenFilm = movie;
+                    break;
+                }
+            }
+
+
             int minAge = 13;
             int gekozenFilmIndex = ans2 - 1;
-            if (Test[gekozenFilmIndex] == true)
+            if (gekozenFilm.Adult == true)
             {
                 minAge = 16;
             };
@@ -228,7 +249,7 @@ namespace CinemaProgram
                     barReservation = false;
                 }
                 //TODO: Remove hallnumber 2 for hallnumber of selected moviea ANd bind to cinema or something
-                Interface.AddReservation(GetUsername(), GetUserId(), barReservation, SeatSelectionScreen(amount,hall));
+                Interface.AddReservation(GetUsername(), GetUserId(), barReservation, SeatSelectionScreen(amount,hall), gekozenFilm.Title);
                 GoToHome();
             }
             else
@@ -261,7 +282,7 @@ namespace CinemaProgram
 
             table.Write();
 
-            GoToHome();
+            
 
         }
 
@@ -661,6 +682,7 @@ namespace CinemaProgram
                     {
                         case 1:
                             NowPlayingMovies();
+                            GoToHome();
                             break;
                         case 2:
                             AllUsers();
@@ -689,6 +711,7 @@ namespace CinemaProgram
                     {
                         case 1:
                             NowPlayingMovies();
+                            GoToHome();
                             break;
                         case 2:
                             AddReservation();
