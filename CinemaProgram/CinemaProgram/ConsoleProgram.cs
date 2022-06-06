@@ -231,24 +231,24 @@ namespace CinemaProgram
                     }
                 foreach (var film2 in (dynamic)MovieList2) if (film2.MovieTitle == gekozenFilm.Title)
                     {
-                            table2.AddRow($"{film2.StartTime}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}");
-                            
-                        
-                        
-                            if (film2.StartTime == "10:00")
-                            {
-                                table2.AddRow($"17:00", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}");
-                            }
-                            if (film2.StartTime == "12:00")
-                            {
-                                table2.AddRow($"19:00", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}");
-                            }
-                            if (film2.StartTime == "14:00")
-                            {
-                                table2.AddRow($"21:00", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}");
-                            }
-                        
-                        
+                        table2.AddRow($"{film2.StartTime}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}");
+
+
+
+                        if (film2.StartTime == "10:00")
+                        {
+                            table2.AddRow($"17:00", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}");
+                        }
+                        if (film2.StartTime == "12:00")
+                        {
+                            table2.AddRow($"19:00", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}");
+                        }
+                        if (film2.StartTime == "14:00")
+                        {
+                            table2.AddRow($"21:00", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}");
+                        }
+
+
                     }
                 table2.Write();
                 bool tijdenBool = false;
@@ -262,7 +262,7 @@ namespace CinemaProgram
                     GekozenTijd = Console.ReadLine();
                     if (GekozenMovieTijd == "10:00")
                     {
-                        if(GekozenTijd == "10:00" || GekozenTijd == "17:00")
+                        if (GekozenTijd == "10:00" || GekozenTijd == "17:00")
                         {
                             tijdenBool = true;
                         }
@@ -295,7 +295,7 @@ namespace CinemaProgram
                     }
                 }
                 Console.WriteLine($"De gekozen tijd is {GekozenTijd} op {GekozenDag}");
-                bool barReservation;
+                bool barReservation = false;
                 string ans;
                 //TODO: Create cinema or load it in from the JSON
                 Hall hall = new Hall(2, 2);
@@ -307,13 +307,14 @@ namespace CinemaProgram
                 //Seat selection and amount of people input
                 Console.WriteLine("Voor hoeveel mensen wilt u reserveren?");
                 int amount = int.Parse(Console.ReadLine());
-
-                Console.WriteLine("Wilt u een plek aan de bar reserveren?");
+                if (cinema.getBar().Available)
+                {
+                    Console.WriteLine("Wilt u een plek aan de bar reserveren?");
                 var table = new ConsoleTable("", "");
                 table.AddRow("1", "Ja");
                 table.AddRow("2", "Nee");
                 table.Write();
-                
+
                 ans = Console.ReadLine();
 
                 if (ans == "1")
@@ -321,13 +322,24 @@ namespace CinemaProgram
                     barReservation = true;
                     //TODO: Change cinema to actual cinema
                     cinema.getBar().assignTable(amount);
+                } 
                 }
                 else
                 {
-                    barReservation = false;
+                    Console.WriteLine("Excuses de Bar is op dit moment niet beschikbaar." +
+                                      "\nKlik op een toets om door te gaan...");
+                    Console.ReadLine();
                 }
+
+                
+
                 //TODO: Remove hallnumber 2 for hallnumber of selected moviea ANd bind to cinema or something
-                Interface.AddReservation(GetUsername(), GetUserId(), barReservation, SeatSelectionScreen(amount,hall), gekozenFilm.Title);
+                Seat[] seats = SeatSelectionScreen(amount, hall);
+                //Calculates Total price and waits for input of user to continue
+                double totalCost = Interface.SeatPriceCalculation(seats);
+                Console.WriteLine("Totale kosten: " + totalCost);
+                
+                Interface.AddReservation(GetUsername(), GetUserId(), barReservation, seats, gekozenFilm.Title, totalCost);
                 GoToHome();
             }
             else

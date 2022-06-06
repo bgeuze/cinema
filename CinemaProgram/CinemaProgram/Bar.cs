@@ -27,7 +27,7 @@ namespace CinemaProgram
             }
 
             int requiredTables = (persons + MaxSeatsPerTable - 1) / MaxSeatsPerTable;
-            Console.WriteLine("Tables needed: " + requiredTables + " Tables Available: " + TableNumber);
+            
             if (TableNumber >= requiredTables)
             {
                 TableNumber -= requiredTables;
@@ -39,7 +39,7 @@ namespace CinemaProgram
         public void orderCancelation(int tables)
         {
             this.TableNumber += tables;
-            Console.WriteLine("Tables cancelled: " + tables + " Tables Available: " + TableNumber);
+            
         }
     }
 }
