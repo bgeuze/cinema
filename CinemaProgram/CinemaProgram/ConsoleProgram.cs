@@ -216,7 +216,85 @@ namespace CinemaProgram
             };
             if (getUserAge(GetUserLeeftijd()) >= minAge)
             {
-                Console.WriteLine("Oud Genoeg");
+                var filePath2 = "filmsforschema.json";
+                //read existing json data
+                var jsonData2 = File.ReadAllText(filePath2);
+                //de-serialize to object or create new list
+                var MovieList2 = JsonConvert.DeserializeObject<List<FilmsforSchema>>(jsonData2)
+                                      ?? new List<FilmsforSchema>();
+                var table2 = new ConsoleTable();
+                var GekozenMovieTijd = "";
+                foreach (var film2 in (dynamic)MovieList2) if (film2.MovieTitle == gekozenFilm.Title)
+                    {
+                        table2 = new ConsoleTable($"Hal {film2.HallNumber}", "Maandag", "Dinsdag", "Woensdag", "Donderdag", "Vrijdag", "Zaterdag", "Zondag");
+                        GekozenMovieTijd = film2.StartTime;
+                    }
+                foreach (var film2 in (dynamic)MovieList2) if (film2.MovieTitle == gekozenFilm.Title)
+                    {
+                            table2.AddRow($"{film2.StartTime}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}");
+                            
+                        
+                        
+                            if (film2.StartTime == "10:00")
+                            {
+                                table2.AddRow($"17:00", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}");
+                            }
+                            if (film2.StartTime == "12:00")
+                            {
+                                table2.AddRow($"19:00", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}");
+                            }
+                            if (film2.StartTime == "14:00")
+                            {
+                                table2.AddRow($"21:00", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}");
+                            }
+                        
+                        
+                    }
+                table2.Write();
+                bool tijdenBool = false;
+                string GekozenDag = "";
+                string GekozenTijd = "";
+                while (tijdenBool == false)
+                {
+                    Console.WriteLine("Op welke dag wilt u de film kijken?");
+                    GekozenDag = Console.ReadLine();
+                    Console.WriteLine("Op welke tijd wilt u de film kijken?");
+                    GekozenTijd = Console.ReadLine();
+                    if (GekozenMovieTijd == "10:00")
+                    {
+                        if(GekozenTijd == "10:00" || GekozenTijd == "17:00")
+                        {
+                            tijdenBool = true;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Er is geen film op deze tijd beschikbaar.");
+                        }
+                    }
+                    else if (GekozenMovieTijd == "12:00")
+                    {
+                        if (GekozenTijd == "12:00" || GekozenTijd == "19:00")
+                        {
+                            tijdenBool = true;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Er is geen film op deze tijd beschikbaar.");
+                        }
+                    }
+                    else if (GekozenMovieTijd == "14:00")
+                    {
+                        if (GekozenTijd == "14:00" || GekozenTijd == "21:00")
+                        {
+                            tijdenBool = true;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Er is geen film op deze tijd beschikbaar.");
+                        }
+                    }
+                }
+                Console.WriteLine($"De gekozen tijd is {GekozenTijd} op {GekozenDag}");
                 bool barReservation;
                 string ans;
                 //TODO: Create cinema or load it in from the JSON
@@ -227,7 +305,7 @@ namespace CinemaProgram
                 cinema.addHall(hall);
                 cinema.bars = new Bar(40);
                 //Seat selection and amount of people input
-                Console.WriteLine("Voor hoeveel mensen wilt u reserveren??: ");
+                Console.WriteLine("Voor hoeveel mensen wilt u reserveren?");
                 int amount = int.Parse(Console.ReadLine());
 
                 Console.WriteLine("Wilt u een plek aan de bar reserveren?");
