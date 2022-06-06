@@ -840,121 +840,154 @@ namespace CinemaProgram
             tseats[1][2].setSeatAvailability(false);
             tseats[1][3].setSeatAvailability(false);
             List<Seat> chosenOnes = new List<Seat>();
-            //Lets the user select seats untill all are selected
-            while (seatAmount > 0)
+            bool test = false;
+            for (int b = 0; b < tseats[0].Length; b++)
             {
-                Console.Clear();
-                Console.Write("  ");
-                //Array position to letter
-                for (int a = 0; a < tseats[0].Length; a++)
-                {
-                    Console.Write("  ");
-                    Console.Write(a+1);
-                    /*aswitch (a + 1)
-                    {
-                        case 1:
-                            Console.Write("A");
-                            break;
-                        case 2:
-                            Console.Write("B");
-                            break;
-                        case 3:
-                            Console.Write("C");
-                            break;
-                        case 4:
-                            Console.Write("D");
-                            break;
-                        case 5:
-                            Console.Write("E");
-                            break;
-                        case 6:
-                            Console.Write("F");
-                            break;
-                        case 7:
-                            Console.Write("G");
-                            break;
-                    }*/
-                }
-                Console.WriteLine();
-
                 for (int i = 0; i < tseats.Length; i++)
                 {
-                    Console.Write(i + 1 + "  ");
-                    for (int j = 0; j < tseats[i].Length; j++)
-                    {
-                        //Changes the character color based upon the availability
-                        Console.ForegroundColor = ConsoleColor.DarkGreen;
-                        if (tseats[i][j].getSeatAvailability() == false)
+                    if (tseats[b][i].getSeatAvailability() == true && !test)
                         {
-                            Console.ForegroundColor = ConsoleColor.DarkRed;
-                        }
-
-                        char seatType = tseats[i][j].getSeatRange();
-                        switch (seatType)
-                        {
-                            //Changes the background color of a seat based upon the seatRange variable
-                            case 'A':
-                                Console.BackgroundColor = ConsoleColor.DarkBlue;
-                                break;
-                            case 'B':
-                                Console.BackgroundColor = ConsoleColor.Cyan;
-                                break;
-                            case 'C':
-                                Console.BackgroundColor = ConsoleColor.Yellow;
-                                break;
-                        }
-
-                        //Console.ForegroundColor = ConsoleColor.DarkBlue;
-                        //If a seat has been selected before and it is this seat in the array give it a nice lil colour
-                        if (pos1 >= 0 && pos2 >= 0)
-                        {
-                            if (tseats[i][j] == tseats[pos1][pos2])
+                            
+                            int amount = seatAmount - 1;
+                            while (!test && amount > 0)
                             {
-                                Console.BackgroundColor = ConsoleColor.DarkMagenta;
+                                if (tseats[b][i + amount].getSeatAvailability() == false)
+                                {
+                                    test = true;
+                                }
+
+                                if (!test)
+                                {
+                                    chosenOnes.Add(tseats[b][i + amount]);
+                                    /*TODO: Add positions to seat array with tuple or rewrite to check on first position and then fill the closest seats from that position with before option to auto fill or pick seats manually*/
+                                }
                             }
                         }
-
-                        Console.Write(" ■ "); //tseats[i][j].seatRange);
-
-                    }
-                    Console.WriteLine();
-                    Console.BackgroundColor = ConsoleColor.Black;
-                    Console.ForegroundColor = ConsoleColor.White;
-
-                }
-                if (seatAmount > 1)
-                {
-                    Console.WriteLine("Please enter seat sir, you have " + seatAmount + " choice left: ");
-                }
-                /*For everything*/
-                else // there is mastercard and ingrid
-                {
-                    Console.WriteLine("Please enter seat sir, you have " + seatAmount + " choices left: ");
-                }
-
-                Console.WriteLine("You will select a seat number:");
-                string? seatChoice1 = Console.ReadLine();
-                Console.WriteLine("You will select a seat Leter:");
-                string? seatChoice2 = Console.ReadLine();
-                Console.WriteLine("Are you sure you want seat(y/n): " + seatChoice1 + seatChoice2);
-
-                string? command = Console.ReadLine();
-                if (command != null && command.ToLower().Equals("n"))
-                {
-                    Console.WriteLine("Cry me a river");
-                }
-                if (command != null && command.ToLower().Equals("y"))
-                {
-                    seatAmount--;
-                    //Maybe remove null warning supressor... Maybe don't...
-                    pos1 = Int32.Parse(seatChoice1!) - 1;
-                    pos2 = Int32.Parse(seatChoice2!) - 1;//Interface.ToNumberPosition(seatChoice2!.ToUpper());
-                    chosenOnes.Add(tseats[pos1][pos2]);
-                    tseats[pos1][pos2].setSeatAvailability(false);
-                    tseats[pos1][pos2].SeatIndex = "R: " + pos1.ToString() + " S:" + pos2.ToString();
                 }
             }
 
+            if (test)
+            {
+                //Lets the user select seats untill all are selected
+                while (seatAmount > 0)
+                {
+                    Console.Clear();
+                    Console.Write("  ");
+                    //Array position to letter
+                    for (int a = 0; a < tseats[0].Length; a++)
+                    {
+                        Console.Write("  ");
+                        Console.Write(a + 1);
+                        /*aswitch (a + 1)
+                        {
+                            case 1:
+                                Console.Write("A");
+                                break;
+                            case 2:
+                                Console.Write("B");
+                                break;
+                            case 3:
+                                Console.Write("C");
+                                break;
+                            case 4:
+                                Console.Write("D");
+                                break;
+                            case 5:
+                                Console.Write("E");
+                                break;
+                            case 6:
+                                Console.Write("F");
+                                break;
+                            case 7:
+                                Console.Write("G");
+                                break;
+                        }*/
+                    }
+
+                    Console.WriteLine();
+
+                    for (int i = 0; i < tseats.Length; i++)
+                    {
+                        Console.Write(i + 1 + "  ");
+                        for (int j = 0; j < tseats[i].Length; j++)
+                        {
+                            //Changes the character color based upon the availability
+                            Console.ForegroundColor = ConsoleColor.DarkGreen;
+                            if (tseats[i][j].getSeatAvailability() == false)
+                            {
+                                Console.ForegroundColor = ConsoleColor.DarkRed;
+                            }
+
+                            char seatType = tseats[i][j].getSeatRange();
+                            switch (seatType)
+                            {
+                                //Changes the background color of a seat based upon the seatRange variable
+                                case 'A':
+                                    Console.BackgroundColor = ConsoleColor.DarkBlue;
+                                    break;
+                                case 'B':
+                                    Console.BackgroundColor = ConsoleColor.Cyan;
+                                    break;
+                                case 'C':
+                                    Console.BackgroundColor = ConsoleColor.Yellow;
+                                    break;
+                            }
+
+                            //Console.ForegroundColor = ConsoleColor.DarkBlue;
+                            //If a seat has been selected before and it is this seat in the array give it a nice lil colour
+                            if (pos1 >= 0 && pos2 >= 0)
+                            {
+                                if (tseats[i][j] == tseats[pos1][pos2])
+                                {
+                                    Console.BackgroundColor = ConsoleColor.DarkMagenta;
+                                }
+                            }
+
+                            Console.Write(" ■ "); //tseats[i][j].seatRange);
+
+                        }
+
+                        Console.WriteLine();
+                        Console.BackgroundColor = ConsoleColor.Black;
+                        Console.ForegroundColor = ConsoleColor.White;
+
+                    }
+
+                    if (seatAmount > 1)
+                    {
+                        Console.WriteLine("Please enter seat sir, you have " + seatAmount + " choice left: ");
+                    }
+                    /*For everything*/
+                    else // there is mastercard and ingrid
+                    {
+                        Console.WriteLine("Please enter seat sir, you have " + seatAmount + " choices left: ");
+                    }
+
+                    Console.WriteLine("You will select a seat number:");
+                    string? seatChoice1 = Console.ReadLine();
+                    Console.WriteLine("You will select a seat Leter:");
+                    string? seatChoice2 = Console.ReadLine();
+                    Console.WriteLine("Are you sure you want seat(y/n): " + seatChoice1 + seatChoice2);
+
+                    string? command = Console.ReadLine();
+                    if (command != null && command.ToLower().Equals("n"))
+                    {
+                        Console.WriteLine("Cry me a river");
+                    }
+
+                    if (command != null && command.ToLower().Equals("y"))
+                    {
+                        seatAmount--;
+                        //Maybe remove null warning supressor... Maybe don't...
+                        pos1 = Int32.Parse(seatChoice1!) - 1;
+                        pos2 = Int32.Parse(seatChoice2!) - 1; //Interface.ToNumberPosition(seatChoice2!.ToUpper());
+                        chosenOnes.Add(tseats[pos1][pos2]);
+                        tseats[pos1][pos2].setSeatAvailability(false);
+                        tseats[pos1][pos2].SeatIndex = "R: " + pos1.ToString() + " S:" + pos2.ToString();
+                    }
+                }
+            }
+            
             return Interface.ArrayListToArray(chosenOnes);
         }
     }
