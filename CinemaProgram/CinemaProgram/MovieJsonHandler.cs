@@ -35,18 +35,23 @@ namespace CinemaProgram
                 {
                     movie.HallNumber = "3";
                     movie.StartTime = $"{tijduur1}:00";
+                    movie.hallObject = new Hall(3, 3);
                     tijduur1 += 2;
                 }
                 else if(k % 3 == 1)
                 {
                     movie.HallNumber = "2";
                     movie.StartTime = $"{tijduur2}:00";
+                    
+                    movie.hallObject = new Hall(2, 2);
                     tijduur2 += 2;
                 }
                 else
                 {
                     movie.HallNumber = "1";
                     movie.StartTime = $"{tijduur3}:00";
+                    
+                    movie.hallObject = new Hall(1, 1);
                     tijduur3 += 2;
                 }
                 k += 1;

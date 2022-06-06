@@ -14,13 +14,16 @@ namespace CinemaProgram
         public string Description { get; set; }
         public bool Adult { get; set; }
 
-        public Movie(int id, string title, string release_date, string overview, bool adult)
+        public int duration { get; set; }
+
+        public Movie(int id, string title, string release_date, string overview, bool adult, int duration = 1500)
         {
             Id = id;
             Title = title;
             ReleaseDate = release_date;
             Description = overview;
             Adult = adult;
+            this.duration = duration;
         }
 
         public string getTitle() { return Title; }

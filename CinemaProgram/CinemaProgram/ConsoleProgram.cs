@@ -181,7 +181,8 @@ namespace CinemaProgram
 
             GoToHome();
         }
-
+        
+        //Lets the user make a reservation
         public static void AddReservation()
         {
             NowPlayingMovies();
@@ -297,12 +298,21 @@ namespace CinemaProgram
                 Console.WriteLine($"De gekozen tijd is {GekozenTijd} op {GekozenDag}");
                 bool barReservation = false;
                 string ans;
+                //Gets the hall from the chosen movie using the schedule list 
+                Hall hall = null;//new Hall(2, 2);
+                foreach (var film in (dynamic)MovieList2)
+                {
+                    if (film.MovieTitle == gekozenFilm.Title)
+                    {
+                        hall = film.hallObject;
+                    }
+                }
                 //TODO: Create cinema or load it in from the JSON
-                Hall hall = new Hall(2, 2);
+                
                 Hall[] halls = new Hall[1];
                 halls[0] = hall;
-                cinema = new Cinema("HELLO");
-                cinema.addHall(hall);
+                //cinema = new Cinema("HELLO");
+                //cinema.addHall(hall);
                 cinema.bars = new Bar(40);
                 //Seat selection and amount of people input
                 Console.WriteLine("Voor hoeveel mensen wilt u reserveren?");
@@ -494,7 +504,8 @@ namespace CinemaProgram
             string reservationID = Console.ReadLine();
             Interface.RemoveReservation(reservationID, GetUsername());
         }
-
+        
+        //Display filmSchema
         public static void HallsSchema()
         {
 
@@ -813,14 +824,16 @@ namespace CinemaProgram
                     break;
             }
         }
-
+        
+        
+        //Displays the seats array and lets users select seats
         public static Seat[] SeatSelectionScreen(int seatAmount, Hall hall)
         {
             //Unorganized mess
             int pos1 = -1;
             int pos2 = -1;
             //int seatAmount = 2;
-
+    
             //Temp seat array for display purposes
             Seat[][] tseats = hall.getSeats();
             tseats[2][4].setSeatAvailability(false);
