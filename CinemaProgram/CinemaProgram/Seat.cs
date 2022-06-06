@@ -20,13 +20,13 @@ namespace CinemaProgram
             switch (c)
             {
                 case 'A':
-                    seatPricing = 15;
+                    seatPricing = 13;
                     break;
                 case 'B':
-                    seatPricing = 25;
+                    seatPricing = 14;
                     break;
                 case 'C':
-                    seatPricing = 35;
+                    seatPricing = 15;
                     break;
             }
             this.isValid = valid;
