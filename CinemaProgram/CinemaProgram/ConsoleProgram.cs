@@ -187,7 +187,7 @@ namespace CinemaProgram
         {
             NowPlayingMovies();
             Console.WriteLine("Geef het ID van de film die u wilt kijken.");
-
+            
             int ans2 = int.Parse(Console.ReadLine());
             Interface.NowPlayingMovies();
 
@@ -299,7 +299,7 @@ namespace CinemaProgram
                 bool barReservation = false;
                 string ans;
                 //Gets the hall from the chosen movie using the schedule list 
-                Hall hall = null;//new Hall(2, 2);
+                Hall hall = new Hall(2,2);//new Hall(2, 2);
                 foreach (var film in (dynamic)MovieList2)
                 {
                     if (film.MovieTitle == gekozenFilm.Title)
@@ -311,7 +311,7 @@ namespace CinemaProgram
                 
                 Hall[] halls = new Hall[1];
                 halls[0] = hall;
-                //cinema = new Cinema("HELLO");
+                cinema = new Cinema("HELLO");
                 //cinema.addHall(hall);
                 cinema.bars = new Bar(40);
                 //Seat selection and amount of people input
@@ -344,11 +344,12 @@ namespace CinemaProgram
                 
 
                 //TODO: Remove hallnumber 2 for hallnumber of selected moviea ANd bind to cinema or something
+                //hall = new Hall(2, 2);
                 Seat[] seats = SeatSelectionScreen(amount, hall);
                 //Calculates Total price and waits for input of user to continue
                 double totalCost = Interface.SeatPriceCalculation(seats);
                 Console.WriteLine("Totale kosten: " + totalCost);
-                
+                //TODO: Seat still has to be set on unavailable in the Json/
                 Interface.AddReservation(GetUsername(), GetUserId(), barReservation, seats, gekozenFilm.Title, totalCost);
                 GoToHome();
             }
@@ -697,7 +698,7 @@ namespace CinemaProgram
             string tijdminuten = "00";
             for (int i = 0; i < 3; i++)
             {
-                MovieList.Add(new FilmsforSchema((hallAmount + 1).ToString(), "Plaatshouder tekst", tijduren + ":" + tijdminuten));
+                MovieList.Add(new FilmsforSchema((hallAmount + 1).ToString(), "Plaatshouder tekst", tijduren + ":" + tijdminuten, new Hall(hallAmount +1, hallAmount +1)));
                 tijduren = (int.Parse(tijduren) + 2).ToString();
             }
 
@@ -840,8 +841,8 @@ namespace CinemaProgram
             tseats[1][2].setSeatAvailability(false);
             tseats[1][3].setSeatAvailability(false);
             List<Seat> chosenOnes = new List<Seat>();
-            bool test = false;
-            for (int b = 0; b < tseats[0].Length; b++)
+            bool test = true;
+           /* for (int b = 0; b < tseats[0].Length; b++)
             {
                 for (int i = 0; i < tseats.Length; i++)
                 {
@@ -860,11 +861,11 @@ namespace CinemaProgram
                                 {
                                     chosenOnes.Add(tseats[b][i + amount]);
                                     /*TODO: Add positions to seat array with tuple or rewrite to check on first position and then fill the closest seats from that position with before option to auto fill or pick seats manually*/
-                                }
+                                /*}
                             }
                         }
                 }
-            }
+            } */
 
             if (test)
             {
