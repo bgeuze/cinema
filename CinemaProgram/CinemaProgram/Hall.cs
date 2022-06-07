@@ -55,30 +55,52 @@ namespace CinemaProgram
 
         public void HallType1()
         {
-            Seat[][] seatsTemplate = new Seat[6][];
+            Seat[][] seatsTemplate = new Seat[14][];
 
             //Create and fill a testing Hall Template
-            seatsTemplate[0] = new Seat[] { new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A') };
-            seatsTemplate[1] = new Seat[] { new Seat('A'), new Seat('B'), new Seat('B'), new Seat('B'), new Seat('B'), new Seat('A') };
-            seatsTemplate[2] = new Seat[] { new Seat('A'), new Seat('B'), new Seat('C'), new Seat('C'), new Seat('B'), new Seat('A') };
-            seatsTemplate[3] = new Seat[] { new Seat('A'), new Seat('B'), new Seat('C'), new Seat('C'), new Seat('B'), new Seat('A') };
-            seatsTemplate[4] = new Seat[] { new Seat('A'), new Seat('B'), new Seat('B'), new Seat('B'), new Seat('B'), new Seat('A') };
-            seatsTemplate[5] = new Seat[] { new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A') };
-
+            seatsTemplate[0] = new Seat[] { new Seat('D'), new Seat('D'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('D'), new Seat('D') };
+            seatsTemplate[1] = new Seat[] { new Seat('D'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('D') };
+            seatsTemplate[2] = new Seat[] { new Seat('D'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('D') };
+            seatsTemplate[3] = new Seat[] { new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('B'), new Seat('B'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A') };
+            seatsTemplate[4] = new Seat[] { new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('B'), new Seat('B'), new Seat('B'), new Seat('B'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A') };
+            seatsTemplate[5] = new Seat[] { new Seat('A'), new Seat('A'), new Seat('A'), new Seat('B'), new Seat('B'), new Seat('C'), new Seat('C'), new Seat('B'), new Seat('B'), new Seat('A'), new Seat('A'), new Seat('A') };
+            seatsTemplate[6] = new Seat[] { new Seat('A'), new Seat('A'), new Seat('A'), new Seat('B'), new Seat('B'), new Seat('C'), new Seat('C'), new Seat('B'), new Seat('B'), new Seat('A'), new Seat('A'), new Seat('A') };
+            seatsTemplate[7] = new Seat[] { new Seat('A'), new Seat('A'), new Seat('A'), new Seat('B'), new Seat('B'), new Seat('C'), new Seat('C'), new Seat('B'), new Seat('B'), new Seat('A'), new Seat('A'), new Seat('A') };
+            seatsTemplate[8] = new Seat[] { new Seat('A'), new Seat('A'), new Seat('A'), new Seat('B'), new Seat('B'), new Seat('C'), new Seat('C'), new Seat('B'), new Seat('B'), new Seat('A'), new Seat('A'), new Seat('A') };
+            seatsTemplate[9] = new Seat[] { new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('B'), new Seat('B'), new Seat('B'), new Seat('B'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A') };
+            seatsTemplate[10] = new Seat[] { new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('B'), new Seat('B'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A') };
+            seatsTemplate[11] = new Seat[] { new Seat('D'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('D') };
+            seatsTemplate[12] = new Seat[] { new Seat('D'), new Seat('D'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('D'), new Seat('D') };
+            seatsTemplate[13] = new Seat[] { new Seat('D'), new Seat('D'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('D'), new Seat('D') };
+            
             this.seats = seatsTemplate;
         }
 
         public void HallType2()
         {
-            Seat[][] seatsTemplate = new Seat[6][];
+            Seat[][] seatsTemplate = new Seat[19][];
 
             //Create and fill a testing Hall Template
-            seatsTemplate[0] = new Seat[] { new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A') };
-            seatsTemplate[1] = new Seat[] { new Seat('A'), new Seat('B'), new Seat('B'), new Seat('B'), new Seat('B'), new Seat('A') };
-            seatsTemplate[2] = new Seat[] { new Seat('A'), new Seat('B'), new Seat('C'), new Seat('C'), new Seat('B'), new Seat('A') };
-            seatsTemplate[3] = new Seat[] { new Seat('A'), new Seat('B'), new Seat('C'), new Seat('C'), new Seat('B'), new Seat('A') };
-            seatsTemplate[4] = new Seat[] { new Seat('A'), new Seat('B'), new Seat('B'), new Seat('B'), new Seat('B'), new Seat('A') };
-            seatsTemplate[5] = new Seat[] { new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A') };
+            seatsTemplate[0] = new Seat[] { new Seat('D'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A') };
+            seatsTemplate[1] = new Seat[] { new Seat('D'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A') };
+            seatsTemplate[2] = new Seat[] { new Seat('D'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('B') };
+            seatsTemplate[3] = new Seat[] { new Seat('D'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('B') };
+            seatsTemplate[4] = new Seat[] { new Seat('D'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('B'), new Seat('B') };
+            seatsTemplate[5] = new Seat[] { new Seat('D'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('B'), new Seat('A') };
+            seatsTemplate[6] = new Seat[] { new Seat('A'), new Seat('A'), new Seat('A'), new Seat('B'), new Seat('B'), new Seat('A') };
+            seatsTemplate[7] = new Seat[] { new Seat('A'), new Seat('A'), new Seat('A'), new Seat('B'), new Seat('A'), new Seat('A') };
+            seatsTemplate[8] = new Seat[] { new Seat('A'), new Seat('A'), new Seat('B'), new Seat('B'), new Seat('A'), new Seat('A') };
+            seatsTemplate[9] = new Seat[] { new Seat('A'), new Seat('A'), new Seat('B'), new Seat('B'), new Seat('A'), new Seat('A') };
+            seatsTemplate[10] =new Seat[] { new Seat('A'), new Seat('A'), new Seat('B'), new Seat('B'), new Seat('A'), new Seat('A') };
+            seatsTemplate[11] =new Seat[] { new Seat('A'), new Seat('A'), new Seat('B'), new Seat('B'), new Seat('A'), new Seat('A') };
+            seatsTemplate[11] =new Seat[] { new Seat('D'), new Seat('A'), new Seat('A'), new Seat('B'), new Seat('A'), new Seat('A') };
+            seatsTemplate[12] =new Seat[] { new Seat('D'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A') };
+            seatsTemplate[13] =new Seat[] { new Seat('D'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A') };
+            seatsTemplate[14] =new Seat[] { new Seat('D'), new Seat('D'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A') };
+            seatsTemplate[15] =new Seat[] { new Seat('D'), new Seat('D'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A') };
+            seatsTemplate[16] =new Seat[] { new Seat('D'), new Seat('D'), new Seat('A'), new Seat('A'), new Seat('A'), new Seat('A') };
+            seatsTemplate[17] =new Seat[] { new Seat('D'), new Seat('D'), new Seat('D'), new Seat('A'), new Seat('A'), new Seat('A') };
+            seatsTemplate[18] =new Seat[] { new Seat('D'), new Seat('D'), new Seat('D'), new Seat('A'), new Seat('A'), new Seat('A') };
 
             this.seats = seatsTemplate;
         }

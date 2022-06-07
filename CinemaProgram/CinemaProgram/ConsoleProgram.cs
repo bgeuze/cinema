@@ -1032,6 +1032,10 @@ namespace CinemaProgram
                                 case 'C':
                                     Console.BackgroundColor = ConsoleColor.Yellow;
                                     break;
+                                case 'D':
+                                    Console.BackgroundColor = ConsoleColor.Yellow;
+                                    tseats[i][j].seatAvailability = false;
+                                    break;
                             }
 
                             //Console.ForegroundColor = ConsoleColor.DarkBlue;
