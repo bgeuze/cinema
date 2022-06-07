@@ -378,7 +378,7 @@ namespace CinemaProgram
                 Seat[] seats = SeatSelectionScreen(amount, hall);
                 //Calculates Total price and waits for input of user to continue
                 double totalCost = Interface.SeatPriceCalculation(seats);
-                Console.WriteLine("Totale kosten: \u20AC" + totalCost);
+                Console.WriteLine("Totale kosten: € " + totalCost);
 
                 int daysFromMonday = 0;
                 if (GekozenDag == "Maandag")
@@ -418,6 +418,7 @@ namespace CinemaProgram
                 string playDate = playDateString.Remove(playDateString.Length - 12);
 
                 //TODO: Seat still has to be set on unavailable in the Json/
+                
                 Interface.AddReservation(GetUsername(), GetUserId(), barReservation, seats, gekozenFilm.Title, totalCost, playDate, GekozenTijd);
                 GoToHome();
             }
