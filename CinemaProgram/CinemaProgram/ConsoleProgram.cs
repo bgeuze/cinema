@@ -342,7 +342,7 @@ namespace CinemaProgram
                 {
                     barReservation = true;
                     //TODO: Change cinema to actual cinema
-                    cinema.getBar().assignTable(amount,1500);
+                    cinema.getBar().assignTable(amount,1500, "");
                 } 
                 }
                 else

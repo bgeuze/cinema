@@ -10,6 +10,7 @@ namespace CinemaProgram
     {
         public int tableNumber;
         public int starttime;
+        public string date;
         public bool Available;
         //public int MaxSeatsPerTable = 4;
 
@@ -36,7 +37,7 @@ namespace CinemaProgram
             this.Available = true;
         }
 
-        public int assignTable(int persons, int startTime)
+        public int assignTable(int persons, int startTime, string date)
         {
             int tablesAvailable = 0;
             foreach (Table table in tables)
