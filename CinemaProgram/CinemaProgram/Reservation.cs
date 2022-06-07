@@ -11,12 +11,14 @@ namespace CinemaProgram
         public DateTime CreatedDateTime { get; set; }
         public Seat[] SeatList { get; set; }
         public string FilmTitle { get; set; }
-        
         public double reservationCost { get; set; }
+
+        public string PlayDate { get; set; }
+        public string PlayTime { get; set; }
 
         DateTime CurrentTime = DateTime.Now;
 
-        public Reservation(string id, string name, bool barReservation, string userId, DateTime date, Seat[] seatlist, string filmtitle, double cost)
+        public Reservation(string id, string name, bool barReservation, string userId, DateTime date, Seat[] seatlist, string filmtitle, double cost, string playDate, string playTime)
         {
             Id = id ?? Guid.NewGuid().ToString("N");
             UserID = userId;
@@ -32,6 +34,8 @@ namespace CinemaProgram
             SeatList = seatlist;
             FilmTitle = filmtitle;
             reservationCost = cost;
+            PlayDate = playDate;
+            PlayTime = playTime;
         }
     }
 }

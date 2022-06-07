@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using Newtonsoft.Json;
 
 namespace CinemaProgram
@@ -10,7 +11,9 @@ namespace CinemaProgram
     {
         public static bool NewCinema(string name, Hall[] halls)
         {
-            var filePath = "cinema1.json";
+            string filePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"./cinema1.json");
+            File.AppendAllText(filePath, "");
+
             //read existing json data
             var jsonData = File.ReadAllText(filePath);
             //de-serialize to object or create new list

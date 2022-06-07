@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Reflection;
 using System.Threading.Tasks;
 using ConsoleTables;
 using Newtonsoft.Json;
@@ -15,8 +16,12 @@ namespace CinemaProgram
     {
         public static bool FillSchema()
         {
-            var filePath = "movies.json";
-            var filePath2 = "filmsforschema.json";
+            string filePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"./movies.json");
+            File.AppendAllText(filePath, "");
+
+            string filePath2 = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"./filmsforschema.json");
+            File.AppendAllText(filePath2, "");
+
 
             //read existing json data
             var jsonData = File.ReadAllText(filePath);
@@ -65,8 +70,9 @@ namespace CinemaProgram
 
         public static bool NowPlayingMovies()
         {
-            var filePath = "movies.json";
-           
+            string filePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"./movies.json");
+            File.AppendAllText(filePath, "");
+
             //load nowplaying movies from themoviedb endpoint
             using (WebClient wc = new WebClient())
             {
@@ -90,21 +96,21 @@ namespace CinemaProgram
             jsonData = JsonConvert.SerializeObject(movieList);
             File.WriteAllText(filePath, jsonData);
 
-        
-
             return true;
         }
 
-        public static bool AddReservation(string username, string userId, bool barReservation, Seat[] seatlist, string FilmTitle, double cost)
+        public static bool AddReservation(string username, string userId, bool barReservation, Seat[] seatlist, string FilmTitle, double cost, string playDate, string playTime)
         {
-            var filePath = "reservations.json";
+            string filePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"./filmsforschema.json");
+            File.AppendAllText(filePath, "");
+
             //read existing json data
             var jsonData = File.ReadAllText(filePath);
             //de-serialize to object or create new list
             var reservationList = JsonConvert.DeserializeObject<List<Reservation>>(jsonData) ?? new List<Reservation>();
 
             //add new reservation to the list
-            reservationList.Add(new Reservation(null, username, barReservation, userId, DateTime.Now, seatlist, FilmTitle, cost));
+            reservationList.Add(new Reservation(null, username, barReservation, userId, DateTime.Now, seatlist, FilmTitle, cost, playDate, playTime));
             jsonData = JsonConvert.SerializeObject(reservationList);
             File.WriteAllText(filePath, jsonData);
 
@@ -113,24 +119,22 @@ namespace CinemaProgram
 
         public static List<Reservation> AllReservations()
         {
-            var filePath = "reservations.json";
+            string filePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"./filmsforschema.json");
+            File.AppendAllText(filePath, "");
+
             //read existing json data
             var jsonData = File.ReadAllText(filePath);
             //de-serialize to object or create new list
             var reservationList = JsonConvert.DeserializeObject<List<Reservation>>(jsonData) ?? new List<Reservation>();
-
-            //var userReservations = new List<Reservation>();
-            //foreach (var reservation in reservationList.ToList())
-            //{
-            //    userReservations.Add(new Reservation(reservation.Id, reservation.Name, reservation.BarReservation, reservation.UserID, reservation.CreatedDateTime, reservation.SeatList));
-            //}
 
             return reservationList;
         }
 
         public static List<Reservation> UserReservations(string userId)
         {
-            var filePath = "reservations.json";
+            string filePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"./filmsforschema.json");
+            File.AppendAllText(filePath, "");
+
             //read existing json data
             var jsonData = File.ReadAllText(filePath);
             //de-serialize to object or create new list
@@ -141,7 +145,7 @@ namespace CinemaProgram
             {
                 if (userId == Convert.ToString(reservation.UserID))
                 {
-                    userReservations.Add(new Reservation(reservation.Id, reservation.Name, reservation.BarReservation, reservation.UserID, reservation.CreatedDateTime, reservation.SeatList, reservation.FilmTitle, reservation.reservationCost));
+                    userReservations.Add(new Reservation(reservation.Id, reservation.Name, reservation.BarReservation, reservation.UserID, reservation.CreatedDateTime, reservation.SeatList, reservation.FilmTitle, reservation.reservationCost, reservation.PlayDate, reservation.PlayTime));
                 }
             }
             return userReservations;
@@ -149,7 +153,9 @@ namespace CinemaProgram
 
         public static bool RemoveReservation(string Id, string reservationName)
         {
-            var filePath = "reservations.json";
+            string filePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"./filmsforschema.json");
+            File.AppendAllText(filePath, "");
+
             //read existing json data
             var jsonData = File.ReadAllText(filePath);
             //de-serialize to object or create new list
@@ -168,14 +174,22 @@ namespace CinemaProgram
                     {
                         if (reservation.Name == reservationName)
                         {
-                            reservationList.Remove(reservation);
-                            jsonData = JsonConvert.SerializeObject(reservationList);
-                            File.WriteAllText(filePath, jsonData);
-                            ConsoleProgram.GoToHome();
-                            return true;
+                            DateTime dateToday = DateTime.Parse(DateTime.Now.ToString("M/d/yyyy"));
+                            DateTime dateReservation = DateTime.Parse(reservation.PlayDate);
+
+                            if (dateReservation.Day - dateToday.Day > 1 && dateReservation.Month == dateToday.Month)
+                            {
+                                reservationList.Remove(reservation);
+                                jsonData = JsonConvert.SerializeObject(reservationList);
+                                File.WriteAllText(filePath, jsonData);
+                                ConsoleProgram.GoToHome();
+                                return true;
+                            }
+                            Console.WriteLine("Heelaas, u kunt deze reverering niet verwijderen");
                         }
                     }
                 }
+                ConsoleProgram.GoToHome();
                 return false;
             }
         }
