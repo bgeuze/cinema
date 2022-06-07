@@ -55,8 +55,44 @@ namespace CinemaProgram
                 return false;
             }
         }
+        public static void ChangeUserRole()
+        {
+            string filePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"./user.json");
+            File.AppendAllText(filePath, "");
+            //read existing json data
+            var jsonData = File.ReadAllText(filePath);
+            //de-serialize to object or create new list
+            var users = JsonConvert.DeserializeObject<List<User>>(jsonData)
+                                  ?? new List<User>();
 
-        public static string GetUserId(string username)
+            Console.WriteLine("Van wie wil u de rol veranderen");
+            string username = Console.ReadLine();
+
+            Console.WriteLine($"Welke rol wilt u {username} geven?");
+
+            var table = new ConsoleTable("1", "Admin");
+            table.AddRow("2", "User");
+            table.Write();
+            string role = Console.ReadLine();
+            foreach (var user in users)
+            {
+                if (username == Convert.ToString(user.Username))
+                {
+                    if (role == "1")
+                    {
+                        user.Role = "Admin";
+                    }
+                    if (role == "2")
+                    {
+                        user.Role = "User";
+                    }
+                }
+            }
+            jsonData = JsonConvert.SerializeObject(users);
+            File.WriteAllText(filePath, jsonData);
+        }
+    
+    public static string GetUserId(string username)
         {
             using (StreamReader r = new StreamReader("user.json"))
             {

@@ -247,20 +247,9 @@ namespace CinemaProgram
 
                        
 
-                        table2.AddRow($"{film2.StartTime}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}");
+                        
 
-                        if (film2.StartTime == "10:00")
-                        {
-                            table2.AddRow($"17:00", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}");
-                        }
-                        if (film2.StartTime == "12:00")
-                        {
-                            table2.AddRow($"19:00", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}");
-                        }
-                        if (film2.StartTime == "14:00")
-                        {
-                            table2.AddRow($"21:00", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}");
-                        }
+                        
 
                     }
                     if (film2.StartTime == "12:00")
@@ -570,7 +559,14 @@ namespace CinemaProgram
             }
 
             table.Write();
-
+            Console.WriteLine("\n\nWilt u de role van iemand aanpassen?");
+            Console.WriteLine("type ja of nee.");
+            string answer = Console.ReadLine();
+            if (answer == "ja")
+            {
+                UserJsonHandler.ChangeUserRole();
+            }
+            
             GoToHome();
         }
 
