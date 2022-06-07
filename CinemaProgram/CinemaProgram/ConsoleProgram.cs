@@ -230,20 +230,22 @@ namespace CinemaProgram
                 }
                 foreach (var film2 in (dynamic)MovieList2) if (film2.MovieTitle == gekozenFilm.Title)
                 {
-                    table2.AddRow($"{film2.StartTime}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}");
-
-
-
-                    if (film2.StartTime == "10:00")
-                    {
-
-                        table2.AddRow($"17:00", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}");
-
                         if (film2.MovieTitle.Length > 25)
                         {
                             film2.MovieTitle = film2.MovieTitle.Substring(0, 22);
                             film2.MovieTitle = film2.MovieTitle + "...";
                         }
+                        table2.AddRow($"{film2.StartTime}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}");
+                        
+
+
+                        if (film2.StartTime == "10:00")
+                    {
+                             
+
+                        table2.AddRow($"17:00", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}");
+
+                       
 
                         table2.AddRow($"{film2.StartTime}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}");
 
@@ -378,7 +380,7 @@ namespace CinemaProgram
                 Seat[] seats = SeatSelectionScreen(amount, hall);
                 //Calculates Total price and waits for input of user to continue
                 double totalCost = Interface.SeatPriceCalculation(seats);
-                Console.WriteLine("Totale kosten: € " + totalCost);
+                Console.WriteLine("Totale kosten: " + totalCost + ",-");
 
                 int daysFromMonday = 0;
                 if (GekozenDag == "Maandag")
