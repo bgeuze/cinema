@@ -47,6 +47,7 @@ namespace CinemaProgram
 
         public static bool AddReservation(string username, string userId, bool barReservation, Seat[] seatlist, string FilmTitle, double cost, string playDate, string playTime)
         {
+            Console.WriteLine("JOEHOE");
             return MovieJsonHandler.AddReservation(username, userId, barReservation, seatlist, FilmTitle, cost, playDate, playTime);
         }
 

@@ -101,7 +101,7 @@ namespace CinemaProgram
 
         public static bool AddReservation(string username, string userId, bool barReservation, Seat[] seatlist, string FilmTitle, double cost, string playDate, string playTime)
         {
-            string filePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"./filmsforschema.json");
+            string filePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"./reservations.json");
             File.AppendAllText(filePath, "");
 
             //read existing json data
@@ -119,7 +119,7 @@ namespace CinemaProgram
 
         public static List<Reservation> AllReservations()
         {
-            string filePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"./filmsforschema.json");
+            string filePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"./reservations.json");
             File.AppendAllText(filePath, "");
 
             //read existing json data
@@ -132,7 +132,7 @@ namespace CinemaProgram
 
         public static List<Reservation> UserReservations(string userId)
         {
-            string filePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"./filmsforschema.json");
+            string filePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"./reservations.json");
             File.AppendAllText(filePath, "");
 
             //read existing json data
@@ -153,7 +153,7 @@ namespace CinemaProgram
 
         public static bool RemoveReservation(string Id, string reservationName)
         {
-            string filePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"./filmsforschema.json");
+            string filePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"./reservations.json");
             File.AppendAllText(filePath, "");
 
             //read existing json data
