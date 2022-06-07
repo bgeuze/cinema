@@ -226,31 +226,31 @@ namespace CinemaProgram
                 var table2 = new ConsoleTable();
                 var GekozenMovieTijd = "";
                 foreach (var film2 in (dynamic)MovieList2) if (film2.MovieTitle == gekozenFilm.Title)
-                    {
-                        table2 = new ConsoleTable($"Hal {film2.HallNumber}", "Maandag", "Dinsdag", "Woensdag", "Donderdag", "Vrijdag", "Zaterdag", "Zondag");
-                        GekozenMovieTijd = film2.StartTime;
-                    }
+                {
+                    table2 = new ConsoleTable($"Hal {film2.HallNumber}", "Maandag", "Dinsdag", "Woensdag", "Donderdag", "Vrijdag", "Zaterdag", "Zondag");
+                    GekozenMovieTijd = film2.StartTime;
+                }
                 foreach (var film2 in (dynamic)MovieList2) if (film2.MovieTitle == gekozenFilm.Title)
+                {
+                    table2.AddRow($"{film2.StartTime}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}");
+
+
+
+                    if (film2.StartTime == "10:00")
                     {
-                        table2.AddRow($"{film2.StartTime}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}");
-
-
-
-                        if (film2.StartTime == "10:00")
-                        {
-                            table2.AddRow($"17:00", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}");
-                        }
-                        if (film2.StartTime == "12:00")
-                        {
-                            table2.AddRow($"19:00", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}");
-                        }
-                        if (film2.StartTime == "14:00")
-                        {
-                            table2.AddRow($"21:00", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}");
-                        }
-
-
+                        table2.AddRow($"17:00", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}");
                     }
+                    if (film2.StartTime == "12:00")
+                    {
+                        table2.AddRow($"19:00", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}");
+                    }
+                    if (film2.StartTime == "14:00")
+                    {
+                        table2.AddRow($"21:00", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}");
+                    }
+
+
+                }
                 table2.Write();
                 bool tijdenBool = false;
                 string GekozenDag = "";
@@ -296,6 +296,7 @@ namespace CinemaProgram
                     }
                 }
                 Console.WriteLine($"De gekozen tijd is {GekozenTijd} op {GekozenDag}");
+                
                 bool barReservation = false;
                 string ans;
                 //Gets the hall from the chosen movie using the schedule list 
@@ -305,6 +306,16 @@ namespace CinemaProgram
                     if (film.MovieTitle == gekozenFilm.Title)
                     {
                         hall = film.hallObject;
+                        if(!hall.hasFreeSeats())
+                        {
+                            Console.WriteLine("Helaas deze film is al volgeboekt klik op een knop om terug te gaan naar het hoofdmenu...");
+                            Console.ReadLine();
+                            HomeScreen();
+                        }
+                        else
+                        {
+                            Console.WriteLine("Deze plekken zijn nog beschikbaar: " + hall.freeSeatsOrdered());
+                        }
                     }
                 }
                 //TODO: Create cinema or load it in from the JSON
