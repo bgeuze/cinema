@@ -381,35 +381,35 @@ namespace CinemaProgram
                 //Calculates Total price and waits for input of user to continue
                 double totalCost = Interface.SeatPriceCalculation(seats);
                 Console.WriteLine("Totale kosten: " + totalCost + ",-");
-
+                GekozenDag = GekozenDag.ToLower();
                 int daysFromMonday = 0;
-                if (GekozenDag == "Maandag")
+                if (GekozenDag == "maandag")
+                {
+                    daysFromMonday = 0;
+                }
+                else if (GekozenDag == "dinsdag")
                 {
                     daysFromMonday = 1;
                 }
-                else if (GekozenDag == "Dinsdag")
+                else if (GekozenDag == "woensdag")
                 {
                     daysFromMonday = 2;
                 }
-                else if (GekozenDag == "Woensdag")
+                else if (GekozenDag == "donderdag")
                 {
                     daysFromMonday = 3;
                 }
-                else if (GekozenDag == "Donderdag")
+                else if (GekozenDag == "vrijdag")
                 {
                     daysFromMonday = 4;
                 }
-                else if (GekozenDag == "Vrijdag")
+                else if (GekozenDag == "zaterdag")
                 {
                     daysFromMonday = 5;
                 }
-                else if (GekozenDag == "Zaterdag")
-                {
-                    daysFromMonday = 6;
-                }
                 else
                 {
-                    daysFromMonday = 7;
+                    daysFromMonday = 6;
                 }
 
                 System.Globalization.CultureInfo ci = System.Threading.Thread.CurrentThread.CurrentCulture;
