@@ -945,32 +945,41 @@ namespace CinemaProgram
             tseats[1][2].setSeatAvailability(false);
             tseats[1][3].setSeatAvailability(false);
             List<Seat> chosenOnes = new List<Seat>();
-            bool test = true;
-           /* for (int b = 0; b < tseats[0].Length; b++)
-            {
-                for (int i = 0; i < tseats.Length; i++)
-                {
-                    if (tseats[b][i].getSeatAvailability() == true && !test)
-                        {
-                            
-                            int amount = seatAmount - 1;
-                            while (!test && amount > 0)
-                            {
-                                if (tseats[b][i + amount].getSeatAvailability() == false)
-                                {
-                                    test = true;
-                                }
+            bool test = false;
 
-                                if (!test)
-                                {
-                                    chosenOnes.Add(tseats[b][i + amount]);
-                                    /*TODO: Add positions to seat array with tuple or rewrite to check on first position and then fill the closest seats from that position with before option to auto fill or pick seats manually*/
-                                /*}
+            Console.WriteLine("Kies 1: voor automatische stoel selectie...");
+            Console.WriteLine("Kies 2: voor handmatige selectie...");
+            if (Console.ReadLine() == 2.ToString())
+            {
+                test = true;
+            }
+            
+            
+            //Systematic Hydromatic Automatic.. well why couldnt it be Automatic Selection
+            if (!test)
+            {
+                while (seatAmount > 0)
+                {
+                    
+                    for (int a = 0; a < tseats[0].Length; a++)
+                    {
+                        for (int b = 0; b < tseats.Length; b++)
+                        {
+                            if (tseats[a][b].getSeatAvailability() == true)
+                            {
+                                chosenOnes.Add(tseats[a][b]);
+                                tseats[a][b].setSeatAvailability(false);
+                                tseats[a][b].SeatIndex = "R: " + (a+1).ToString() + " S:" + (b+1).ToString();
+                                seatAmount--;
                             }
                         }
+                        
+                    }
+                    
                 }
-            } */
-
+            }
+            
+            //Manual Selection
             if (test)
             {
                 //Lets the user select seats untill all are selected
@@ -983,30 +992,6 @@ namespace CinemaProgram
                     {
                         Console.Write("  ");
                         Console.Write(a + 1);
-                        /*aswitch (a + 1)
-                        {
-                            case 1:
-                                Console.Write("A");
-                                break;
-                            case 2:
-                                Console.Write("B");
-                                break;
-                            case 3:
-                                Console.Write("C");
-                                break;
-                            case 4:
-                                Console.Write("D");
-                                break;
-                            case 5:
-                                Console.Write("E");
-                                break;
-                            case 6:
-                                Console.Write("F");
-                                break;
-                            case 7:
-                                Console.Write("G");
-                                break;
-                        }*/
                     }
 
                     Console.WriteLine();
