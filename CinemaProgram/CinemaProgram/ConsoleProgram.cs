@@ -345,7 +345,7 @@ namespace CinemaProgram
                 halls[0] = hall;
                 cinema = new Cinema("HELLO");
                 //cinema.addHall(hall);
-                //cinema.bars = new Bar(40);
+                cinema.bars = new Bar(40);
                 //Seat selection and amount of people input
                 Console.WriteLine("Voor hoeveel mensen wilt u reserveren?");
                 int amount = int.Parse(Console.ReadLine());
@@ -1048,14 +1048,19 @@ namespace CinemaProgram
                     
                     for (int a = 0; a < tseats[0].Length; a++)
                     {
-                        for (int b = 0; b < tseats.Length; b++)
+                        //Console.WriteLine("A" + a);
+                        for (int b = 0; b < tseats.Length-2; b++)
                         {
-                            if (tseats[a][b].getSeatAvailability() == true)
+                            if (seatAmount > 0)
                             {
-                                chosenOnes.Add(tseats[a][b]);
-                                tseats[a][b].setSeatAvailability(false);
-                                tseats[a][b].SeatIndex = "R: " + (a+1).ToString() + " S:" + (b+1).ToString();
-                                seatAmount--;
+                                //Console.WriteLine("B" + b);
+                                if (tseats[a][b].getSeatAvailability() == true)
+                                {
+                                    chosenOnes.Add(tseats[a][b]);
+                                    tseats[a][b].setSeatAvailability(false);
+                                    tseats[a][b].SeatIndex = "R: " + (a + 1).ToString() + " S:" + (b + 1).ToString();
+                                    seatAmount--;
+                                }
                             }
                         }
                         
@@ -1107,7 +1112,7 @@ namespace CinemaProgram
                                     Console.BackgroundColor = ConsoleColor.Yellow;
                                     break;
                                 case 'D':
-                                    Console.BackgroundColor = ConsoleColor.Yellow;
+                                    Console.BackgroundColor = ConsoleColor.Black;
                                     tseats[i][j].seatAvailability = false;
                                     break;
                             }
