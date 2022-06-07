@@ -97,6 +97,56 @@ namespace CinemaProgram
 
             this.seats = seatsTemplate;
         }
+        
+        
+        //Availability
+        public bool hasFreeSeats()
+        {
+            bool hasSeats = false;
+            foreach(Seat[] seatArray in seats)
+            {
+                foreach (Seat seat in seatArray)
+                {
+                    if (seat.seatAvailability)
+                    {
+                        hasSeats = true;
+                    }
+                }
+            }
+
+            return hasSeats;
+        }
+
+        public string freeSeatsOrdered()
+        {
+            int seatsA = 0;
+            int seatsB = 0;
+            int seatsC = 0;
+            foreach(Seat[] seatArray in seats)
+            {
+                foreach (Seat seat in seatArray)
+                {
+                    if (seat.seatAvailability)
+                    {
+                        if (seat.seatRange.Equals('A'))
+                        {
+                            seatsA++;
+                        }
+                        if (seat.seatRange.Equals('B'))
+                        {
+                            seatsB++;
+                        }
+                        if (seat.seatRange.Equals('C'))
+                        {
+                            seatsC++;
+                        }
+                    }
+                }
+            }
+
+            string str = "3rd Class Seats: " + seatsA + "| 2nd Class Seats: " + seatsB + "| 1st Class Seats: " + seatsC;
+            return str;
+        }
     }
 
     
