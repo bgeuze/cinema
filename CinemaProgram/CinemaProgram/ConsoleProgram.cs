@@ -345,7 +345,7 @@ namespace CinemaProgram
                 halls[0] = hall;
                 cinema = new Cinema("HELLO");
                 //cinema.addHall(hall);
-                cinema.bars = new Bar(40);
+                cinema.bars = new Bar(40, 2);
                 //Seat selection and amount of people input
                 Console.WriteLine("Voor hoeveel mensen wilt u reserveren?");
                 int amount = int.Parse(Console.ReadLine());

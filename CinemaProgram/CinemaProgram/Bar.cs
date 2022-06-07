@@ -11,7 +11,7 @@ namespace CinemaProgram
         public int tableNumber;
         public int starttime;
         public string date;
-        public bool Available;
+        public bool Available = true;
         //public int MaxSeatsPerTable = 4;
 
         public void setAvailable(bool value)
@@ -28,17 +28,26 @@ namespace CinemaProgram
     {
         public Table[] tables = new Table[40];
         //public int TableNumber;
+        public int tijdslot;
         public bool Available;
         public int MaxSeatsPerTable = 4;
 
-        public Bar(int tablesAmount)
+        public Bar(int tablesAmount,int tijdslot)
         {
+            tables = new Table[40];
+            for(int i=0; i < tables.Length; i++)
+            {
+                tables[i] = new Table();
+            }
             //this.TableNumber = tablesAmount;
             this.Available = true;
+            this.tijdslot = tijdslot;
         }
 
         public int assignTable(int persons, int startTime, string date)
         {
+            
+            
             int tablesAvailable = 0;
             foreach (Table table in tables)
             {
@@ -47,7 +56,6 @@ namespace CinemaProgram
                     tablesAvailable++;
                 }
             }
-
             if (tablesAvailable <= 0 || !Available)
             {
                 Available = false; return 0;
