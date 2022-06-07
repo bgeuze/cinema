@@ -324,7 +324,7 @@ namespace CinemaProgram
                 halls[0] = hall;
                 cinema = new Cinema("HELLO");
                 //cinema.addHall(hall);
-                cinema.bars = new Bar(40);
+                //cinema.bars = new Bar(40);
                 //Seat selection and amount of people input
                 Console.WriteLine("Voor hoeveel mensen wilt u reserveren?");
                 int amount = int.Parse(Console.ReadLine());
@@ -342,7 +342,7 @@ namespace CinemaProgram
                 {
                     barReservation = true;
                     //TODO: Change cinema to actual cinema
-                    cinema.getBar().assignTable(amount);
+                    cinema.getBar().assignTable(amount,1500);
                 } 
                 }
                 else
@@ -1084,11 +1084,12 @@ namespace CinemaProgram
                         pos2 = Int32.Parse(seatChoice2!) - 1; //Interface.ToNumberPosition(seatChoice2!.ToUpper());
                         chosenOnes.Add(tseats[pos1][pos2]);
                         tseats[pos1][pos2].setSeatAvailability(false);
-                        tseats[pos1][pos2].SeatIndex = "R: " + pos1.ToString() + " S:" + pos2.ToString();
+                        tseats[pos1][pos2].SeatIndex = "R: " + (pos1+1).ToString() + " S:" + (pos2+1).ToString();
                     }
                 }
             }
-            
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.ForegroundColor = ConsoleColor.White;
             return Interface.ArrayListToArray(chosenOnes);
         }
     }
