@@ -62,10 +62,6 @@ namespace CinemaProgram
             CinemaJsonHandler.NewCinema(name, halls);
         }
 
-        public static bool NewSchema()
-        {
-            return MovieJsonHandler.Schema();
-        }
 
         //Converts an arraylist to an array so it can be saved in/to the JSON
         public static Seat[] ArrayListToArray(List<Seat> aL)

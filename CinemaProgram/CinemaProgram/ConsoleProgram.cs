@@ -266,14 +266,21 @@ namespace CinemaProgram
             }
 
             table.Write();
+            Console.WriteLine("\n\nWilt u de role van iemand aanpassen?");
+            Console.WriteLine("typ ja of nee.");
+            string answer = Console.ReadLine();
+            if(answer == "ja")
+            {
+                UserJsonHandler.ChangeUserRole();
+            } else if (answer == "nee")
+            {
+
+            }
 
             GoToHome();
         }
 
-        public static void NewSchema()
-        {
-            Interface.NewSchema();
-        }
+        
 
     //    public static void hall1()
     //    {
@@ -315,8 +322,8 @@ namespace CinemaProgram
                     table.AddRow("1", "Alle films");
                     table.AddRow("2", "Alle gebruikers");
                     table.AddRow("3", "Nieuwe reservering");
-                    table.AddRow("4", "Mijn reserveringen");
-                    table.AddRow("5", "Nieuw schema");
+                    table.AddRow("4", "Alle reserveringen");
+                    table.AddRow("5", "Film schema");
                     table.Write();
 
                     userselection = Console.ReadLine();
@@ -336,7 +343,7 @@ namespace CinemaProgram
                             UserReservations();
                             break;
                         case 5:
-                            NewSchema();
+                            MovieJsonHandler.printSchema();
                             break;
                     }
                     break;

@@ -90,5 +90,41 @@ namespace CinemaProgram
                 return null;
             }
         }
+
+        public static void ChangeUserRole()
+        {
+            var filePath = "user.json";
+            //read existing json data
+            var jsonData = File.ReadAllText(filePath);
+            //de-serialize to object or create new list
+            var users = JsonConvert.DeserializeObject<List<User>>(jsonData)
+                                  ?? new List<User>();
+
+            Console.WriteLine("Van wie wil u de rol verander");
+            string username = Console.ReadLine();
+            
+            Console.WriteLine($"Welke rol wilt u {username} geven?");
+
+            var table = new ConsoleTable("1", "Admin");
+            table.AddRow("2", "User");
+            table.Write();
+            string role = Console.ReadLine();
+            foreach (var user in users)
+            {
+                if (username == Convert.ToString(user.Username))
+                {
+                    if(role == "1")
+                    {
+                        user.Role = "Admin";
+                    }
+                    if (role == "2")
+                    {
+                        user.Role = "User";
+                    }
+                }
+            }
+            jsonData = JsonConvert.SerializeObject(users);
+            File.WriteAllText(filePath, jsonData);
+        }
     }
 }

@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Misch\\Documents\\GitHub\\cinema\\CinemaProgram\\CinemaProgramTests\\CinemaProgramTests.csproj": {}
+    "D:\\daan0\\HvRotterdam\\Jaar_1\\Op3\\Project\\cinema\\cinema\\CinemaProgram\\CinemaProgramTests\\CinemaProgramTests.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Misch\\Documents\\GitHub\\cinema\\CinemaProgram\\CinemaProgramTests\\CinemaProgramTests.csproj": {
+    "D:\\daan0\\HvRotterdam\\Jaar_1\\Op3\\Project\\cinema\\cinema\\CinemaProgram\\CinemaProgramTests\\CinemaProgramTests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Misch\\Documents\\GitHub\\cinema\\CinemaProgram\\CinemaProgramTests\\CinemaProgramTests.csproj",
+        "projectUniqueName": "D:\\daan0\\HvRotterdam\\Jaar_1\\Op3\\Project\\cinema\\cinema\\CinemaProgram\\CinemaProgramTests\\CinemaProgramTests.csproj",
         "projectName": "CinemaProgramTests",
-        "projectPath": "C:\\Users\\Misch\\Documents\\GitHub\\cinema\\CinemaProgram\\CinemaProgramTests\\CinemaProgramTests.csproj",
-        "packagesPath": "C:\\Users\\Misch\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Misch\\Documents\\GitHub\\cinema\\CinemaProgram\\CinemaProgramTests\\obj\\",
+        "projectPath": "D:\\daan0\\HvRotterdam\\Jaar_1\\Op3\\Project\\cinema\\cinema\\CinemaProgram\\CinemaProgramTests\\CinemaProgramTests.csproj",
+        "packagesPath": "C:\\Users\\daan0\\.nuget\\packages\\",
+        "outputPath": "D:\\daan0\\HvRotterdam\\Jaar_1\\Op3\\Project\\cinema\\cinema\\CinemaProgram\\CinemaProgramTests\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Misch\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\daan0\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -28,8 +28,8 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "C:\\Users\\Misch\\Documents\\GitHub\\cinema\\CinemaProgram\\CinemaProgram\\CinemaProgram.csproj": {
-                "projectPath": "C:\\Users\\Misch\\Documents\\GitHub\\cinema\\CinemaProgram\\CinemaProgram\\CinemaProgram.csproj"
+              "D:\\daan0\\HvRotterdam\\Jaar_1\\Op3\\Project\\cinema\\cinema\\CinemaProgram\\CinemaProgram\\CinemaProgram.csproj": {
+                "projectPath": "D:\\daan0\\HvRotterdam\\Jaar_1\\Op3\\Project\\cinema\\cinema\\CinemaProgram\\CinemaProgram\\CinemaProgram.csproj"
               }
             }
           }
@@ -80,17 +80,17 @@
         }
       }
     },
-    "C:\\Users\\Misch\\Documents\\GitHub\\cinema\\CinemaProgram\\CinemaProgram\\CinemaProgram.csproj": {
+    "D:\\daan0\\HvRotterdam\\Jaar_1\\Op3\\Project\\cinema\\cinema\\CinemaProgram\\CinemaProgram\\CinemaProgram.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Misch\\Documents\\GitHub\\cinema\\CinemaProgram\\CinemaProgram\\CinemaProgram.csproj",
+        "projectUniqueName": "D:\\daan0\\HvRotterdam\\Jaar_1\\Op3\\Project\\cinema\\cinema\\CinemaProgram\\CinemaProgram\\CinemaProgram.csproj",
         "projectName": "CinemaProgram",
-        "projectPath": "C:\\Users\\Misch\\Documents\\GitHub\\cinema\\CinemaProgram\\CinemaProgram\\CinemaProgram.csproj",
-        "packagesPath": "C:\\Users\\Misch\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Misch\\Documents\\GitHub\\cinema\\CinemaProgram\\CinemaProgram\\obj\\",
+        "projectPath": "D:\\daan0\\HvRotterdam\\Jaar_1\\Op3\\Project\\cinema\\cinema\\CinemaProgram\\CinemaProgram\\CinemaProgram.csproj",
+        "packagesPath": "C:\\Users\\daan0\\.nuget\\packages\\",
+        "outputPath": "D:\\daan0\\HvRotterdam\\Jaar_1\\Op3\\Project\\cinema\\cinema\\CinemaProgram\\CinemaProgram\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Misch\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\daan0\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
