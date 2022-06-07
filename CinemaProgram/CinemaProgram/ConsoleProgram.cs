@@ -520,10 +520,14 @@ namespace CinemaProgram
             int hallAmount = 0;
             foreach (var hallnum in (dynamic)MovieList)
             {
-                hallAmount = int.Parse($"{hallnum.HallNumber}");
+                int haln = int.Parse($"{hallnum.HallNumber}");
+                if (hallAmount < haln)
+                {
+                    hallAmount = haln;
+                }
             }
 
-            for (int i = 1; i < hallAmount + 1; i++)
+            for (int i = 1; i < hallAmount+1; i++)
             {
                 Console.WriteLine($"Alle films in zaal {i}.\n");
                 var table = new ConsoleTable("Time", "Maandag", "Dinsdag", "Woensdag", "Donderdag", "Vrijdag", "Zaterdag", "Zondag");
@@ -531,13 +535,12 @@ namespace CinemaProgram
                 foreach (var film in (dynamic)MovieList) if ($"{film.HallNumber}" == i.ToString())
                     {
                         string f = $"{film.MovieTitle}";
-
                         if (f.Length > 25)
                         {
                             f = f.Substring(0, 22);
                             f = f + "...";
                         }
-
+                        
                         string starttime = film.StartTime;
                         table.AddRow(starttime, f, f, f, f, f, f, f);
                         time += 2;
@@ -545,14 +548,12 @@ namespace CinemaProgram
                 foreach (var film in (dynamic)MovieList) if ($"{film.HallNumber}" == i.ToString())
                     {
                         string f = $"{film.MovieTitle}";
-
+                        string starttime = film.StartTime;
                         if (f.Length > 25)
                         {
                             f = f.Substring(0, 22);
                             f = f + "...";
                         }
-
-                        string starttime = film.StartTime;
 
                         string text = film.StartTime;
                         string uren = text.Substring(0, text.LastIndexOf(':'));
@@ -569,17 +570,16 @@ namespace CinemaProgram
 
         public static void Movietime()
         {
-
             var filePath = "filmsforschema.json";
             //read existing json data
             var jsonData = File.ReadAllText(filePath);
             //de-serialize to object or create new list
             var MovieList = JsonConvert.DeserializeObject<List<FilmsforSchema>>(jsonData)
-                                  ?? new List<FilmsforSchema>();
+                            ?? new List<FilmsforSchema>();
 
             var table = new ConsoleTable("ID", "Film");
             int i = 0;
-            foreach (var film in (dynamic)MovieList)
+            foreach (var film in (dynamic)MovieList) if (int.Parse(film.HallNumber) > 0)
             {
                 table.AddRow(i, film.MovieTitle);
                 i++;
@@ -587,22 +587,28 @@ namespace CinemaProgram
             table.Write();
             Console.WriteLine("\nTyp het nummer van de film waar u informatie van wilt.");
             string movieselection = Console.ReadLine();
-            Console.WriteLine(MovieList[int.Parse(movieselection)].MovieTitle);
-            string text = MovieList[int.Parse(movieselection)].StartTime;
-            string uren = text.Substring(0, text.LastIndexOf(':'));
-            string minuten = text.Substring(text.LastIndexOf(':') + 1);
-            int hours = int.Parse(uren) + 7;
-            string tijd = hours + ":" + minuten;
-            Console.WriteLine($"De film draait om {MovieList[int.Parse(movieselection)].StartTime} en om {tijd}");
-            Console.WriteLine($"De film draait in zaal {MovieList[int.Parse(movieselection)].HallNumber}\n");
-
+            if (int.Parse(movieselection) > i-1 || int.Parse(movieselection) < 0){
+                Console.Clear();
+                Console.WriteLine("Dit nummer is niet van toepassing geef een ander nummer.");
+                Movietime();
+            } else
+            {
+                Console.WriteLine(MovieList[int.Parse(movieselection)].MovieTitle);
+                string text = MovieList[int.Parse(movieselection)].StartTime;
+                string uren = text.Substring(0, text.LastIndexOf(':'));
+                string minuten = text.Substring(text.LastIndexOf(':') + 1);
+                int hours = int.Parse(uren) + 7;
+                string tijd = hours + ":" + minuten;
+                Console.WriteLine($"De film draait om {MovieList[int.Parse(movieselection)].StartTime} en om {tijd}");
+                Console.WriteLine($"De film draait in zaal {MovieList[int.Parse(movieselection)].HallNumber}\n");
+            }
             jsonData = JsonConvert.SerializeObject(MovieList);
             File.WriteAllText(filePath, jsonData);
         }
 
         public static void editMovieOnSchema()
         {
-            var filePath = "filmsforschema.json";
+             var filePath = "filmsforschema.json";
             //read existing json data
             var jsonData = File.ReadAllText(filePath);
             //de-serialize to object or create new list
@@ -619,7 +625,11 @@ namespace CinemaProgram
             int hallAmount = 0;
             foreach (var hallnum in (dynamic)MovieList)
             {
-                hallAmount = int.Parse($"{hallnum.HallNumber}");
+                int haln = int.Parse($"{hallnum.HallNumber}");
+                if (hallAmount < haln)
+                {
+                    hallAmount = haln;
+                }
             }
             for (int i = 1; i < hallAmount + 1; i++)
             {
@@ -630,40 +640,62 @@ namespace CinemaProgram
 
             userselection = Console.ReadLine();
 
-            int count = 1;
-            foreach (var film in (dynamic)MovieList) if ($"{film.HallNumber}" == userselection)
-                {
-                    Console.WriteLine(count + ": " + $"{film.MovieTitle}");
-                    count++;
-                }
+            int count1 = 1;
+            foreach (var film in (dynamic)MovieList) if ($"{film.HallNumber}" == userselection && int.Parse(film.HallNumber) > 0) if (int.Parse(userselection) < hallAmount || int.Parse(userselection) > 0)
+            {
+                Console.WriteLine(count1 + ": " + $"{film.MovieTitle}");
+                count1++;
+            } else
+            {
+                Console.Clear();
+                Console.WriteLine("Deze input klopt niet");
+                editMovieOnSchema();
+            }
 
             Console.WriteLine("Enter the initial of the film you want to change.");
             string movieselection = Console.ReadLine();
-            count = 1;
-            foreach (var film in (dynamic)MovieList) if ($"{film.HallNumber}" == userselection)
-            {
-                if (count.ToString() == movieselection)
-                {
-                    Console.WriteLine($"Are you sure you want to change: {$"{film.MovieTitle}"}.");
+            int count2 = 1;
+            foreach (var film in (dynamic)MovieList) if ($"{film.HallNumber}" == userselection) if (int.Parse(userselection) < count2 || int.Parse(userselection) > 0)
+                    {
+                    if (count2.ToString() == movieselection)
+                    {
+                        Console.WriteLine($"Are you sure you want to change: {$"{film.MovieTitle}"}.");
+                    }
+                    count2++;
                 }
-                count++;
-            }
+                else
+                {
+                    Console.WriteLine("Deze input klopt niet");
+                    editMovieOnSchema();
+                }
+
             Console.WriteLine("\nEnter Yes or No.");
             string YesOrNo = Console.ReadLine();
-            if (YesOrNo == "yes" || YesOrNo == "Yes")
-            {
+            if (YesOrNo == "yes" || YesOrNo == "Yes") {
                 Console.WriteLine("\nEnter the name of the new Film.");
-            }
-            else if (YesOrNo == "no" || YesOrNo == "No")
-            {
+            } else if (YesOrNo == "no" || YesOrNo == "No") {
                 printSchema();
+            }
+            else
+            {
+                Console.WriteLine("Deze input klopt niet");
+                editMovieOnSchema();
             }
 
             string newMovie = Console.ReadLine();
             Console.WriteLine("\nHoelaat draait de film voor het eerst op de dag?");
+            Console.WriteLine("Zet de tijd neer als volgt --:--, - stelt een nummer voor.");
             string newTime = Console.ReadLine();
 
-            count = 1;
+            string uren = newTime.Substring(0, newTime.LastIndexOf(':'));
+            string minuten = newTime.Substring(newTime.LastIndexOf(':') + 1);
+            int count = 1;
+            if(uren.Length == 1)
+            {
+                uren = "0" + uren;
+                newTime = uren + ":" + minuten;
+            }
+
             foreach (var film in (dynamic)MovieList) if ($"{film.HallNumber}" == userselection)
             {
                 if (count.ToString() == movieselection)
@@ -674,7 +706,7 @@ namespace CinemaProgram
                     film.StartTime = newTime;
                 }
                 count++;
-
+                    
             }
             jsonData = JsonConvert.SerializeObject(MovieList);
             File.WriteAllText(filePath, jsonData);
@@ -692,7 +724,11 @@ namespace CinemaProgram
             int hallAmount = 0;
             foreach (var hallnum in (dynamic)MovieList)
             {
-                hallAmount = int.Parse($"{hallnum.HallNumber}");
+                int haln = int.Parse($"{hallnum.HallNumber}");
+                if (hallAmount < haln)
+                {
+                    hallAmount = haln;
+                }
             }
             string tijduren = "10";
             string tijdminuten = "00";
@@ -706,6 +742,74 @@ namespace CinemaProgram
 
             jsonData = JsonConvert.SerializeObject(MovieList);
             File.WriteAllText(filePath, jsonData);
+        }
+        
+        public static void DeleteHall()
+        {
+            var filePath = "filmsforschema.json";
+            //read existing json data
+            var jsonData = File.ReadAllText(filePath);
+            //de-serialize to object or create new list
+            var MovieList = JsonConvert.DeserializeObject<List<FilmsforSchema>>(jsonData)
+                                  ?? new List<FilmsforSchema>();
+            
+            int hallAmount = 0;
+            foreach (var hallnum in (dynamic)MovieList)
+            {
+                int haln = int.Parse($"{hallnum.HallNumber}");
+                if (hallAmount < haln)
+                {
+                    hallAmount = haln;
+                }
+            }
+            Console.WriteLine($"Weet u het zeker dat u zaal {hallAmount} wilt verwijderen?");
+            Console.WriteLine("Type Ja of Nee");
+
+            int minHall = -1;
+            foreach (var hallnum in (dynamic)MovieList)
+            {
+                int haln = int.Parse($"{hallnum.HallNumber}");
+                if (minHall > haln)
+                {
+                    minHall = haln;
+                }
+            }
+            string ans = Console.ReadLine();
+            if (ans == "Ja" || ans == "ja")
+            {
+                foreach (var film in (dynamic)MovieList) if (int.Parse($"{film.HallNumber}") == hallAmount)
+                    {
+                        film.HallNumber = (minHall-1).ToString();
+                    }
+                    else
+                    {
+                    }
+                Console.WriteLine($"U heeft zaal {hallAmount} verwijderd");
+            }
+            jsonData = JsonConvert.SerializeObject(MovieList);
+            File.WriteAllText(filePath, jsonData);
+        }
+        public static void HallOptions()
+        {
+            var table = new ConsoleTable("1", "Zaal Toevoegen");
+            table.AddRow(2, "Zaal Verwijderen");
+            table.AddRow(3, "Terug");
+            table.Write();
+            string userselection = Console.ReadLine();
+            
+            switch (Convert.ToInt32(userselection))
+            {
+                case 1:
+                    AddHall();
+                    break;
+                case 2:
+                    DeleteHall();
+                    break;
+                case 3:
+                    printSchema();
+                    break;
+
+            }
         }
 
 
@@ -775,7 +879,7 @@ namespace CinemaProgram
                     table.AddRow("2", "Alle gebruikers");
                     table.AddRow("3", "Nieuwe reservering");
                     table.AddRow("4", "Alle reserveringen");
-                    table.AddRow("5", "Nieuw schema");
+                    table.AddRow("5", "Film schema");
                     table.Write();
 
                     userselection = Console.ReadLine();
