@@ -197,7 +197,6 @@ namespace CinemaProgram
             //de-serialize to object or create new list
             var movieList = JsonConvert.DeserializeObject<List<Movie>>(jsonData) ?? new List<Movie>();
 
-
             Movie gekozenFilm = null;
             foreach (var movie in (dynamic)movieList)
             {
@@ -207,7 +206,6 @@ namespace CinemaProgram
                     break;
                 }
             }
-
 
             int minAge = 13;
             int gekozenFilmIndex = ans2 - 1;
@@ -238,7 +236,30 @@ namespace CinemaProgram
 
                     if (film2.StartTime == "10:00")
                     {
+
                         table2.AddRow($"17:00", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}");
+
+                        if (film2.MovieTitle.Length > 25)
+                        {
+                            film2.MovieTitle = film2.MovieTitle.Substring(0, 22);
+                            film2.MovieTitle = film2.MovieTitle + "...";
+                        }
+
+                        table2.AddRow($"{film2.StartTime}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}");
+
+                        if (film2.StartTime == "10:00")
+                        {
+                            table2.AddRow($"17:00", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}");
+                        }
+                        if (film2.StartTime == "12:00")
+                        {
+                            table2.AddRow($"19:00", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}");
+                        }
+                        if (film2.StartTime == "14:00")
+                        {
+                            table2.AddRow($"21:00", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}", $"{film2.MovieTitle}");
+                        }
+
                     }
                     if (film2.StartTime == "12:00")
                     {
@@ -330,7 +351,7 @@ namespace CinemaProgram
                 int amount = int.Parse(Console.ReadLine());
                 if (cinema.getBar().Available)
                 {
-                    Console.WriteLine("Wilt u een plek aan de bar reserveren?");
+                Console.WriteLine("Wilt u een plek aan de bar reserveren?");
                 var table = new ConsoleTable("", "");
                 table.AddRow("1", "Ja");
                 table.AddRow("2", "Nee");
@@ -352,21 +373,56 @@ namespace CinemaProgram
                     Console.ReadLine();
                 }
 
-                
-
                 //TODO: Remove hallnumber 2 for hallnumber of selected moviea ANd bind to cinema or something
                 //hall = new Hall(2, 2);
                 Seat[] seats = SeatSelectionScreen(amount, hall);
                 //Calculates Total price and waits for input of user to continue
                 double totalCost = Interface.SeatPriceCalculation(seats);
-                Console.WriteLine("Totale kosten: " + totalCost);
+                Console.WriteLine("Totale kosten: \u20AC" + totalCost);
+
+                int daysFromMonday = 0;
+                if (GekozenDag == "Maandag")
+                {
+                    daysFromMonday = 1;
+                }
+                else if (GekozenDag == "Dinsdag")
+                {
+                    daysFromMonday = 2;
+                }
+                else if (GekozenDag == "Woensdag")
+                {
+                    daysFromMonday = 3;
+                }
+                else if (GekozenDag == "Donderdag")
+                {
+                    daysFromMonday = 4;
+                }
+                else if (GekozenDag == "Vrijdag")
+                {
+                    daysFromMonday = 5;
+                }
+                else if (GekozenDag == "Zaterdag")
+                {
+                    daysFromMonday = 6;
+                }
+                else
+                {
+                    daysFromMonday = 7;
+                }
+
+                System.Globalization.CultureInfo ci = System.Threading.Thread.CurrentThread.CurrentCulture;
+                DayOfWeek fdow = ci.DateTimeFormat.FirstDayOfWeek + 7 + daysFromMonday;
+                DateTime playDateTime = DateTime.Today.AddDays(-(DateTime.Today.DayOfWeek - fdow));
+
+                string playDateString = playDateTime.ToString();
+                string playDate = playDateString.Remove(playDateString.Length - 12);
+
                 //TODO: Seat still has to be set on unavailable in the Json/
-                Interface.AddReservation(GetUsername(), GetUserId(), barReservation, seats, gekozenFilm.Title, totalCost);
+                Interface.AddReservation(GetUsername(), GetUserId(), barReservation, seats, gekozenFilm.Title, totalCost, playDate, GekozenTijd);
                 GoToHome();
             }
             else
             {
-                
                 Console.WriteLine("Je bent te jong om deze film bij te wonen.");
                 HomeScreen();
             };
@@ -385,7 +441,7 @@ namespace CinemaProgram
             //de-serialize to object or create new list
             var movieList = JsonConvert.DeserializeObject<List<Movie>>(jsonData) ?? new List<Movie>();
 
-            var table = new ConsoleTable("ID", "Title", "Release Date");
+            var table = new ConsoleTable("ID", "Titel", "Release Datum");
 
             foreach (var movie in (dynamic)movieList)
             {
@@ -393,27 +449,35 @@ namespace CinemaProgram
             }
 
             table.Write();
-
-            
-
         }
 
         public static bool AllReservations()
         {
             var result = Interface.AllReservations();
 
-            var table = new ConsoleTable("ID", "Film","Bar", "Stoel", "Naam", "Datum");
+            var table = new ConsoleTable("ID", "Film", "Datum", "Tijd", "Bar", "Stoel", "Naam", "Reservatie Datum");
 
             foreach (var reservation in (dynamic)result)
             {
                 string seattext = "";
+                string barreservation = "";
                 foreach (var seat in reservation.SeatList)
                 {
                     seattext += seat.SeatIndex + ", ";
                 }
 
                 seattext = seattext.Remove(seattext.Length - 2);
-                table.AddRow($"{reservation.Id}", $"{reservation.FilmTitle}",$"{reservation.BarReservation}", seattext, $"{reservation.Name}", $"{reservation.CreatedDateTime}");
+
+                if (reservation.BarReservation == true)
+                {
+                    barreservation = "Ja";
+                }
+                else
+                {
+                    barreservation = "Nee";
+                }
+
+                table.AddRow($"{reservation.Id}", $"{reservation.FilmTitle}", $"{reservation.PlayDate}", $"{reservation.PlayTime}", barreservation, seattext, $"{reservation.Name}", $"{reservation.CreatedDateTime}");
             }
 
             table.Write();
@@ -441,18 +505,29 @@ namespace CinemaProgram
         {
             var result = Interface.UserReservations(GetUserId());
 
-            var table = new ConsoleTable("ID", "Film", "Bar", "Stoel", "Naam", "Datum");
+            var table = new ConsoleTable("ID", "Film", "Datum", "Tijd", "Bar", "Stoel", "Naam", "Reservatie Datum");
 
             foreach (var reservation in (dynamic)result)
             {
                 string seattext = "";
+                string barreservation = "";
                 foreach (var seat in reservation.SeatList)
                 {
                     seattext += seat.SeatIndex + ", ";
                 }
 
                 seattext = seattext.Remove(seattext.Length - 2);
-                table.AddRow($"{reservation.Id}", $"{reservation.FilmTitle}", $"{reservation.BarReservation}", seattext, $"{reservation.Name}", $"{reservation.CreatedDateTime}");
+
+                if (reservation.BarReservation == true)
+                {
+                    barreservation = "Ja";
+                }
+                else
+                {
+                    barreservation = "Nee";
+                }
+
+                table.AddRow($"{reservation.Id}", $"{reservation.FilmTitle}", $"{reservation.PlayDate}", $"{reservation.PlayTime}", barreservation, seattext, $"{reservation.Name}", $"{reservation.CreatedDateTime}");
             }
 
             table.Write();
@@ -498,14 +573,15 @@ namespace CinemaProgram
 
         public static void GoToHome()
         {
-            Console.WriteLine("\n Press 0 to go back to the menu.");
+            Console.WriteLine("\n Druk op 0 om terug te gaan naar het menu.");
             string ans = Console.ReadLine();
             if (ans == "0")
             {
+                Console.Clear();
                 HomeScreen();
             } else
             {
-                Console.WriteLine("\n You entered the wrong number.");
+                Console.WriteLine("\n Je hebt het verkeerde nummer ingevuld.");
                 GoToHome();
             }
         }
@@ -514,6 +590,7 @@ namespace CinemaProgram
         {
             Console.WriteLine("Geef het reserverings ID");
             string reservationID = Console.ReadLine();
+
             Interface.RemoveReservation(reservationID, GetUsername());
         }
         
@@ -541,39 +618,39 @@ namespace CinemaProgram
             for (int i = 1; i < hallAmount+1; i++)
             {
                 Console.WriteLine($"Alle films in zaal {i}.\n");
-                var table = new ConsoleTable("Time", "Maandag", "Dinsdag", "Woensdag", "Donderdag", "Vrijdag", "Zaterdag", "Zondag");
+                var table = new ConsoleTable("Tijd", "Maandag", "Dinsdag", "Woensdag", "Donderdag", "Vrijdag", "Zaterdag", "Zondag");
                 int time = 10;
                 foreach (var film in (dynamic)MovieList) if ($"{film.HallNumber}" == i.ToString())
+                {
+                    string f = $"{film.MovieTitle}";
+                    if (f.Length > 25)
                     {
-                        string f = $"{film.MovieTitle}";
-                        if (f.Length > 25)
-                        {
-                            f = f.Substring(0, 22);
-                            f = f + "...";
-                        }
+                        f = f.Substring(0, 22);
+                        f = f + "...";
+                    }
                         
-                        string starttime = film.StartTime;
-                        table.AddRow(starttime, f, f, f, f, f, f, f);
-                        time += 2;
-                    }
+                    string starttime = film.StartTime;
+                    table.AddRow(starttime, f, f, f, f, f, f, f);
+                    time += 2;
+                }
                 foreach (var film in (dynamic)MovieList) if ($"{film.HallNumber}" == i.ToString())
+                {
+                    string f = $"{film.MovieTitle}";
+                    string starttime = film.StartTime;
+                    if (f.Length > 25)
                     {
-                        string f = $"{film.MovieTitle}";
-                        string starttime = film.StartTime;
-                        if (f.Length > 25)
-                        {
-                            f = f.Substring(0, 22);
-                            f = f + "...";
-                        }
-
-                        string text = film.StartTime;
-                        string uren = text.Substring(0, text.LastIndexOf(':'));
-                        string minuten = text.Substring(text.LastIndexOf(':') + 1);
-                        int hours = int.Parse(uren) + 7;
-                        string tijd = hours + ":" + minuten;
-                        table.AddRow(tijd, f, f, f, f, f, f, f);
-                        time += 2;
+                        f = f.Substring(0, 22);
+                        f = f + "...";
                     }
+
+                    string text = film.StartTime;
+                    string uren = text.Substring(0, text.LastIndexOf(':'));
+                    string minuten = text.Substring(text.LastIndexOf(':') + 1);
+                    int hours = int.Parse(uren) + 7;
+                    string tijd = hours + ":" + minuten;
+                    table.AddRow(tijd, f, f, f, f, f, f, f);
+                    time += 2;
+                }
                 table.Write();
             }
 
@@ -644,7 +721,7 @@ namespace CinemaProgram
             }
             for (int i = 1; i < hallAmount + 1; i++)
             {
-                table.AddRow(i, $"Edit films uit zaal {i}");
+                table.AddRow(i, $"Bewerk films uit zaal {i}");
 
             }
             table.Write();
@@ -659,32 +736,32 @@ namespace CinemaProgram
             } else
             {
                 Console.Clear();
-                Console.WriteLine("Deze input klopt niet");
+                Console.WriteLine("De ingegeven input klopt niet.");
                 editMovieOnSchema();
             }
 
-            Console.WriteLine("Enter the initial of the film you want to change.");
+            Console.WriteLine("Voer het nummer in van de film die u wilt wijzigen.");
             string movieselection = Console.ReadLine();
             int count2 = 1;
             foreach (var film in (dynamic)MovieList) if ($"{film.HallNumber}" == userselection) if (int.Parse(userselection) < count2 || int.Parse(userselection) > 0)
                     {
                     if (count2.ToString() == movieselection)
                     {
-                        Console.WriteLine($"Are you sure you want to change: {$"{film.MovieTitle}"}.");
+                        Console.WriteLine($"Weet u zeker dat u deze film wilt wijzigen: {$"{film.MovieTitle}"}?");
                     }
                     count2++;
                 }
                 else
                 {
-                    Console.WriteLine("Deze input klopt niet");
+                    Console.WriteLine("De ingegeven input klopt niet.");
                     editMovieOnSchema();
                 }
 
-            Console.WriteLine("\nEnter Yes or No.");
+            Console.WriteLine("\nVul Ja of Nee in.");
             string YesOrNo = Console.ReadLine();
-            if (YesOrNo == "yes" || YesOrNo == "Yes") {
-                Console.WriteLine("\nEnter the name of the new Film.");
-            } else if (YesOrNo == "no" || YesOrNo == "No") {
+            if (YesOrNo == "ja" || YesOrNo == "Ja") {
+                Console.WriteLine("\nVoer de naam van de nieuwe film in.");
+            } else if (YesOrNo == "nee" || YesOrNo == "Nee") {
                 printSchema();
             }
             else
@@ -819,10 +896,8 @@ namespace CinemaProgram
                 case 3:
                     printSchema();
                     break;
-
             }
         }
-
 
         public static void printSchema()
         {
@@ -842,7 +917,7 @@ namespace CinemaProgram
 
             table.AddRow(1, "Zaal overzicht schema");
             table.AddRow(2, "Film tijd info");
-            table.AddRow(3, "Edit films");
+            table.AddRow(3, "Bewerk films");
             table.AddRow(4, "Zaal toevoegen");
             table.AddRow("0", "Hoofdmenu");
             table.Write();
@@ -940,7 +1015,6 @@ namespace CinemaProgram
                     break;
             }
         }
-        
         
         //Displays the seats array and lets users select seats
         public static Seat[] SeatSelectionScreen(int seatAmount, Hall hall)
@@ -1047,15 +1121,12 @@ namespace CinemaProgram
                                     Console.BackgroundColor = ConsoleColor.DarkMagenta;
                                 }
                             }
-
                             Console.Write(" ■ "); //tseats[i][j].seatRange);
-
                         }
 
                         Console.WriteLine();
                         Console.BackgroundColor = ConsoleColor.Black;
                         Console.ForegroundColor = ConsoleColor.White;
-
                     }
 
                     if (seatAmount > 1)

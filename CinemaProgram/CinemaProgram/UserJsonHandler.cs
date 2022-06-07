@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Reflection;
 using System.Threading.Tasks;
 using ConsoleTables;
 using Newtonsoft.Json;
@@ -15,7 +16,9 @@ namespace CinemaProgram
     {
         public static bool SaveUser(string username, string password, DateTime birthday)
         {
-            var filePath = "user.json";
+            string filePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"./user.json");
+            File.AppendAllText(filePath, "");
+
             //read existing json data
             var jsonData = File.ReadAllText(filePath);
             //de-serialize to object or create new list

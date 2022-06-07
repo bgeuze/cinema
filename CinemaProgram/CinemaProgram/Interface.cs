@@ -45,9 +45,9 @@ namespace CinemaProgram
             return MovieJsonHandler.NowPlayingMovies();
         }
 
-        public static bool AddReservation(string username, string userId, bool barReservation, Seat[] seatlist, string FilmTitle, double cost)
+        public static bool AddReservation(string username, string userId, bool barReservation, Seat[] seatlist, string FilmTitle, double cost, string playDate, string playTime)
         {
-            return MovieJsonHandler.AddReservation(username, userId, barReservation, seatlist, FilmTitle, cost);
+            return MovieJsonHandler.AddReservation(username, userId, barReservation, seatlist, FilmTitle, cost, playDate, playTime);
         }
 
         public static bool RemoveReservation(string Id, string reservationName)
